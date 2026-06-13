@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📰 科技日报 — 2026年6月8日 — AI 科技日报</title>
+<style>
+:root {
+    --bg: #faf9f6;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --insight-bg: #eff6ff;
+    --insight-border: #bfdbfe;
+    --github-bg: #f0fdf4;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #60a5fa;
+        --border: #334155;
+        --insight-bg: #1e3a5f;
+        --insight-border: #2563eb;
+        --github-bg: #14532d;
+    }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+.container {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 220px;
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--card);
+}
+.sidebar h3 {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+.sidebar ul { list-style: none; }
+.sidebar li {
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+.sidebar a {
+    color: var(--accent);
+    text-decoration: none;
+}
+.sidebar a:hover { text-decoration: underline; }
+.sidebar li.current {
+    font-weight: 600;
+    color: var(--text);
+}
+.main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 780px;
+}
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+h2 {
+    font-size: 1.3rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+}
+hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+.delayed-notice { color: var(--muted); font-style: italic; margin-bottom: 1rem; }
+.news-item {
+    margin-bottom: 0.3rem;
+    padding-left: 0;
+}
+.news-item strong.title {
+    font-size: 1.05rem;
+    color: var(--text);
+}
+.insight {
+    background: var(--insight-bg);
+    border-left: 3px solid var(--insight-border);
+    padding: 0.5rem 1rem;
+    margin: 0.3rem 0 1rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+}
+.link {
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    word-break: break-all;
+}
+.link a { color: var(--accent); }
+.github-item {
+    background: var(--github-bg);
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 0.3rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+.footer-tag {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 2rem;
+}
+@media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+    }
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .sidebar li { margin-bottom: 0; }
+    .main { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="sidebar">
+    <h3>📰 历史日报</h3>
+    <ul>
+        <li><a href="2026-06-13.html">2026-06-13</a></li>
+<li><a href="2026-06-12.html">2026-06-12</a></li>
+<li><a href="2026-06-11.html">2026-06-11</a></li>
+<li><a href="2026-06-09.html">2026-06-09</a></li>
+<li class="current">2026-06-08</li>
+    </ul>
+</nav>
+<main class="main">
+<p>
+📰 科技日报 — 2026年6月8日
+</p>
+<p>
+【🤖 AI Agent】
+</p>
+<p class="news-item">OpenClaw v2026.6.5-beta.2 发布</p>
+<p>
+  QQBot 频道新增模型推理内容剥离功能，防止 <thinking> 标签泄漏到频道回复。
+  🔗 https://github.com/openclaw/openclaw/releases/tag/v2026.6.5-beta.2
+</p>
+<p class="news-item">Cline v3.88.1 发布</p>
+<p>
+  新增调试设置面板，修复 VS Code 扩展包首次运行引导文档缺失问题。
+  🔗 https://github.com/cline/cline/releases/tag/v3.88.1
+</p>
+<p>
+【🧠 LLM / 大模型】
+</p>
+<p class="news-item">NVIDIA 与斗山集团合作推进物理 AI 与 AI 工厂基础设施</p>
+<p>
+  共同推进物理 AI 与 AI 工厂基础设施建设，加速制造业 AI 规模化落地。
+  🔗 https://blogs.nvidia.com/blog/nvidia-and-doosan-group-physical-ai/
+</p>
+<p class="news-item">NVIDIA 联手 KRAFTON、NCSoft 及 T1 展示 RTX Spark 技术</p>
+<p>
+  在韩国网吧展示 RTX Spark 光线追踪与 AI 渲染技术。
+  🔗 https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/
+</p>
+<p class="news-item">Anthropic Python SDK v0.107.1 发布</p>
+<p>
+  修复 API Key 认证模式下未发送 x-api-key 请求头的问题。
+  🔗 https://github.com/anthropics/anthropic-sdk-python/releases/tag/v0.107.1
+</p>
+<p class="news-item">2026 年 LLM 研究论文精选列表（1-5 月）</p>
+<p>
+  Sebastian Raschka 整理前五个月 LLM 论文精选，涵盖架构、训练效率和对齐方向。
+  🔗 https://magazine.sebastianraschka.com/p/llm-research-papers-2026-part1
+</p>
+<p class="news-item">Ollama v0.30.7-rc1 发布</p>
+<p>
+  更新 Zod schema 示例，修复 Windows Hermes 配置路径问题。
+  🔗 https://github.com/ollama/ollama/releases/tag/v0.30.7-rc1
+</p>
+<p>
+【🚀 前沿科技】
+</p>
+<p class="news-item">NASA 将穿 Prada 高科技登月服上月球</p>
+<p>
+  NASA 与 Prada、Axiom Space 合作开发新一代登月航天服，将用于 Artemis 载人任务。
+  🔗 https://www.theverge.com/design/945540/nasa-axiom-space-prada-lcvg-spacesuit-moon-artemis
+</p>
+<p class="news-item">「Token 末日」是否来临？</p>
+<p>
+  探讨 AI 时代 token 消耗激增对算力和成本的冲击。
+  🔗 https://techcrunch.com/2026/06/07/is-this-the-dawn-of-the-tokenpocalypse/
+</p>
+<p class="news-item">Notion 恢复 Anthropic 模型访问权限</p>
+<p>
+  此前因服务中断导致 AI 功能不可用，已恢复对 Anthropic 模型的访问。
+  🔗 https://techcrunch.com/2026/06/07/notion-restores-access-to-anthropic-after-service-disruption/
+</p>
+<p>
+【📰 Hacker News】
+</p>
+<p class="news-item">Firefox 合并 Vulkan 视频解码支持 (10↑ 1评)</p>
+<p>
+  浏览器可直接调用 GPU 硬解 H.264/HEVC/AV1，显著降低 CPU 占用和功耗。
+  🔗 https://news.ycombinator.com/item?id=48439348
+</p>
+<p class="news-item">VibeOS：首个 AI 原生操作系统 (16↑ 15评)</p>
+<p>
+  尝试将大语言模型深度集成到操作系统层面，目前处于早期概念阶段。
+  🔗 https://news.ycombinator.com/item?id=48438754
+</p>
+<p class="news-item">Nightwatch：开源只读 AI SRE 工具 (4↑ 2评)</p>
+<p>
+  自动监控系统状态并在异常时告警，无需写入权限。
+  🔗 https://news.ycombinator.com/item?id=48438180
+</p>
+<p class="news-item">美国足球为何长期无法突破？ (52↑ 123评)</p>
+<p>
+  Nate Silver 从数据角度分析体育文化、人才培养和联赛结构等深层原因。
+  🔗 https://news.ycombinator.com/item?id=48437848
+</p>
+<p class="news-item">Linear 为何这么快？技术深度剖析 (243↑ 125评)</p>
+<p>
+  本地优先架构、增量同步引擎和智能预加载策略，实现近乎即时响应。
+  🔗 https://news.ycombinator.com/item?id=48437609
+</p>
+<p>
+【📝 博客精选】
+</p>
+<p class="news-item">通往天堂的阶梯 — George Hotz (geohot)</p>
+<p>
+  以哲学思辨风格探讨技术加速与人类命运的深层关系。
+  🔗 https://geohot.github.io//blog/jekyll/update/2026/06/07/stairway-to-heaven.html
+</p>
+<p class="news-item">软件测试的新时代 — antirez</p>
+<p>
+  Redis 作者探讨 AI 如何改变测试用例的编写和执行方式。
+  🔗 http://antirez.com/news/168
+</p>
+<p class="footer-tag">🤖 follow-news v3.18 | 每天 7:00 AM</p>
+</main>
+</div>
+</body>
+</html>
