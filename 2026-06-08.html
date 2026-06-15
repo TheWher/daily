@@ -6,150 +6,80 @@
 <title>📰 科技日报 — 2026年6月8日 — AI 科技日报</title>
 <style>
 :root {
-    --bg: #faf9f6;
-    --card: #ffffff;
-    --text: #1a1a2e;
-    --muted: #6b7280;
-    --accent: #2563eb;
-    --border: #e5e7eb;
-    --insight-bg: #eff6ff;
-    --insight-border: #bfdbfe;
-    --github-bg: #f0fdf4;
+  --bg: #f8f7f4; --card-bg: #ffffff; --text: #1e1e2e;
+  --text-secondary: #555566; --muted: #888899; --accent: #3b6cf4;
+  --accent-hover: #2558e0; --border: #e8e7e4;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04); --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
+  --insight-bg: #eef3ff; --insight-border: #88a8f8; --insight-text: #3a4060;
+  --github-bg: #ecfdf5; --github-border: #6ee7b7;
+  --radius: 10px; --radius-sm: 6px; --transition: 0.2s ease;
 }
 @media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #0f172a;
-        --card: #1e293b;
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --accent: #60a5fa;
-        --border: #334155;
-        --insight-bg: #1e3a5f;
-        --insight-border: #2563eb;
-        --github-bg: #14532d;
-    }
+  :root {
+    --bg: #0b0f1a; --card-bg: #141929; --text: #e2e4f0;
+    --text-secondary: #b0b4c8; --muted: #6a6e80; --accent: #6294f8;
+    --accent-hover: #82aefa; --border: #1e2438;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.20); --shadow: 0 2px 8px rgba(0,0,0,0.30);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.40);
+    --insight-bg: #1a2440; --insight-border: #3b5fc0; --insight-text: #c0c8e0;
+    --github-bg: #0d2818; --github-border: #166534;
+  }
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-}
-.container {
-    display: flex;
-    max-width: 1100px;
-    margin: 0 auto;
-    min-height: 100vh;
-}
-.sidebar {
-    width: 220px;
-    padding: 2rem 1.5rem;
-    border-right: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    background: var(--card);
-}
-.sidebar h3 {
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-}
-.sidebar ul { list-style: none; }
-.sidebar li {
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-}
-.sidebar a {
-    color: var(--accent);
-    text-decoration: none;
-}
-.sidebar a:hover { text-decoration: underline; }
-.sidebar li.current {
-    font-weight: 600;
-    color: var(--text);
-}
-.main {
-    flex: 1;
-    padding: 2rem;
-    max-width: 780px;
-}
-h1 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-}
-h2 {
-    font-size: 1.3rem;
-    margin: 2rem 0 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border);
-}
-hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-.delayed-notice { color: var(--muted); font-style: italic; margin-bottom: 1rem; }
-.news-item {
-    margin-bottom: 0.3rem;
-    padding-left: 0;
-}
-.news-item strong.title {
-    font-size: 1.05rem;
-    color: var(--text);
-}
-.insight {
-    background: var(--insight-bg);
-    border-left: 3px solid var(--insight-border);
-    padding: 0.5rem 1rem;
-    margin: 0.3rem 0 1rem;
-    border-radius: 0 6px 6px 0;
-    font-size: 0.95rem;
-}
-.link {
-    font-size: 0.85rem;
-    margin-bottom: 1.2rem;
-    word-break: break-all;
-}
-.link a { color: var(--accent); }
-.github-item {
-    background: var(--github-bg);
-    padding: 0.4rem 0.8rem;
-    margin-bottom: 0.3rem;
-    border-radius: 6px;
-    font-size: 0.95rem;
-}
-.footer-tag {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-top: 2rem;
-}
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+.container { display: flex; max-width: 1200px; margin: 0 auto; min-height: 100vh; }
+.sidebar { width: 240px; padding: 2.5rem 1.5rem; border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--bg); flex-shrink: 0; }
+.sidebar-logo { font-size: 1.05rem; font-weight: 700; margin-bottom: 1.8rem; color: var(--text); }
+.sidebar h3 { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.8rem; font-weight: 600; }
+.sidebar ul { list-style: none; } .sidebar li { margin-bottom: 0.1rem; }
+.sidebar a, .sidebar li.current { display: block; text-decoration: none; padding: 0.4rem 0.7rem; border-radius: var(--radius-sm); font-size: 0.86rem; transition: all var(--transition); }
+.sidebar a { color: var(--text-secondary); }
+.sidebar a:hover { background: var(--card-bg); color: var(--accent); box-shadow: var(--shadow-sm); }
+.sidebar li.current { font-weight: 600; color: var(--accent); background: var(--insight-bg); }
+.main { flex: 1; padding: 2.5rem 2.5rem 4rem; max-width: 820px; min-width: 0; }
+.main h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.6rem; }
+.delayed-notice { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; padding: 0.4rem 0.8rem; background: var(--card-bg); border-radius: var(--radius-sm); display: inline-block; box-shadow: var(--shadow-sm); }
+.section-heading { font-size: 1.25rem; font-weight: 700; margin: 2.5rem 0 1.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+.news-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.4rem; margin-bottom: 0.8rem; box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), transform var(--transition); }
+.news-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.news-card .card-title { font-size: 1.06rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; line-height: 1.5; }
+.news-card .card-summary { font-size: 0.94rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.6rem; }
+.news-card .card-insight { background: var(--insight-bg); border-left: 3px solid var(--insight-border); padding: 0.55rem 0.9rem; margin: 0.6rem 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.9rem; color: var(--insight-text); line-height: 1.65; }
+.news-card .card-link { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); font-size: 0.82rem; }
+.news-card .card-link a { color: var(--accent); text-decoration: none; word-break: break-all; }
+.news-card .card-link a:hover { color: var(--accent-hover); text-decoration: underline; }
+.github-card { background: var(--github-bg); border: 1px solid var(--github-border); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 0.6rem; box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), transform var(--transition); }
+.github-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.github-card .card-title { font-size: 0.98rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+.github-card .card-summary { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0.4rem; }
+.github-card .card-insight { background: var(--insight-bg); border-left: 3px solid var(--insight-border); padding: 0.4rem 0.8rem; margin: 0.4rem 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; color: var(--insight-text); }
+.github-card .card-meta { font-size: 0.82rem; color: var(--muted); padding-top: 0.4rem; border-top: 1px solid var(--github-border); }
+.github-card .card-meta a { color: var(--accent); text-decoration: none; }
+.github-card .card-meta a:hover { text-decoration: underline; }
+.footer-tag { text-align: center; color: var(--muted); font-size: 0.82rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 42px; height: 42px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; box-shadow: var(--shadow); transition: all var(--transition); z-index: 100; opacity: 0; visibility: hidden; }
+.back-to-top.visible { opacity: 1; visibility: visible; }
+.back-to-top:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
 @media (max-width: 768px) {
-    .container { flex-direction: column; }
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 1rem;
-    }
-    .sidebar ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    .sidebar li { margin-bottom: 0; }
-    .main { padding: 1rem; }
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); padding: 1rem 1.2rem; }
+  .sidebar-logo { margin-bottom: 0.6rem; } .sidebar ul { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .sidebar li { margin-bottom: 0; }
+  .main { padding: 1.2rem 1rem 3rem; }
+  .main h1 { font-size: 1.4rem; }
+  .news-card { padding: 1rem 1.1rem; }
+  .back-to-top { bottom: 1.2rem; right: 1.2rem; width: 38px; height: 38px; }
 }
 </style>
 </head>
 <body>
 <div class="container">
 <nav class="sidebar">
-    <h3>📰 历史日报</h3>
+    <div class="sidebar-logo">📰 AI 科技日报</div>
+    <h3>历史存档</h3>
     <ul>
         <li><a href="2026-06-15.html">2026-06-15</a></li>
 <li><a href="2026-06-14.html">2026-06-14</a></li>
@@ -167,105 +97,107 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
 <p>
 【🤖 AI Agent】
 </p>
-<p class="news-item">OpenClaw v2026.6.5-beta.2 发布</p>
-<p>
-  QQBot 频道新增模型推理内容剥离功能，防止 <thinking> 标签泄漏到频道回复。
-  🔗 https://github.com/openclaw/openclaw/releases/tag/v2026.6.5-beta.2
-</p>
-<p class="news-item">Cline v3.88.1 发布</p>
-<p>
-  新增调试设置面板，修复 VS Code 扩展包首次运行引导文档缺失问题。
-  🔗 https://github.com/cline/cline/releases/tag/v3.88.1
-</p>
+<div class="news-card">
+  <div class="card-title">OpenClaw v2026.6.5-beta.2 发布</div>
+  <div class="card-summary">QQBot 频道新增模型推理内容剥离功能，防止 <thinking> 标签泄漏到频道回复。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw/releases/tag/v2026.6.5-beta.2">https://github.com/openclaw/openclaw/releases/tag/v2026.6.5-beta.2</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">Cline v3.88.1 发布</div>
+  <div class="card-summary">新增调试设置面板，修复 VS Code 扩展包首次运行引导文档缺失问题。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://github.com/cline/cline/releases/tag/v3.88.1">https://github.com/cline/cline/releases/tag/v3.88.1</a></div>
+</div>
 <p>
 【🧠 LLM / 大模型】
 </p>
-<p class="news-item">NVIDIA 与斗山集团合作推进物理 AI 与 AI 工厂基础设施</p>
-<p>
-  共同推进物理 AI 与 AI 工厂基础设施建设，加速制造业 AI 规模化落地。
-  🔗 https://blogs.nvidia.com/blog/nvidia-and-doosan-group-physical-ai/
-</p>
-<p class="news-item">NVIDIA 联手 KRAFTON、NCSoft 及 T1 展示 RTX Spark 技术</p>
-<p>
-  在韩国网吧展示 RTX Spark 光线追踪与 AI 渲染技术。
-  🔗 https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/
-</p>
-<p class="news-item">Anthropic Python SDK v0.107.1 发布</p>
-<p>
-  修复 API Key 认证模式下未发送 x-api-key 请求头的问题。
-  🔗 https://github.com/anthropics/anthropic-sdk-python/releases/tag/v0.107.1
-</p>
-<p class="news-item">2026 年 LLM 研究论文精选列表（1-5 月）</p>
-<p>
-  Sebastian Raschka 整理前五个月 LLM 论文精选，涵盖架构、训练效率和对齐方向。
-  🔗 https://magazine.sebastianraschka.com/p/llm-research-papers-2026-part1
-</p>
-<p class="news-item">Ollama v0.30.7-rc1 发布</p>
-<p>
-  更新 Zod schema 示例，修复 Windows Hermes 配置路径问题。
-  🔗 https://github.com/ollama/ollama/releases/tag/v0.30.7-rc1
-</p>
+<div class="news-card">
+  <div class="card-title">NVIDIA 与斗山集团合作推进物理 AI 与 AI 工厂基础设施</div>
+  <div class="card-summary">共同推进物理 AI 与 AI 工厂基础设施建设，加速制造业 AI 规模化落地。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://blogs.nvidia.com/blog/nvidia-and-doosan-group-physical-ai/">https://blogs.nvidia.com/blog/nvidia-and-doosan-group-physical-ai/</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">NVIDIA 联手 KRAFTON、NCSoft 及 T1 展示 RTX Spark 技术</div>
+  <div class="card-summary">在韩国网吧展示 RTX Spark 光线追踪与 AI 渲染技术。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/">https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">Anthropic Python SDK v0.107.1 发布</div>
+  <div class="card-summary">修复 API Key 认证模式下未发送 x-api-key 请求头的问题。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://github.com/anthropics/anthropic-sdk-python/releases/tag/v0.107.1">https://github.com/anthropics/anthropic-sdk-python/releases/tag/v0.107.1</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">2026 年 LLM 研究论文精选列表（1-5 月）</div>
+  <div class="card-summary">Sebastian Raschka 整理前五个月 LLM 论文精选，涵盖架构、训练效率和对齐方向。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://magazine.sebastianraschka.com/p/llm-research-papers-2026-part1">https://magazine.sebastianraschka.com/p/llm-research-papers-2026-part1</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">Ollama v0.30.7-rc1 发布</div>
+  <div class="card-summary">更新 Zod schema 示例，修复 Windows Hermes 配置路径问题。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://github.com/ollama/ollama/releases/tag/v0.30.7-rc1">https://github.com/ollama/ollama/releases/tag/v0.30.7-rc1</a></div>
+</div>
 <p>
 【🚀 前沿科技】
 </p>
-<p class="news-item">NASA 将穿 Prada 高科技登月服上月球</p>
-<p>
-  NASA 与 Prada、Axiom Space 合作开发新一代登月航天服，将用于 Artemis 载人任务。
-  🔗 https://www.theverge.com/design/945540/nasa-axiom-space-prada-lcvg-spacesuit-moon-artemis
-</p>
-<p class="news-item">「Token 末日」是否来临？</p>
-<p>
-  探讨 AI 时代 token 消耗激增对算力和成本的冲击。
-  🔗 https://techcrunch.com/2026/06/07/is-this-the-dawn-of-the-tokenpocalypse/
-</p>
-<p class="news-item">Notion 恢复 Anthropic 模型访问权限</p>
-<p>
-  此前因服务中断导致 AI 功能不可用，已恢复对 Anthropic 模型的访问。
-  🔗 https://techcrunch.com/2026/06/07/notion-restores-access-to-anthropic-after-service-disruption/
-</p>
+<div class="news-card">
+  <div class="card-title">NASA 将穿 Prada 高科技登月服上月球</div>
+  <div class="card-summary">NASA 与 Prada、Axiom Space 合作开发新一代登月航天服，将用于 Artemis 载人任务。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.theverge.com/design/945540/nasa-axiom-space-prada-lcvg-spacesuit-moon-artemis">https://www.theverge.com/design/945540/nasa-axiom-space-prada-lcvg-spacesuit-moon-artemis</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">「Token 末日」是否来临？</div>
+  <div class="card-summary">探讨 AI 时代 token 消耗激增对算力和成本的冲击。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://techcrunch.com/2026/06/07/is-this-the-dawn-of-the-tokenpocalypse/">https://techcrunch.com/2026/06/07/is-this-the-dawn-of-the-tokenpocalypse/</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">Notion 恢复 Anthropic 模型访问权限</div>
+  <div class="card-summary">此前因服务中断导致 AI 功能不可用，已恢复对 Anthropic 模型的访问。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://techcrunch.com/2026/06/07/notion-restores-access-to-anthropic-after-service-disruption/">https://techcrunch.com/2026/06/07/notion-restores-access-to-anthropic-after-service-disruption/</a></div>
+</div>
 <p>
 【📰 Hacker News】
 </p>
-<p class="news-item">Firefox 合并 Vulkan 视频解码支持 (10↑ 1评)</p>
-<p>
-  浏览器可直接调用 GPU 硬解 H.264/HEVC/AV1，显著降低 CPU 占用和功耗。
-  🔗 https://news.ycombinator.com/item?id=48439348
-</p>
-<p class="news-item">VibeOS：首个 AI 原生操作系统 (16↑ 15评)</p>
-<p>
-  尝试将大语言模型深度集成到操作系统层面，目前处于早期概念阶段。
-  🔗 https://news.ycombinator.com/item?id=48438754
-</p>
-<p class="news-item">Nightwatch：开源只读 AI SRE 工具 (4↑ 2评)</p>
-<p>
-  自动监控系统状态并在异常时告警，无需写入权限。
-  🔗 https://news.ycombinator.com/item?id=48438180
-</p>
-<p class="news-item">美国足球为何长期无法突破？ (52↑ 123评)</p>
-<p>
-  Nate Silver 从数据角度分析体育文化、人才培养和联赛结构等深层原因。
-  🔗 https://news.ycombinator.com/item?id=48437848
-</p>
-<p class="news-item">Linear 为何这么快？技术深度剖析 (243↑ 125评)</p>
-<p>
-  本地优先架构、增量同步引擎和智能预加载策略，实现近乎即时响应。
-  🔗 https://news.ycombinator.com/item?id=48437609
-</p>
+<div class="news-card">
+  <div class="card-title">Firefox 合并 Vulkan 视频解码支持 (10↑ 1评)</div>
+  <div class="card-summary">浏览器可直接调用 GPU 硬解 H.264/HEVC/AV1，显著降低 CPU 占用和功耗。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=48439348">https://news.ycombinator.com/item?id=48439348</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">VibeOS：首个 AI 原生操作系统 (16↑ 15评)</div>
+  <div class="card-summary">尝试将大语言模型深度集成到操作系统层面，目前处于早期概念阶段。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=48438754">https://news.ycombinator.com/item?id=48438754</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">Nightwatch：开源只读 AI SRE 工具 (4↑ 2评)</div>
+  <div class="card-summary">自动监控系统状态并在异常时告警，无需写入权限。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=48438180">https://news.ycombinator.com/item?id=48438180</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">美国足球为何长期无法突破？ (52↑ 123评)</div>
+  <div class="card-summary">Nate Silver 从数据角度分析体育文化、人才培养和联赛结构等深层原因。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=48437848">https://news.ycombinator.com/item?id=48437848</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">Linear 为何这么快？技术深度剖析 (243↑ 125评)</div>
+  <div class="card-summary">本地优先架构、增量同步引擎和智能预加载策略，实现近乎即时响应。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=48437609">https://news.ycombinator.com/item?id=48437609</a></div>
+</div>
 <p>
 【📝 博客精选】
 </p>
-<p class="news-item">通往天堂的阶梯 — George Hotz (geohot)</p>
-<p>
-  以哲学思辨风格探讨技术加速与人类命运的深层关系。
-  🔗 https://geohot.github.io//blog/jekyll/update/2026/06/07/stairway-to-heaven.html
-</p>
-<p class="news-item">软件测试的新时代 — antirez</p>
-<p>
-  Redis 作者探讨 AI 如何改变测试用例的编写和执行方式。
-  🔗 http://antirez.com/news/168
-</p>
+<div class="news-card">
+  <div class="card-title">通往天堂的阶梯 — George Hotz (geohot)</div>
+  <div class="card-summary">以哲学思辨风格探讨技术加速与人类命运的深层关系。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://geohot.github.io//blog/jekyll/update/2026/06/07/stairway-to-heaven.html">https://geohot.github.io//blog/jekyll/update/2026/06/07/stairway-to-heaven.html</a></div>
+</div>
+<div class="news-card">
+  <div class="card-title">软件测试的新时代 — antirez</div>
+  <div class="card-summary">Redis 作者探讨 AI 如何改变测试用例的编写和执行方式。</div>
+  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="http://antirez.com/news/168">http://antirez.com/news/168</a></div>
+</div>
 <p class="footer-tag">🤖 follow-news v3.18 | 每天 7:00 AM</p>
 </main>
 </div>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+<script>(function(){var b=document.getElementById("backToTop");window.addEventListener("scroll",function(){b.classList.toggle("visible",window.scrollY>400)});})();</script>
 </body>
 </html>
