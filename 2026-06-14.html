@@ -5,329 +5,126 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>🌐 AI 科技日报 — 2026 年 6 月 14 日 — AI 科技日报</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
-:root {
-    --bg: #faf9f6;
-    --card: #ffffff;
-    --text: #1a1a2e;
-    --muted: #6b7280;
-    --accent: #1d4ed8;
-    --border: #e5e7eb;
-    --insight-bg: #eff6ff;
-    --insight-border: #bfdbfe;
-    --github-bg: #f0fdf4;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --bg:#0a0f1a;
+    --card:#121a29;
+    --text:#cbd5e1;
+    --muted:#64748b;
+    --accent:#60a5fa;
+    --success:#34d399;
+    --warning:#fbbf24;
+    --danger:#f87171;
+    --card-hover:#162032;
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #0f172a;
-        --card: #1e293b;
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --accent: #60a5fa;
-        --border: #334155;
-        --insight-bg: #1e3a5f;
-        --insight-border: #2563eb;
-        --github-bg: #14532d;
-    }
+html{scroll-behavior:smooth}
+body{
+    font-family:'Inter',-apple-system,sans-serif;
+    font-size:15px;line-height:1.55;
+    background:var(--bg);color:var(--text);
+    font-weight:400;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
+a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-family:'JetBrains Mono',monospace;font-size:13px}
+a:hover{color:#93c5fd}
+.container{max-width:1400px;margin:0 auto;padding:32px 16px}
+h1{font-size:22px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.delayed{color:var(--warning);font-size:13px;margin-bottom:24px}
+.section{margin-bottom:24px}
+.section-title{font-size:18px;font-weight:600;margin-bottom:12px;color:var(--text);text-transform:uppercase;letter-spacing:.03em}
+.cards{display:flex;flex-direction:column;gap:16px}
+.card{
+    background:var(--card);border-radius:4px;padding:12px;
+    box-shadow:0 1px 2px rgba(0,0,0,.3);
+    cursor:pointer;transition:background .15s;
+    position:relative;
 }
-.container {
-    display: flex;
-    max-width: 1100px;
-    margin: 0 auto;
-    min-height: 100vh;
+.card:hover{background:var(--card-hover)}
+.card-title{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:4px;line-height:1.4}
+.card-body{font-size:15px;color:var(--text);margin-bottom:8px;line-height:1.55}
+.card-body br{display:block;content:'';margin-top:8px}
+.card-link{font-size:13px;word-break:break-all;display:inline-block;position:relative;z-index:2}
+.card-link:hover{color:#93c5fd!important}
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:32px;padding-top:16px;border-top:1px solid var(--card)}
+/* Archive bar */
+.archive-bar{
+    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;
+    padding-bottom:16px;border-bottom:1px solid var(--card);
 }
-.sidebar {
-    width: 220px;
-    padding: 2rem 1.5rem;
-    border-right: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    background: var(--card);
+.archive-bar a{
+    font-size:13px;color:var(--muted);text-decoration:none;
+    padding:2px 8px;border-radius:3px;font-family:'Inter',sans-serif;
+    transition:color .15s,background .15s;
 }
-.sidebar h3 {
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
+.archive-bar a:hover,.archive-bar a.active{color:var(--accent);background:var(--card)}
+/* Back to top */
+#back-top{
+    position:fixed;bottom:24px;right:24px;
+    width:36px;height:36px;border-radius:50%;
+    background:var(--card);color:var(--muted);
+    border:1px solid var(--muted);cursor:pointer;
+    display:none;align-items:center;justify-content:center;
+    font-size:18px;z-index:100;transition:color .15s,border-color .15s;
 }
-.sidebar ul { list-style: none; }
-.sidebar li {
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-}
-.sidebar a {
-    color: var(--accent);
-    text-decoration: none;
-}
-.sidebar a:hover { text-decoration: underline; }
-.sidebar li.current {
-    font-weight: 600;
-    color: var(--text);
-}
-.main {
-    flex: 1;
-    padding: 2rem;
-    max-width: 780px;
-}
-h1 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-}
-h2 {
-    font-size: 1.3rem;
-    margin: 2rem 0 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border);
-}
-hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-.delayed-notice { color: var(--muted); font-style: italic; margin-bottom: 1rem; }
-.news-item {
-    margin-bottom: 0.3rem;
-    padding-left: 0;
-}
-.news-item strong.title {
-    font-size: 1.05rem;
-    color: var(--text);
-}
-.insight {
-    background: var(--insight-bg);
-    border-left: 3px solid var(--insight-border);
-    padding: 0.5rem 1rem;
-    margin: 0.3rem 0 1rem;
-    border-radius: 0 6px 6px 0;
-    font-size: 0.95rem;
-}
-.link {
-    font-size: 0.85rem;
-    margin-bottom: 1.2rem;
-    word-break: break-all;
-}
-.link a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-}
-.link a:hover { color: #1e40af; }
-.github-item {
-    background: var(--github-bg);
-    padding: 0.4rem 0.8rem;
-    margin-bottom: 0.3rem;
-    border-radius: 6px;
-    font-size: 0.95rem;
-}
-.paper-item {
-    background: #fefce8;
-    border-left: 3px solid #eab308;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0 6px 6px 0;
-    font-size: 0.95rem;
-}
-.community-item {
-    background: #fdf2f8;
-    border-left: 3px solid #ec4899;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0 6px 6px 0;
-    font-size: 0.95rem;
-}
-.product-item {
-    background: #f0fdf4;
-    border-left: 3px solid #22c55e;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0 6px 6px 0;
-    font-size: 0.95rem;
-}
-/* Inline links inside content blocks */
-.news-item a, .insight a, .github-item a,
-.paper-item a, .community-item a, .product-item a,
-p a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    word-break: break-all;
-}
-.news-item a:hover, .insight a:hover, .github-item a:hover,
-.paper-item a:hover, .community-item a:hover, .product-item a:hover,
-p a:hover {
-    color: #1e40af;
-}
-.footer-tag {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-top: 2rem;
-}
-@media (prefers-color-scheme: dark) {
-    .insight { background: #1e3a5f; border-color: #3b82f6; }
-    .github-item { background: #14532d; }
-    .paper-item { background: #422006; border-color: #ca8a04; }
-    .community-item { background: #4a1942; border-color: #db2777; }
-    .product-item { background: #14532d; border-color: #16a34a; }
-    /* Override hardcoded hover to lighter shade for dark bg visibility */
-    .news-item a:hover, .insight a:hover, .github-item a:hover,
-    .paper-item a:hover, .community-item a:hover, .product-item a:hover,
-    p a:hover, .link a:hover {
-        color: #93c5fd;
-    }
-}
-@media (max-width: 768px) {
-    .container { flex-direction: column; }
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 1rem;
-    }
-    .sidebar ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    .sidebar li { margin-bottom: 0; }
-    .main { padding: 1rem; }
+#back-top:hover{color:var(--accent);border-color:var(--accent)}
+#back-top.visible{display:flex}
+@media(max-width:768px){
+    .container{padding:16px 12px}
+    h1{font-size:20px}
+    .section-title{font-size:16px}
+    .card-title{font-size:15px}
+    .card-body{font-size:14px}
 }
 </style>
 </head>
 <body>
 <div class="container">
-<nav class="sidebar">
-    <h3>📰 历史日报</h3>
-    <ul>
-        <li><a href="2026-06-16.html">2026-06-16</a></li>
-<li><a href="2026-06-15.html">2026-06-15</a></li>
-<li class="current">2026-06-14</li>
-<li><a href="2026-06-13.html">2026-06-13</a></li>
-<li><a href="2026-06-12.html">2026-06-12</a></li>
-<li><a href="2026-06-11.html">2026-06-11</a></li>
-<li><a href="2026-06-09.html">2026-06-09</a></li>
-<li><a href="2026-06-08.html">2026-06-08</a></li>
-    </ul>
-</nav>
-<main class="main">
-<h1>🌐 AI 科技日报 — 2026 年 6 月 14 日</h1>
-<hr>
-<p class="news-item"><strong class="title">𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 一边呼吁全球 AI 暂停，一边秘密筹备万亿美元 IPO</strong></p>
-<p>
-  Anthropic 发布报告警告 AI 递归自我改进（RSI）风险，呼吁全球协调放慢前沿模型发展。与此同时，公司被曝已秘密提交 IPO 文件，估值逼近万亿美元，被行业质疑"渲染安全焦虑为融资造势"。
-</p>
-<p class="insight">安全叙事与商业利益之间的张力正在成为 AI 行业的普遍现象。对开发者而言：关注 Anthropic 的模型能力路线图比关注其 IPO 炒作更有实际价值。</p>
-<p class="link"><a href="https://jamaica-gleaner.com/article/business/20260607/anthropic-urges-industry-coordination-allow-pause-ai-development-if-risks" target="_blank" rel="noopener">https://jamaica-gleaner.com/article/business/20260607/anthropic-urges-industry-coordination-allow-pause-ai-development-if-risks</a></p>
-<p class="news-item"><strong class="title">𝗗𝗲𝗲𝗽𝗦𝗲𝗲𝗸 首轮融资 𝟱𝟬𝟬 亿元，估值冲击 𝟰𝟬𝟬𝟬 亿</strong></p>
-<p>
-  DeepSeek 首轮融资从腾讯、宁德时代等筹集约 500 亿元，投后估值 3500-4000 亿元。腾讯拟投 100 亿，宁德时代 50 亿，创始人梁文锋自掏 200 亿。
-</p>
-<p class="insight">DeepSeek 的融资规模说明资本市场认为开源模型可以挑战闭源巨头。对开发者而言：DeepSeek 有了充足弹药后，模型迭代和 API 价格战可能进一步加速。</p>
-<p class="link"><a href="https://finance.eastmoney.com/news/1354,202606073762645789.html" target="_blank" rel="noopener">https://finance.eastmoney.com/news/1354,202606073762645789.html</a></p>
-<p class="news-item"><strong class="title">北京智源大会：世界模型接棒大语言模型，成为下一代 AI 基座</strong></p>
-<p>
-  第八届智源大会发布全球首个通用世界基座模型 Physis-v0.1（支持 50+ 复杂物理场景）、类人学习世界模型 ORCA、多模态神经科学大模型 Brainμ 1.0（登上 Science）。院长王仲远判断：世界模型真正成熟还需 3-5 年。
-</p>
-<p class="insight">AI 正在从「预测下一个 Token」转向「预测下一个物理状态」。世界模型是通向具身智能和通用机器人的必经之路，其关键瓶颈不在算法而在高质量物理世界数据。</p>
-<p class="link"><a href="https://www.ccidnet.com/kx/1107763.jhtml" target="_blank" rel="noopener">https://www.ccidnet.com/kx/1107763.jhtml</a></p>
-<p class="news-item"><strong class="title">𝗚𝗼𝗼𝗴𝗹𝗲 发起 𝟴𝟬𝟬 亿美元股权融资押注 AI，巴菲特 𝟭𝟬𝟬 亿入局</strong></p>
-<p>
-  Alphabet 计划通过股权发行筹集 800 亿美元，用于顶级 AI 算力基础设施建设。巴菲特的伯克希尔·哈撒韦已签署 100 亿美元投资协议，为 Google 史上最大规模股权融资。
-</p>
-<p class="insight">800 亿美元的规模说明 AI 基础设施的军备竞赛远未结束。巴菲特这种传统价值投资者入场 AI，信号意义大于资金意义。</p>
-<p class="link"><a href="https://research2.fidelity.com/fidelity/commentary/article.asp?dockey=1460-db48f2ec5daa86bcef9c57ad84751f52-5RCK92CA3J0K9MSET5ARG5VJNR" target="_blank" rel="noopener">https://research2.fidelity.com/fidelity/commentary/article.asp?dockey=1460-db48f2ec5daa86bcef9c57ad84751f52-5RCK92CA3J0K9MSET5ARG5VJNR</a></p>
-<p class="news-item"><strong class="title">英伟达联合联发科发布 RTX Spark PC 芯片，重新发明 AI PC</strong></p>
-<p>
-  黄仁勋在 COMPUTEX 前发布 RTX Spark，搭载 Blackwell RTX GPU + 20 核 Arm Grace CPU，台积电 3nm 工艺，目标是在个人电脑上本地运行 AI Agent，不依赖云端。
-</p>
-<p class="insight">AI 推理正在从云端向终端设备迁移。RTX Spark 如果成功，将彻底改变 PC 的定义——从「通用计算设备」变成「AI Agent 本地运行平台」。</p>
-<p class="link"><a href="https://www.oreilly.com/radar/radar-trends-to-watch-june-2026/" target="_blank" rel="noopener">https://www.oreilly.com/radar/radar-trends-to-watch-june-2026/</a></p>
-<p class="news-item"><strong class="title">𝗠𝗶𝗻𝗶𝗠𝗮𝘅 发布 𝗠𝟯 模型：𝟭𝟬𝟬 万 𝘁𝗼𝗸𝗲𝗻 上下文 + 自研稀疏注意力</strong></p>
-<p>
-  MiniMax M3 采用自研 MSA 稀疏注意力架构，实现 100 万 token 超长上下文（单 token 计算量仅为上代 1/20），同时兼顾前沿 Coding 能力和原生多模态，已启动 A 股 IPO 进程。
-</p>
-<p class="insight">超长上下文不再是只有大厂才玩得起的军备竞赛。MSA 架构证明：通过算法创新而非堆算力，也可以实现百万级上下文——这对创业公司是重要的技术路线参考。</p>
-<p class="link"><a href="http://www.jjckb.cn/20260601/ef057dac87674c5a81466d51a40065b9/c.html" target="_blank" rel="noopener">http://www.jjckb.cn/20260601/ef057dac87674c5a81466d51a40065b9/c.html</a></p>
-<p class="news-item"><strong class="title">𝗔𝗽𝗽𝗹𝗲 𝗪𝗪𝗗𝗖：全新 𝗦𝗶𝗿𝗶 𝗔𝗜 发布，背后居然是 𝗚𝗼𝗼𝗴𝗹𝗲 + 英伟达</strong></p>
-<p>
-  WWDC 上 Apple 发布全面革新的 Siri AI，具备对话式语音、屏幕感知和独立 App。令人意外的是：Apple 最强模型 AFM Cloud Pro 运行在 Google Cloud 的 Nvidia GPU 上，同时保持 Private Cloud Compute 隐私架构。
-</p>
-<p class="insight">连 Apple 都无法完全自建 AI 推理基础设施——多层次模型部署（本地+云端）正在成为行业标配。隐私计算层是差异化的关键。</p>
-<p class="link"><a href="https://www.newswatch.com.ng/apple-rolls-out-new-ai-powered-siri-at-annual-developer-conference/" target="_blank" rel="noopener">https://www.newswatch.com.ng/apple-rolls-out-new-ai-powered-siri-at-annual-developer-conference/</a></p>
-<p class="news-item"><strong class="title">𝗧𝗿𝘂𝗺𝗽 签署 AI 行政令：前沿模型发布前 𝟯𝟬 天需提交政府审查</strong></p>
-<p>
-  行政令要求 AI 公司在发布"受控前沿模型"前至多 30 天自愿提交政府进行网络安全测试，但不包含强制许可或预审批制度。Sam Altman 称"合理的平衡"，Future of Life Institute 认为自愿框架不够。
-</p>
-<p class="insight">美国 AI 监管选择了「自愿+审查」的中间路线而非欧盟式强制合规。对出海 AI 公司是利好——美国市场准入门槛暂时低于欧盟 DMA 体系。</p>
-<p class="link"><a href="https://www.vietnam.vn/en/ong-trump-ky-sac-lenh-ai-yeu-cau-doanh-nghiep-my-lam-mot-viec" target="_blank" rel="noopener">https://www.vietnam.vn/en/ong-trump-ky-sac-lenh-ai-yeu-cau-doanh-nghiep-my-lam-mot-viec</a></p>
-<p class="news-item"><strong class="title">多伦多大学展示 AI 蠕虫：能自适应变种的网络攻击武器</strong></p>
-<p>
-  研究者利用开源权重 AI 模型构建了能自适应调整攻击策略、在网络中自主传播的计算机蠕虫，引发"一切联网设备都面临风险"的担忧。
-</p>
-<p class="insight">AI 赋能的网络攻击将安全对抗从「规则匹配」升级为「AI vs AI」。防御端也需要同等水平的智能安全系统——这是 AI 安全创业的蓝海方向。</p>
-<p class="link"><a href="https://www.oreilly.com/radar/radar-trends-to-watch-june-2026/" target="_blank" rel="noopener">https://www.oreilly.com/radar/radar-trends-to-watch-june-2026/</a></p>
-<p class="news-item"><strong class="title">企业级 AI 市场三国杀：微软连发 𝟳 模型，𝗢𝗽𝗲𝗻𝗔𝗜 推 𝟲 款 𝗖𝗼𝗱𝗲𝘅 角色插件，港产 𝗔𝗜 发 𝗩𝟯</strong></p>
-<p>
-  微软 Build 大会连发 7 款新模型对标 Anthropic 企业路线；OpenAI 推出覆盖股票投资、投行、设计、销售等岗位的 6 款 Codex 角色插件，提出"主动式 AI"方向；香港 HKGAI V3 发布首个生产力级超级智能体 Agent Workshop，单次无干预稳定运行 28 小时。
-</p>
-<p class="insight">企业级 AI 的竞争焦点已从「模型能力」转向「业务场景覆盖」。Codex 角色插件证明：AI 不只要懂代码，还要懂行业 know-how。</p>
-<p class="link"><a href="https://www.cnstock.com/commonDetail/724308" target="_blank" rel="noopener">https://www.cnstock.com/commonDetail/724308</a></p>
-<p class="news-item"><strong class="title">腾讯高管透露：今年大部分代码由 AI 生成，日均 Token 消耗突破 𝟱 万亿</strong></p>
-<p>
-  腾讯云 TokenHub 日均 token 消耗突破 5 万亿，AI 生成代码已占腾讯新增代码的大部分。标志着大型科技公司内部 AI 采用达到临界点。
-</p>
-<p class="insight">当大厂内部代码过半由 AI 生成时，软件开发的工作性质正在根本改变。工程师的核心竞争力从「写代码」转向「定义问题」和「审查 AI 输出」。</p>
-<p class="link"><a href="http://www.jjckb.cn/20260601/ef057dac87674c5a81466d51a40065b9/c.html" target="_blank" rel="noopener">http://www.jjckb.cn/20260601/ef057dac87674c5a81466d51a40065b9/c.html</a></p>
-<p class="news-item"><strong class="title">𝗠𝗮𝗿𝘃𝗲𝗹𝗹 股价暴涨 𝟯𝟮%，黄仁勋预测其或成下一家万亿美元芯片公司</strong></p>
-<p>
-  受 AI 芯片需求驱动，Marvell 股价单日暴涨 32%。黄仁勋公开表示 Marvell 的定制 ASIC 和网络芯片可能在 AI 时代实现万亿美元市值。
-</p>
-<p class="insight">英伟达之外，AI 芯片的第二梯队正在形成。Marvell 的定制 ASIC 路线和博通的 TPU 代工模式构成了 GPU 之外的两条重要替代路径。</p>
-<p class="link"><a href="https://finance.eastmoney.com/news/1354,202606073762645789.html" target="_blank" rel="noopener">https://finance.eastmoney.com/news/1354,202606073762645789.html</a></p>
-<hr>
-<h2>🔥 GitHub Trending</h2>
-<p class="news-item"><strong class="title">𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：给 AI 文字注入灵魂</strong></p>
-<p>
-  专为 AI Agent 设计的中文写作人性化技能——编辑时不抹去作者风格，保留"人味儿"。3 天冲到 411 星。
-</p>
-<p class="insight">区别于英文 text-humanizer 的「绕过检测」，这个项目更关注美学质量而非对抗性。AI 写作工具的下一个阶段不是「更像人」而是「就是这个人」。</p>
-<p class="github-item">411 (+411/d) · 🔗 <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener">https://github.com/orange2ai/renwei-writing</a></p>
-<p class="news-item"><strong class="title">𝗯𝗮𝗼𝘆𝘂-𝗱𝗲𝘀𝗶𝗴𝗻 — 把 𝗖𝗹𝗮𝘂𝗱𝗲 𝗗𝗲𝘀𝗶𝗴𝗻 装进本地 𝗔𝗴𝗲𝗻𝘁 技能</strong></p>
-<p>
-  让 Cursor、Claude Code 等本地 Agent 直接调用 Claude Design 能力，产出精美 UI mockup、原型和演示文稿，无需登录 claude.ai。
-</p>
-<p class="insight">将云端设计能力「本地化」为 Agent Skill 是一个新趋势——设计工作流从 SaaS 订阅制走向 Agent 技能组合制。</p>
-<p class="github-item">919 (+153/d) · 🔗 <a href="https://github.com/JimLiu/baoyu-design" target="_blank" rel="noopener">https://github.com/JimLiu/baoyu-design</a></p>
-<p class="news-item"><strong class="title">𝗳𝗮𝗻𝗯𝗼𝘅 — 𝗩𝗶𝗯𝗲 𝗖𝗼𝗱𝗶𝗻𝗴 的驾驶舱</strong></p>
-<p>
-  左边文件树、右边终端、中间展示每次改动的可视化 diff——专为 AI 辅助编程设计的轻量级工作台。Claude Code + Cursor 生态的新成员。
-</p>
-<p class="insight">vibe coding 的工具链正在成形：从「用 AI 写代码」进化到「看着 AI 写代码并精准控制每一步」。这可能是 AI 时代 IDE 的雏形。</p>
-<p class="github-item">414 (+138/d) · 🔗 <a href="https://github.com/alchaincyf/fanbox" target="_blank" rel="noopener">https://github.com/alchaincyf/fanbox</a></p>
-<p class="news-item"><strong class="title">𝗼𝗿𝗮𝗻𝗴𝗲-𝗹𝗶𝗻𝗲-𝗶𝗹𝗹𝘂𝘀𝘁𝗿𝗮𝘁𝗶𝗼𝗻 — 纽约客风格极简插画 Agent 技能</strong></p>
-<p>
-  一个想法 + 一个强调色 + 大量留白——让 AI Agent 生成《纽约客》杂志风格的社论插画。来自 renwei-writing 同团队。
-</p>
-<p class="insight">AI 插画正在从「逼真渲染」走向「风格化表达」。极简风+特定配色规范是让 AI 产出可商用设计作品的可行路径。</p>
-<p class="github-item">129 (+64/d) · 🔗 <a href="https://github.com/orange2ai/orange-line-illustration" target="_blank" rel="noopener">https://github.com/orange2ai/orange-line-illustration</a></p>
-<p class="news-item"><strong class="title">𝗧𝗲𝘀𝘁𝗦𝗽𝗿𝗶𝘁𝗲 — 终端里的 AI 自动化测试</strong></p>
-<p>
-  官方 CLI 工具，从终端直接驱动 AI 进行自动化测试。0 配置启动，支持 CI/CD 集成。
-</p>
-<p class="insight">测试是 AI 最先渗透的软件工程环节之一。终端原生的 AI 测试工具意味着测试左移可以做到 git push 之前。</p>
-<p class="github-item">130 (+65/d) · 🔗 <a href="https://github.com/TestSprite/testsprite-cli" target="_blank" rel="noopener">https://github.com/TestSprite/testsprite-cli</a></p>
-<hr>
-<p class="footer-tag">🤖 autoloop follow-news v3.18</p>
-</main>
+    <h1>🌐 AI 科技日报 — 2026 年 6 月 14 日</h1>
+    
+    <nav class="archive-bar"><a href="2026-06-16.html">06-16</a><a href="2026-06-15.html">06-15</a><a href="2026-06-14.html" class="active">06-14</a><a href="2026-06-13.html">06-13</a><a href="2026-06-12.html">06-12</a><a href="2026-06-11.html">06-11</a><a href="2026-06-09.html">06-09</a><a href="2026-06-08.html">06-08</a></nav>
+    <section class="section">
+    <h2 class="section-title">🔥 GitHub Trending</h2>
+    <div class="cards"><article class="card">
+    <h3 class="card-title"><strong>𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：给 AI 文字注入灵魂</strong></h3>
+    <p class="card-body">专为 AI Agent 设计的中文写作人性化技能——编辑时不抹去作者风格，保留"人味儿"。3 天冲到 411 星。<br>💡 区别于英文 text-humanizer 的「绕过检测」，这个项目更关注美学质量而非对抗性。AI 写作工具的下一个阶段不是「更像人」而是「就是这个人」。<br>⭐ 411 (+411/d) · 🔗 https://github.com/orange2ai/renwei-writing</p>
+    
+</article><article class="card">
+    <h3 class="card-title"><strong>𝗯𝗮𝗼𝘆𝘂-𝗱𝗲𝘀𝗶𝗴𝗻 — 把 𝗖𝗹𝗮𝘂𝗱𝗲 𝗗𝗲𝘀𝗶𝗴𝗻 装进本地 𝗔𝗴𝗲𝗻𝘁 技能</strong></h3>
+    <p class="card-body">让 Cursor、Claude Code 等本地 Agent 直接调用 Claude Design 能力，产出精美 UI mockup、原型和演示文稿，无需登录 claude.ai。<br>💡 将云端设计能力「本地化」为 Agent Skill 是一个新趋势——设计工作流从 SaaS 订阅制走向 Agent 技能组合制。<br>⭐ 919 (+153/d) · 🔗 https://github.com/JimLiu/baoyu-design</p>
+    
+</article><article class="card">
+    <h3 class="card-title"><strong>𝗳𝗮𝗻𝗯𝗼𝘅 — 𝗩𝗶𝗯𝗲 𝗖𝗼𝗱𝗶𝗻𝗴 的驾驶舱</strong></h3>
+    <p class="card-body">左边文件树、右边终端、中间展示每次改动的可视化 diff——专为 AI 辅助编程设计的轻量级工作台。Claude Code + Cursor 生态的新成员。<br>💡 vibe coding 的工具链正在成形：从「用 AI 写代码」进化到「看着 AI 写代码并精准控制每一步」。这可能是 AI 时代 IDE 的雏形。<br>⭐ 414 (+138/d) · 🔗 https://github.com/alchaincyf/fanbox</p>
+    
+</article><article class="card">
+    <h3 class="card-title"><strong>𝗼𝗿𝗮𝗻𝗴𝗲-𝗹𝗶𝗻𝗲-𝗶𝗹𝗹𝘂𝘀𝘁𝗿𝗮𝘁𝗶𝗼𝗻 — 纽约客风格极简插画 Agent 技能</strong></h3>
+    <p class="card-body">一个想法 + 一个强调色 + 大量留白——让 AI Agent 生成《纽约客》杂志风格的社论插画。来自 renwei-writing 同团队。<br>💡 AI 插画正在从「逼真渲染」走向「风格化表达」。极简风+特定配色规范是让 AI 产出可商用设计作品的可行路径。<br>⭐ 129 (+64/d) · 🔗 https://github.com/orange2ai/orange-line-illustration</p>
+    
+</article><article class="card">
+    <h3 class="card-title"><strong>𝗧𝗲𝘀𝘁𝗦𝗽𝗿𝗶𝘁𝗲 — 终端里的 AI 自动化测试</strong></h3>
+    <p class="card-body">官方 CLI 工具，从终端直接驱动 AI 进行自动化测试。0 配置启动，支持 CI/CD 集成。<br>💡 测试是 AI 最先渗透的软件工程环节之一。终端原生的 AI 测试工具意味着测试左移可以做到 git push 之前。<br>⭐ 130 (+65/d) · 🔗 https://github.com/TestSprite/testsprite-cli<br>🤖 autoloop follow-news v3.18</p>
+    
+</article></div>
+</section>
+    <footer>🤖 follow-news v4.0</footer>
 </div>
+<button id="back-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+// Card click → open first link in new tab
+document.querySelectorAll('.card[data-href]').forEach(el=>{
+    el.addEventListener('click',function(e){
+        if(e.target.closest('a'))return;
+        window.open(this.dataset.href,'_blank','noopener')
+    })
+})
+// Back to top visibility
+const btn=document.getElementById('back-top')
+window.addEventListener('scroll',function(){
+    btn.classList.toggle('visible',window.scrollY>500)
+})
+</script>
 </body>
 </html>
