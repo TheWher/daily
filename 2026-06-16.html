@@ -201,7 +201,9 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:32px;paddi
 document.querySelectorAll('.card[data-href]').forEach(el=>{
     el.addEventListener('click',function(e){
         if(e.target.closest('a'))return;
-        window.open(this.dataset.href,'_blank','noopener')
+        var a=document.createElement('a');
+        a.href=this.dataset.href;a.target='_blank';a.rel='noopener';
+        a.click()
     })
 })
 // Back to top visibility
