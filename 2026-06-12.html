@@ -6,82 +6,153 @@
 <title>🤖 AI 科技日报 | 2026年6月12日 — AI 科技日报</title>
 <style>
 :root {
-  --bg: #f8f7f4; --card-bg: #ffffff; --text: #1e1e2e;
-  --text-secondary: #555566; --muted: #888899; --accent: #3b6cf4;
-  --accent-hover: #2558e0; --border: #e8e7e4;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04); --shadow: 0 2px 8px rgba(0,0,0,0.06);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
-  --insight-bg: #eef3ff; --insight-border: #88a8f8; --insight-text: #3a4060;
-  --github-bg: #ecfdf5; --github-border: #6ee7b7;
-  --radius: 10px; --radius-sm: 6px; --transition: 0.2s ease;
+    --bg: #faf9f6;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --insight-bg: #eff6ff;
+    --insight-border: #bfdbfe;
+    --github-bg: #f0fdf4;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0b0f1a; --card-bg: #141929; --text: #e2e4f0;
-    --text-secondary: #b0b4c8; --muted: #6a6e80; --accent: #6294f8;
-    --accent-hover: #82aefa; --border: #1e2438;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.20); --shadow: 0 2px 8px rgba(0,0,0,0.30);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.40);
-    --insight-bg: #1a2440; --insight-border: #3b5fc0; --insight-text: #c0c8e0;
-    --github-bg: #0d2818; --github-border: #166534;
-  }
+    :root {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #60a5fa;
+        --border: #334155;
+        --insight-bg: #1e3a5f;
+        --insight-border: #2563eb;
+        --github-bg: #14532d;
+    }
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; -webkit-font-smoothing: antialiased; }
-.container { display: flex; max-width: 1200px; margin: 0 auto; min-height: 100vh; }
-.sidebar { width: 240px; padding: 2.5rem 1.5rem; border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--bg); flex-shrink: 0; }
-.sidebar-logo { font-size: 1.05rem; font-weight: 700; margin-bottom: 1.8rem; color: var(--text); }
-.sidebar h3 { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.8rem; font-weight: 600; }
-.sidebar ul { list-style: none; } .sidebar li { margin-bottom: 0.1rem; }
-.sidebar a, .sidebar li.current { display: block; text-decoration: none; padding: 0.4rem 0.7rem; border-radius: var(--radius-sm); font-size: 0.86rem; transition: all var(--transition); }
-.sidebar a { color: var(--text-secondary); }
-.sidebar a:hover { background: var(--card-bg); color: var(--accent); box-shadow: var(--shadow-sm); }
-.sidebar li.current { font-weight: 600; color: var(--accent); background: var(--insight-bg); }
-.main { flex: 1; padding: 2.5rem 2.5rem 4rem; max-width: 820px; min-width: 0; }
-.main h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.6rem; }
-.delayed-notice { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; padding: 0.4rem 0.8rem; background: var(--card-bg); border-radius: var(--radius-sm); display: inline-block; box-shadow: var(--shadow-sm); }
-.section-heading { font-size: 1.25rem; font-weight: 700; margin: 2.5rem 0 1.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
-.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
-.news-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.4rem; margin-bottom: 0.8rem; box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), transform var(--transition); }
-.news-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
-.news-card .card-title { font-size: 1.06rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; line-height: 1.5; }
-.news-card .card-summary { font-size: 0.94rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.6rem; }
-.news-card .card-insight { background: var(--insight-bg); border-left: 3px solid var(--insight-border); padding: 0.55rem 0.9rem; margin: 0.6rem 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.9rem; color: var(--insight-text); line-height: 1.65; }
-.news-card .card-link { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); font-size: 0.82rem; }
-.news-card .card-link a { color: var(--accent); text-decoration: none; word-break: break-all; }
-.news-card .card-link a:hover { color: var(--accent-hover); text-decoration: underline; }
-.github-card { background: var(--github-bg); border: 1px solid var(--github-border); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 0.6rem; box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), transform var(--transition); }
-.github-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
-.github-card .card-title { font-size: 0.98rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
-.github-card .card-summary { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0.4rem; }
-.github-card .card-insight { background: var(--insight-bg); border-left: 3px solid var(--insight-border); padding: 0.4rem 0.8rem; margin: 0.4rem 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; color: var(--insight-text); }
-.github-card .card-meta { font-size: 0.82rem; color: var(--muted); padding-top: 0.4rem; border-top: 1px solid var(--github-border); }
-.github-card .card-meta a { color: var(--accent); text-decoration: none; }
-.github-card .card-meta a:hover { text-decoration: underline; }
-.footer-tag { text-align: center; color: var(--muted); font-size: 0.82rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-.back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 42px; height: 42px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; box-shadow: var(--shadow); transition: all var(--transition); z-index: 100; opacity: 0; visibility: hidden; }
-.back-to-top.visible { opacity: 1; visibility: visible; }
-.back-to-top:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+.container {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 220px;
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--card);
+}
+.sidebar h3 {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+.sidebar ul { list-style: none; }
+.sidebar li {
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+.sidebar a {
+    color: var(--accent);
+    text-decoration: none;
+}
+.sidebar a:hover { text-decoration: underline; }
+.sidebar li.current {
+    font-weight: 600;
+    color: var(--text);
+}
+.main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 780px;
+}
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+h2 {
+    font-size: 1.3rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+}
+hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+.delayed-notice { color: var(--muted); font-style: italic; margin-bottom: 1rem; }
+.news-item {
+    margin-bottom: 0.3rem;
+    padding-left: 0;
+}
+.news-item strong.title {
+    font-size: 1.05rem;
+    color: var(--text);
+}
+.insight {
+    background: var(--insight-bg);
+    border-left: 3px solid var(--insight-border);
+    padding: 0.5rem 1rem;
+    margin: 0.3rem 0 1rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+}
+.link {
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    word-break: break-all;
+}
+.link a { color: var(--accent); }
+.github-item {
+    background: var(--github-bg);
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 0.3rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+.footer-tag {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 2rem;
+}
 @media (max-width: 768px) {
-  .container { flex-direction: column; }
-  .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); padding: 1rem 1.2rem; }
-  .sidebar-logo { margin-bottom: 0.6rem; } .sidebar ul { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-  .sidebar li { margin-bottom: 0; }
-  .main { padding: 1.2rem 1rem 3rem; }
-  .main h1 { font-size: 1.4rem; }
-  .news-card { padding: 1rem 1.1rem; }
-  .back-to-top { bottom: 1.2rem; right: 1.2rem; width: 38px; height: 38px; }
+    .container { flex-direction: column; }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+    }
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .sidebar li { margin-bottom: 0; }
+    .main { padding: 1rem; }
 }
 </style>
 </head>
 <body>
 <div class="container">
 <nav class="sidebar">
-    <div class="sidebar-logo">📰 AI 科技日报</div>
-    <h3>历史存档</h3>
+    <h3>📰 历史日报</h3>
     <ul>
-        <li><a href="2026-06-15.html">2026-06-15</a></li>
+        <li><a href="2026-06-16.html">2026-06-16</a></li>
+<li><a href="2026-06-15.html">2026-06-15</a></li>
 <li><a href="2026-06-14.html">2026-06-14</a></li>
 <li><a href="2026-06-13.html">2026-06-13</a></li>
 <li class="current">2026-06-12</li>
@@ -93,110 +164,108 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto
 <main class="main">
 <h1>🤖 AI 科技日报 | 2026年6月12日</h1>
 <p class="delayed-notice">⏰ 今日延迟发送，请见谅。</p>
-<hr class="divider">
-<div class="news-card">
-  <div class="card-title">SpaceX 正式定价 $135/股，史上最大 IPO</div>
-  <div class="card-summary">SpaceX 以每股 $135 定价上市，成为有史以来规模最大的 IPO。</div>
-  <div class="card-insight">💡 SpaceX 上市将重新定义太空经济板块，Starlink 盈利能力是估值核心支撑。关注相关供应链标的。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/">https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">OpenAI 秘密递表，AI 三巨头齐抢「史上最贵融资」</div>
-  <div class="card-summary">OpenAI 已秘密提交 IPO 申请，与 Anthropic、xAI 三家 AI 巨头几乎同期冲击资本市场。</div>
-  <div class="card-insight">💡 AI 行业的资本密集竞赛进入新阶段，IPO 募资将直接决定下一轮算力军备竞赛的格局。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr">https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Claude Fable 5 / Opus 4.8 系统提示词泄露</div>
-  <div class="card-summary">Anthropic 最新模型 Claude Fable 5、Opus 4.8、Claude Code 的系统提示词被提取并公开。</div>
-  <div class="card-insight">💡 系统提示词泄露暴露了模型行为约束和工具使用逻辑，但也为社区理解 frontier model 设计提供了参考。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://github.com/asgeirtj/system_prompts_leaks">https://github.com/asgeirtj/system_prompts_leaks</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Oracle 严重安全漏洞被利用，超 100 家企业遭入侵</div>
-  <div class="card-summary">Oracle 警告一个已被黑客利用的安全漏洞，导致超过 100 家企业被攻破。</div>
-  <div class="card-insight">💡 企业级软件供应链安全再次敲响警钟。如果你在用 Oracle 产品，立即检查官方补丁公告。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/">https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Apple 确认 Siri AI 因 DMA 法规在欧盟延迟上线</div>
-  <div class="card-summary">Apple 官方声明：由于欧盟数字市场法案（DMA），Siri AI 功能将在 iOS 27 / iPadOS 27 中于欧盟地区推迟。</div>
-  <div class="card-insight">💡 DMA 正在实质性地影响大型科技公司的 AI 产品发布节奏。合规成本正在成为 AI 部署的新变量。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/">https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Craig Federighi 公开详解 Apple × Google Siri AI 合作细节</div>
-  <div class="card-summary">Apple 软件工程 SVP 在 WWDC 上首度披露 Siri AI 与 Google 的合作架构，双方模型协同工作。</div>
-  <div class="card-insight">💡 苹果选择与 Google 而非 OpenAI 深度绑定 Siri AI，显示 Google 在端侧推理和多模态方面的技术优势。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/">https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">硅谷大厂员工人均月花 5 万养 AI</div>
-  <div class="card-summary">硅谷科技巨头员工每月在 AI 工具和服务上的支出已达到人均 $700+，涵盖 API、Agent、模型订阅等。</div>
-  <div class="card-insight">💡 AI 工具的内部采用正在成为企业隐性成本。同时也说明 AI-native 工作流已经在硅谷大规模落地。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N">https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Codex 大降价在即，官方发布高效使用指南</div>
-  <div class="card-summary">OpenAI Codex 价格即将大幅下调，同时官方发布了一份「高效榨干额度」的使用指南。</div>
-  <div class="card-insight">💡 Codex 降价意味着 AI 编程工具进入价格战阶段。对个人开发者和小团队是好消息。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.ifanr.com/1668621">https://www.ifanr.com/1668621</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Arm 神经技术 + 虚幻引擎 MegaLights 首登移动端</div>
-  <div class="card-summary">Arm 的神经网络技术与 Epic 虚幻引擎 MegaLights 技术首次在移动端实现，手游画质进入电影级时代。</div>
-  <div class="card-insight">💡 端侧 AI 推理与游戏渲染的结合正在突破移动设备的物理限制，移动游戏和 XR 都将受益。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr">https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Amazon 数据中心已导致密西西比州居民电费上涨</div>
-  <div class="card-summary">404 Media 调查报告显示，Amazon 在密西西比州的数据中心已经实质性地推高了当地居民电价。</div>
-  <div class="card-insight">💡 AI 基础设施的能源成本正在从企业端外溢到社会端。数据中心的选址争议将成为下一个 NIMBY 议题。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/">https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/</a></div>
-</div>
-<div class="news-card">
-  <div class="card-title">Flock 车牌识别系统通过搜索引擎泄露警方搜查记录</div>
-  <div class="card-summary">Flock 的车牌识别系统因 DuckDuckGo 和 Bing 的搜索引擎缓存暴露了警方的实时车牌查询记录。</div>
-  <div class="card-insight">💡 AI 监控系统的数据安全问题再次爆雷。执法机构的技术供应商需要更严格的审计标准。</div>
-  <div class="card-link">🔗 <a target="_blank" rel="noopener" href="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/">https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/</a></div>
-</div>
-<hr class="divider">
-<h2 class="section-heading">🔥 GitHub Trending</h2>
-<div class="github-card">
-  <div class="card-title">affaan-m/ECC — Agent 性能优化系统</div>
-  <div class="card-summary">The agent harness performance optimization system。技能、本能、记忆、安全一体化框架。</div>
-  <div class="card-insight">💡 Agent 工程化正在向系统级优化演进，性能调校成为差异化关键。</div>
-  <div class="card-meta">⭐213,497 (+1,483/d)</div>
-</div>
-<div class="github-card">
-  <div class="card-title">NousResearch/hermes-agent — 自进化 Agent</div>
-  <div class="card-summary">The agent that grows with you。强调个性化自适应能力的 Agent 框架。</div>
-  <div class="card-insight">💡 「随你成长」的 Agent 理念正在取代传统的一体化 chatbot，个性化 Agent 是下一个爆发点。</div>
-  <div class="card-meta">⭐190,978 (+589/d)</div>
-</div>
-<div class="github-card">
-  <div class="card-title">JimLiu/baoyu-design — 本地运行 Claude Design</div>
-  <div class="card-summary">Run Claude Design locally as an Agent Skill。支持 Cursor、Claude Code 等。</div>
-  <div class="card-insight">💡 将 Claude Design 本地化的需求说明设计师群体对 AI 工具链的依赖正在加深。</div>
-  <div class="card-meta">⭐767 (+192/d)</div>
-</div>
-<div class="github-card">
-  <div class="card-title">ollama/ollama — 本地 LLM 运行平台</div>
-  <div class="card-summary">支持 Kimi-K2.6、GLM-5.1、MiniMax、DeepSeek、Qwen、Gemma 等最新模型。</div>
-  <div class="card-insight">💡 本地 LLM 生态持续繁荣，国产模型（Kimi、GLM、Qwen）的 ollama 支持已成为刚需。</div>
-  <div class="card-meta">⭐173,899 (+161/d)</div>
-</div>
-<div class="github-card">
-  <div class="card-title">AutoGPT — 自主 AI Agent 平台</div>
-  <div class="card-summary">AutoGPT is the vision of accessible AI for everyone, to use and to build.</div>
-  <div class="card-insight">💡 老牌自主 Agent 项目持续保持高活跃度，Agent 民主化仍是社区核心叙事。</div>
-  <div class="card-meta">⭐184,888 (+156/d)</div>
-</div>
-<hr class="divider">
+<hr>
+<p class="news-item"><strong class="title">SpaceX 正式定价 $135/股，史上最大 IPO</strong></p>
+<p>
+  SpaceX 以每股 $135 定价上市，成为有史以来规模最大的 IPO。
+  💡 SpaceX 上市将重新定义太空经济板块，Starlink 盈利能力是估值核心支撑。关注相关供应链标的。
+  🔗 https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/
+</p>
+<p class="news-item"><strong class="title">OpenAI 秘密递表，AI 三巨头齐抢「史上最贵融资」</strong></p>
+<p>
+  OpenAI 已秘密提交 IPO 申请，与 Anthropic、xAI 三家 AI 巨头几乎同期冲击资本市场。
+  💡 AI 行业的资本密集竞赛进入新阶段，IPO 募资将直接决定下一轮算力军备竞赛的格局。
+  🔗 https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr
+</p>
+<p class="news-item"><strong class="title">Claude Fable 5 / Opus 4.8 系统提示词泄露</strong></p>
+<p>
+  Anthropic 最新模型 Claude Fable 5、Opus 4.8、Claude Code 的系统提示词被提取并公开。
+  💡 系统提示词泄露暴露了模型行为约束和工具使用逻辑，但也为社区理解 frontier model 设计提供了参考。
+  🔗 https://github.com/asgeirtj/system_prompts_leaks
+</p>
+<p class="news-item"><strong class="title">Oracle 严重安全漏洞被利用，超 100 家企业遭入侵</strong></p>
+<p>
+  Oracle 警告一个已被黑客利用的安全漏洞，导致超过 100 家企业被攻破。
+  💡 企业级软件供应链安全再次敲响警钟。如果你在用 Oracle 产品，立即检查官方补丁公告。
+  🔗 https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/
+</p>
+<p class="news-item"><strong class="title">Apple 确认 Siri AI 因 DMA 法规在欧盟延迟上线</strong></p>
+<p>
+  Apple 官方声明：由于欧盟数字市场法案（DMA），Siri AI 功能将在 iOS 27 / iPadOS 27 中于欧盟地区推迟。
+  💡 DMA 正在实质性地影响大型科技公司的 AI 产品发布节奏。合规成本正在成为 AI 部署的新变量。
+  🔗 https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/
+</p>
+<p class="news-item"><strong class="title">Craig Federighi 公开详解 Apple × Google Siri AI 合作细节</strong></p>
+<p>
+  Apple 软件工程 SVP 在 WWDC 上首度披露 Siri AI 与 Google 的合作架构，双方模型协同工作。
+  💡 苹果选择与 Google 而非 OpenAI 深度绑定 Siri AI，显示 Google 在端侧推理和多模态方面的技术优势。
+  🔗 https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/
+</p>
+<p class="news-item"><strong class="title">硅谷大厂员工人均月花 5 万养 AI</strong></p>
+<p>
+  硅谷科技巨头员工每月在 AI 工具和服务上的支出已达到人均 $700+，涵盖 API、Agent、模型订阅等。
+  💡 AI 工具的内部采用正在成为企业隐性成本。同时也说明 AI-native 工作流已经在硅谷大规模落地。
+  🔗 https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N
+</p>
+<p class="news-item"><strong class="title">Codex 大降价在即，官方发布高效使用指南</strong></p>
+<p>
+  OpenAI Codex 价格即将大幅下调，同时官方发布了一份「高效榨干额度」的使用指南。
+  💡 Codex 降价意味着 AI 编程工具进入价格战阶段。对个人开发者和小团队是好消息。
+  🔗 https://www.ifanr.com/1668621
+</p>
+<p class="news-item"><strong class="title">Arm 神经技术 + 虚幻引擎 MegaLights 首登移动端</strong></p>
+<p>
+  Arm 的神经网络技术与 Epic 虚幻引擎 MegaLights 技术首次在移动端实现，手游画质进入电影级时代。
+  💡 端侧 AI 推理与游戏渲染的结合正在突破移动设备的物理限制，移动游戏和 XR 都将受益。
+  🔗 https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr
+</p>
+<p class="news-item"><strong class="title">Amazon 数据中心已导致密西西比州居民电费上涨</strong></p>
+<p>
+  404 Media 调查报告显示，Amazon 在密西西比州的数据中心已经实质性地推高了当地居民电价。
+  💡 AI 基础设施的能源成本正在从企业端外溢到社会端。数据中心的选址争议将成为下一个 NIMBY 议题。
+  🔗 https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/
+</p>
+<p class="news-item"><strong class="title">Flock 车牌识别系统通过搜索引擎泄露警方搜查记录</strong></p>
+<p>
+  Flock 的车牌识别系统因 DuckDuckGo 和 Bing 的搜索引擎缓存暴露了警方的实时车牌查询记录。
+  💡 AI 监控系统的数据安全问题再次爆雷。执法机构的技术供应商需要更严格的审计标准。
+  🔗 https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/
+</p>
+<hr>
+<h2>🔥 GitHub Trending</h2>
+<p class="news-item"><strong class="title">affaan-m/ECC — Agent 性能优化系统</strong> ⭐213,497 (+1,483/d)</p>
+<p>
+  The agent harness performance optimization system。技能、本能、记忆、安全一体化框架。
+  💡 Agent 工程化正在向系统级优化演进，性能调校成为差异化关键。
+  🔗 https://github.com/affaan-m/ECC
+</p>
+<p class="news-item"><strong class="title">NousResearch/hermes-agent — 自进化 Agent</strong> ⭐190,978 (+589/d)</p>
+<p>
+  The agent that grows with you。强调个性化自适应能力的 Agent 框架。
+  💡 「随你成长」的 Agent 理念正在取代传统的一体化 chatbot，个性化 Agent 是下一个爆发点。
+  🔗 https://github.com/NousResearch/hermes-agent
+</p>
+<p class="news-item"><strong class="title">JimLiu/baoyu-design — 本地运行 Claude Design</strong> ⭐767 (+192/d)</p>
+<p>
+  Run Claude Design locally as an Agent Skill。支持 Cursor、Claude Code 等。
+  💡 将 Claude Design 本地化的需求说明设计师群体对 AI 工具链的依赖正在加深。
+  🔗 https://github.com/JimLiu/baoyu-design
+</p>
+<p class="news-item"><strong class="title">ollama/ollama — 本地 LLM 运行平台</strong> ⭐173,899 (+161/d)</p>
+<p>
+  支持 Kimi-K2.6、GLM-5.1、MiniMax、DeepSeek、Qwen、Gemma 等最新模型。
+  💡 本地 LLM 生态持续繁荣，国产模型（Kimi、GLM、Qwen）的 ollama 支持已成为刚需。
+  🔗 https://github.com/ollama/ollama
+</p>
+<p class="news-item"><strong class="title">AutoGPT — 自主 AI Agent 平台</strong> ⭐184,888 (+156/d)</p>
+<p>
+  AutoGPT is the vision of accessible AI for everyone, to use and to build.
+  💡 老牌自主 Agent 项目持续保持高活跃度，Agent 民主化仍是社区核心叙事。
+  🔗 https://github.com/Significant-Gravitas/AutoGPT
+</p>
+<hr>
 <p class="footer-tag">🤖 autoloop follow-news v1.0</p>
 </main>
 </div>
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
-<script>(function(){var b=document.getElementById("backToTop");window.addEventListener("scroll",function(){b.classList.toggle("visible",window.scrollY>400)});})();</script>
 </body>
 </html>
