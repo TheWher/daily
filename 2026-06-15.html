@@ -7,218 +7,1055 @@
 <title>📰 AI 科技日报 · 2026年6月15日 — AI 科技日报</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════════════════
+   follow-news v5.0 — Enhanced Reading Experience
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset & Tokens ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
     --bg:#0a0f1a;
     --card:#121a29;
+    --card2:#162032;
     --text:#cbd5e1;
+    --text2:#94a3b8;
     --muted:#64748b;
     --accent:#60a5fa;
+    --accent2:#3b82f6;
     --success:#34d399;
     --warning:#fbbf24;
     --danger:#f87171;
-    --card-hover:#162032;
+    --border:rgba(255,255,255,.06);
+    --shadow:0 1px 3px rgba(0,0,0,.4);
+    --radius:8px;
+    --font:'Inter',-apple-system,'Segoe UI','Noto Sans SC',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --transition:150ms ease;
 }
 html{scroll-behavior:smooth}
 body{
-    font-family:'Inter',-apple-system,sans-serif;
-    font-size:15px;line-height:1.55;
+    font-family:var(--font);
+    font-size:15px;line-height:1.6;
     background:var(--bg);color:var(--text);
-    font-weight:400;
+    -webkit-font-smoothing:antialiased;
 }
-a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-family:'JetBrains Mono',monospace;font-size:13px}
-a:hover{color:#93c5fd}
-.container{max-width:1400px;margin:0 auto;padding:32px 16px}
-h1{font-size:22px;font-weight:600;margin-bottom:8px;color:var(--text)}
-.delayed{color:var(--warning);font-size:13px;margin-bottom:24px}
-.section{margin-bottom:24px}
-.section-title{font-size:18px;font-weight:600;margin-bottom:12px;color:var(--text);text-transform:uppercase;letter-spacing:.03em}
-.cards{display:flex;flex-direction:column;gap:16px}
-.card{
-    background:var(--card);border-radius:4px;padding:12px;
-    box-shadow:0 1px 2px rgba(0,0,0,.3);
-    cursor:pointer;transition:background .15s;
+
+/* ── Top Bar (sticky) ── */
+.top-bar{
+    position:sticky;top:0;z-index:100;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    padding:12px 16px;
+    backdrop-filter:blur(12px);
+}
+.top-bar-inner{
+    max-width:1400px;margin:0 auto;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.search-wrap{
+    flex:1;min-width:200px;max-width:480px;
     position:relative;
 }
-.card:hover{background:var(--card-hover)}
-.card-title{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:4px;line-height:1.4}
-.card-body{font-size:15px;color:var(--text);margin-bottom:8px;line-height:1.55}
-.card-body br{display:block;content:'';margin-top:8px}
-.card-link{font-size:13px;word-break:break-all;display:inline-block;position:relative;z-index:2}
-.card-link:hover{color:#93c5fd!important}
-footer{text-align:center;color:var(--muted);font-size:13px;margin-top:32px;padding-top:16px;border-top:1px solid var(--card)}
-/* Archive bar */
+.search-wrap input{
+    width:100%;padding:8px 12px 8px 36px;
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);color:var(--text);
+    font-family:var(--font);font-size:14px;
+    outline:none;transition:border-color var(--transition),box-shadow var(--transition);
+}
+.search-wrap input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(96,165,250,.15);
+}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-icon{
+    position:absolute;left:10px;top:50%;transform:translateY(-50%);
+    color:var(--muted);font-size:16px;pointer-events:none;
+}
+.search-clear{
+    position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:16px;display:none;padding:2px 6px;border-radius:4px;
+}
+.search-clear:hover{color:var(--text);background:var(--card2)}
+.search-clear.visible{display:block}
+.search-info{
+    font-size:12px;color:var(--muted);white-space:nowrap;
+}
+
+/* ── Filter Chips ── */
+.chips{
+    display:flex;flex-wrap:nowrap;gap:6px;
+    overflow-x:auto;scrollbar-width:none;
+    padding:2px 0;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+    padding:5px 12px;border-radius:20px;
+    font-size:13px;font-family:var(--font);
+    border:1px solid var(--border);background:var(--card);
+    color:var(--text2);cursor:pointer;
+    white-space:nowrap;transition:all var(--transition);
+    user-select:none;
+}
+.chip:hover{border-color:var(--muted);color:var(--text)}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500}
+
+/* ── Container ── */
+.container{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
+.delayed{color:var(--warning);font-size:13px;margin-bottom:16px}
+
+/* ── Date Summary ── */
+.date-summary{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    margin-bottom:20px;font-size:13px;color:var(--text2);
+}
+.date-summary strong{color:var(--text)}
+
+/* ── Archive Bar (horizontal scroll) ── */
 .archive-bar{
-    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;
-    padding-bottom:16px;border-bottom:1px solid var(--card);
+    display:flex;gap:6px;margin-bottom:20px;padding-bottom:14px;
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;scroll-snap-type:x proximity;
+    scrollbar-width:thin;scrollbar-color:var(--muted) transparent;
 }
 .archive-bar a{
+    flex-shrink:0;scroll-snap-align:start;
     font-size:13px;color:var(--muted);text-decoration:none;
-    padding:2px 8px;border-radius:3px;font-family:'Inter',sans-serif;
-    transition:color .15s,background .15s;
+    padding:4px 10px;border-radius:var(--radius);
+    font-family:var(--font);transition:all var(--transition);
 }
-.archive-bar a:hover,.archive-bar a.active{color:var(--accent);background:var(--card)}
-/* Back to top */
+.archive-bar a:hover{color:var(--accent);background:var(--card)}
+.archive-bar a.active{color:var(--accent);background:var(--card);font-weight:600}
+
+/* ── Sections ── */
+.section{margin-bottom:28px}
+.section.hidden{display:none}
+.section-title{
+    font-size:17px;font-weight:600;margin-bottom:12px;
+    color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.section-count{font-size:13px;font-weight:400;color:var(--muted)}
+
+/* ── Cards ── */
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{
+    background:var(--card);border-radius:var(--radius);padding:16px;
+    box-shadow:var(--shadow);cursor:pointer;
+    transition:background var(--transition),opacity var(--transition),border-color var(--transition);
+    position:relative;border-left:3px solid transparent;
+}
+.card:hover{background:var(--card2)}
+.card.hidden-by-search{display:none}
+
+/* Read state */
+.card.read{
+    opacity:.55;
+    border-left-color:var(--muted);
+}
+.card.read:hover{opacity:.75}
+
+/* Card header (title + bookmark) */
+.card-header{
+    display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;
+}
+.card-title{
+    flex:1;font-size:16px;font-weight:600;color:var(--accent);
+    line-height:1.4;
+}
+.card-body{font-size:15px;color:var(--text);margin-bottom:6px;line-height:1.6}
+.card-insight{
+    font-size:14px;color:var(--text2);margin-bottom:8px;
+    padding:8px 12px;border-radius:6px;
+    background:rgba(96,165,250,.06);
+    border-left:2px solid var(--accent);
+}
+
+/* Card actions bar */
+.card-actions{
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    margin-top:4px;
+}
+.card-btn{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:6px 14px;border-radius:6px;
+    font-size:13px;font-family:var(--font);font-weight:500;
+    text-decoration:none;cursor:pointer;
+    transition:all var(--transition);position:relative;z-index:2;
+    user-select:none;
+}
+.card-btn-primary{
+    background:var(--accent);color:#fff;border:1px solid var(--accent);
+}
+.card-btn-primary:hover{
+    background:var(--accent2);border-color:var(--accent2);
+}
+
+/* Bookmark button */
+.card-bookmark{
+    flex-shrink:0;
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:18px;padding:4px 6px;border-radius:6px;
+    transition:all var(--transition);position:relative;z-index:2;
+    line-height:1;
+}
+.card-bookmark:hover{color:var(--warning);background:rgba(251,191,36,.1)}
+.card-bookmark.bookmarked{color:var(--warning)}
+.card-bookmark.bookmarked .bm-icon::before{content:'★'}
+
+/* Stars & Domain badges */
+.card-stars{font-size:12px;color:var(--success);font-weight:500}
+.card-domain{
+    font-size:11px;color:var(--muted);font-family:var(--mono);
+    padding:2px 8px;border-radius:4px;background:var(--card2);
+}
+
+/* Read badge */
+.card-read-badge{
+    font-size:12px;color:var(--success);
+    display:none;align-items:center;gap:3px;
+    margin-left:auto;
+}
+.card.read .card-read-badge{display:inline-flex}
+
+/* ── No results ── */
+.no-results{
+    display:none;text-align:center;padding:48px 16px;color:var(--muted);
+}
+.no-results.visible{display:block}
+.no-results-icon{font-size:48px;margin-bottom:12px}
+
+/* ── Footer ── */
+footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    margin-top:40px;padding-top:16px;border-top:1px solid var(--border);
+}
+
+/* ── Back to top ── */
 #back-top{
     position:fixed;bottom:24px;right:24px;
-    width:36px;height:36px;border-radius:50%;
+    width:40px;height:40px;border-radius:50%;
     background:var(--card);color:var(--muted);
     border:1px solid var(--muted);cursor:pointer;
     display:none;align-items:center;justify-content:center;
-    font-size:18px;z-index:100;transition:color .15s,border-color .15s;
+    font-size:18px;z-index:100;transition:all var(--transition);
 }
 #back-top:hover{color:var(--accent);border-color:var(--accent)}
 #back-top.visible{display:flex}
+
+/* ── Toast ── */
+.toast{
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:var(--card);color:var(--text);
+    padding:8px 20px;border-radius:20px;font-size:13px;
+    box-shadow:0 4px 12px rgba(0,0,0,.5);
+    z-index:200;opacity:0;transition:opacity .2s;
+    pointer-events:none;
+}
+.toast.show{opacity:1}
+
+/* ── Responsive ── */
 @media(max-width:768px){
+    .top-bar{padding:10px 12px}
+    .top-bar-inner{gap:8px}
+    .search-wrap{max-width:100%}
     .container{padding:16px 12px}
-    h1{font-size:20px}
-    .section-title{font-size:16px}
+    h1{font-size:19px}
+    .section-title{font-size:15px}
     .card-title{font-size:15px}
     .card-body{font-size:14px}
+    .card{padding:14px}
+    .card-actions{gap:6px}
+    .card-btn{padding:5px 12px;font-size:12px}
+    .chips{gap:4px}
+    .chip{padding:4px 10px;font-size:12px}
+    .archive-bar a{font-size:12px;padding:3px 8px}
+}
+@media(max-width:480px){
+    h1{font-size:17px}
+    .card{padding:12px;border-radius:6px}
+    .card-title{font-size:14px}
+    .card-body{font-size:13px}
+    .card-insight{font-size:13px;padding:6px 10px}
+    .card-btn{padding:5px 10px;font-size:11px}
+    .section{margin-bottom:20px}
+    .cards{gap:8px}
 }
 </style>
 </head>
 <body>
+
+<!-- ═══ Top Bar ═══ -->
+<div class="top-bar">
+<div class="top-bar-inner">
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="search-input" placeholder="搜索标题、摘要..." autocomplete="off">
+        <button class="search-clear" id="search-clear" title="清除">✕</button>
+    </div>
+    <span class="search-info" id="search-info"></span>
+    <div class="chips" id="filter-chips">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="news">🌐 新闻</button>
+        <button class="chip" data-filter="github">🔥 GitHub</button>
+        <button class="chip" data-filter="community">💬 社区</button>
+        <button class="chip" data-filter="papers">📄 论文</button>
+        <button class="chip" data-filter="products">🆕 产品</button>
+        <button class="chip" data-filter="bookmarks">📌 书签</button>
+        <button class="chip" data-filter="unread">👁 未读</button>
+    </div>
+</div>
+</div>
+
+<!-- ═══ Content ═══ -->
 <div class="container">
     <h1>📰 AI 科技日报 · 2026年6月15日</h1>
     <p class="delayed">⏰ 今日延迟发送，请见谅。</p>
-    <nav class="archive-bar"><a href="2026-06-16.html">06-16</a><a href="2026-06-15.html" class="active">06-15</a><a href="2026-06-14.html">06-14</a><a href="2026-06-13.html">06-13</a><a href="2026-06-12.html">06-12</a><a href="2026-06-11.html">06-11</a><a href="2026-06-09.html">06-09</a><a href="2026-06-08.html">06-08</a></nav>
-    <section class="section">
-    <h2 class="section-title">🌐 AI/科技新闻</h2>
-    <div class="cards"><article class="card" data-href="https://www.anthropic.com/news/fable-mythos-access">
-    <h3 class="card-title"><strong>𝗨𝗦 政府以国家安全为由强制 Anthropic 关闭 Fable 5 和 Mythos 5 模型</strong></h3>
-    <p class="card-body">Anthropic 公告确认两款旗舰模型因商务部禁令下线——AI 史上首次政府强制关闭已部署前沿模型。Amazon 等六家公司被指触发此次禁令，另白宫称中国可能已通过第三方访问 Mythos 模型权重。<br>💡 这不仅是一次模型下线，更是 AI 地缘政治化的里程碑事件。对依赖 Claude API 的企业，需评估合规风险与模型替代方案，备选包括 OpenAI/Google 商业模型或开源模型。</p>
-    <a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.anthropic.com/news/fable-mythos-access</a>
-</article><article class="card" data-href="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE">
-    <h3 class="card-title"><strong>𝗪𝗪𝗗𝗖 𝟮𝟬𝟮𝟲：Apple Siri 引入 Gemini 1.2T 参数模型，但仅限云端运行</strong></h3>
-    <p class="card-body">Apple 与 Google 达成合作，Siri AI 能力由 Gemini 提供算力支撑。然而 1.2T 参数的模型无法在 iPhone 本地运行，全部推理依赖云端。<br>💡 Apple 在 AI 上的"借力策略"愈发明确——自研模型进展落后，转而押注 Google 生态。对开发者而言，Siri AI 开放 API 程度将是关键变量。</p>
-    <a href="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE</a>
-</article><article class="card" data-href="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u">
-    <h3 class="card-title"><strong>𝗟𝗶𝗻𝘂𝘅 𝟳.𝟭 正式发布</strong></h3>
-    <p class="card-body">Linus Torvalds 宣布 Linux 7.1 版本就绪，这是继 7.0 之后的第一个稳定更新，涵盖架构支持增强、驱动更新和性能优化。<br>💡 Linux 主版本号从 6 跳到 7 标志着内核的重大演进（7.0 于 2025 年发布），7.1 延续了高频率迭代节奏。云端基础设施和嵌入式开发者应关注内核 ABI 变更。</p>
-    <a href="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u</a>
-</article><article class="card" data-href="https://www.ifanr.com/1668931">
-    <h3 class="card-title"><strong>𝗛𝗗𝗖 𝟮𝟬𝟮𝟲 深度：鸿蒙全面向 Agent 架构演进，小艺 AI 完成三大升级</strong></h3>
-    <p class="card-body">华为开发者大会揭示鸿蒙系统级 Agent 化路径——小艺助手从语音助手升级为跨应用自主 Agent，可跨 App 完成多步骤任务编排。<br>💡 "系统即 Agent"是 2026 年的终端趋势。鸿蒙的做法与 Apple Intelligence 和 Android AI Core 理念趋同，但华为在端侧推理和硬件协同上有差异化优势。</p>
-    <a href="https://www.ifanr.com/1668931" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.ifanr.com/1668931</a>
-</article><article class="card" data-href="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/">
-    <h3 class="card-title"><strong>英国拟立法禁止 16 岁以下儿童使用社交媒体</strong></h3>
-    <p class="card-body">TechCrunch 报道，英国议会正酝酿新法案，将社交媒体最低年龄从 13 岁提高至 16 岁，覆盖 TikTok、Instagram、Snapchat 等主流平台。<br>💡 继澳大利亚之后，英国的跟进意味着儿童网络保护立法的全球化加速。对社交平台而言，年龄验证技术将成为合规刚需，可能催生一批身份验证工具需求。</p>
-    <a href="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/</a>
-</article><article class="card" data-href="https://developer.apple.com/private-cloud-compute/">
-    <h3 class="card-title"><strong>𝗔𝗽𝗽𝗹𝗲 𝗣𝗿𝗶𝘃𝗮𝘁𝗲 𝗖𝗹𝗼𝘂𝗱 𝗖𝗼𝗺𝗽𝘂𝘁𝗲 对第三方开发者严重受限</strong></h3>
-    <p class="card-body">Apple 私密云计算（PCC）虽在隐私保护上获得好评，但开发者文档显示其 API 和模型访问权限极度有限，第三方几乎无法深度集成。<br>💡 PCC 目前更像是 Apple 自用的封闭特权——隐私做得好，但生态开放性不足。对于做 AI 应用的开发者，仍需自建或选用 AWS/GCP 的推理基础设施。</p>
-    <a href="https://developer.apple.com/private-cloud-compute/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://developer.apple.com/private-cloud-compute/</a>
-</article><article class="card" data-href="https://openai.com/index/introducing-openai-partner-network">
-    <h3 class="card-title"><strong>𝗢𝗽𝗲𝗻𝗔𝗜 推出合作伙伴网络（Partner Network）</strong></h3>
-    <p class="card-body">OpenAI 正式发布全球合作伙伴计划，为系统集成商、咨询公司和 ISV 提供培训、认证和联合销售通道，加速 GPT/ChatGPT/Codex 在企业端的落地。<br>💡 这是 OpenAI 企业化的关键一步——从技术提供商转型为平台生态商。对企业的启示：通过官方合作伙伴采购可能获得更好的 SLA 和集成支持。</p>
-    <a href="https://openai.com/index/introducing-openai-partner-network" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://openai.com/index/introducing-openai-partner-network</a>
-</article><article class="card" data-href="https://www.qbitai.com/2026/06/435394.html">
-    <h3 class="card-title"><strong>𝟮𝟬𝟮𝟲 智源大会开幕：推动 AI、物理世界和生命科学"三体互动"</strong></h3>
-    <p class="card-body">北京智源大会提出 AI 须与物理世界（机器人、自动驾驶）和生命科学（蛋白质设计、药物发现）深度融合，发布多项基础模型和开源数据集。<br>💡 中国 AI 学界正在推动 AI 研究从"数字虚拟"走向"物理真实"。这种跨学科融合是下一代 AI 应用的底层逻辑，也对应着巨大的产业机会。</p>
-    <a href="https://www.qbitai.com/2026/06/435394.html" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.qbitai.com/2026/06/435394.html</a>
-</article><article class="card" data-href="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/">
-    <h3 class="card-title"><strong>𝗞𝗣𝗠𝗚 被曝编造 AI 案例研究以推销客户</strong></h3>
-    <p class="card-body">KPMG 在一份向客户推广 AI 采纳的报告中虚构了多个 AI 应用案例，被外媒揭露后引发信任危机。<br>💡 咨询公司兜售 AI 的"FOMO 焦虑"正达到顶峰——客户需对供应商宣称的 AI 成果保持警惕，要求可验证的证据而非漂亮的 PPT。</p>
-    <a href="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/</a>
-</article><article class="card" data-href="https://github.com/asgeirtj/system_prompts_leaks">
-    <h3 class="card-title"><strong>𝗖𝗹𝗮𝘂𝗱𝗲/𝗖𝗵𝗮𝘁𝗚𝗣𝗧/𝗚𝗲𝗺𝗶𝗻𝗶 系统提示词大规模泄露</strong></h3>
-    <p class="card-body">GitHub 仓库 `system_prompts_leaks` 公布了三家顶级 AI 公司的完整系统提示词——Claude Fable 5、Opus 4.8、ChatGPT 5.5 Thinking、Gemini 3.5 Flash 等模型的内部指令全部曝光。<br>💡 这是 2026 年迄今最大的 AI security 事件之一。系统提示词泄露可能帮助攻击者绕过安全护栏（jailbreak），但也为研究者提供了研究模型行为的宝贵透明度。</p>
-    <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/asgeirtj/system_prompts_leaks</a>
-</article><article class="card" data-href="https://github.com/harvard-edge/cs249r_book">
-    <h3 class="card-title"><strong>哈佛开源《Machine Learning Systems》教材</strong></h3>
-    <p class="card-body">哈佛边缘计算实验室（Harvard Edge）发布 ML 系统工程化教材，覆盖训练、部署、监控、MLOps 全链路，适合进阶开发者系统学习。<br>💡 这是继 Chip Huyen 的 ML 系统设计之后又一本高质量的免费资源。对正在搭建 ML 基础设施的团队有直接参考价值。</p>
-    <a href="https://github.com/harvard-edge/cs249r_book" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/harvard-edge/cs249r_book</a>
-</article><article class="card" data-href="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/">
-    <h3 class="card-title"><strong>𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 𝗠𝗶𝗿𝗮𝗴𝗲：赋予视频生成的持久空间记忆</strong></h3>
-    <p class="card-body">Microsoft Research 发布 Mirage 模型，能在视频生成中维持贯穿多帧的持久空间记忆，解决"转个角就忘了"的经典问题。<br>💡 视频生成的下一关是 temporal consistency（时序一致性）。Mirage 路线有望在 AR/VR 和游戏内容生成中找到应用场景。</p>
-    <a href="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/</a>
-</article><article class="card" data-href="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/">
-    <h3 class="card-title"><strong>𝗔𝗜 公司 IPO 竞赛全面开启——谁是下一个上车者？</strong></h3>
-    <p class="card-body">TechCrunch 分析指出 OpenAI、Anthropic、CoreWeave 等多家 AI 公司正跑步上市，但二级市场对高估值 AI 公司的态度从狂热转向谨慎。<br>💡 AI 估值泡沫面临首次公开市场考验。普通投资者应区分"卖铲子的"（基础设施）和"淘金的"（应用层），前者如 CoreWeave/GPU 云更可能在 IPO 中支撑住估值。</p>
-    <a href="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">🔥 GitHub Trending</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/DietrichGebert/ponytail">
-    <h3 class="card-title"><strong>𝗗𝗶𝗲𝘁𝗿𝗶𝗰𝗵𝗚𝗲𝗯𝗲𝗿𝘁/𝗽𝗼𝗻𝘆𝘁𝗮𝗶𝗹 — 让 AI agent 学会"最懒的资深开发者"思维</strong></h3>
-    <p class="card-body">一个 Claude Code 插件，教 AI 以最小代码解决需求——少写代码 = 少维护 = 少 Bug。3 天内从 0→8322 星。<br>⭐ 8,322 (+2,774/d) · 🔗 <a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/DietrichGebert/ponytail</a></p>
-    <a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/DietrichGebert/ponytail</a>
-</article><article class="card" data-href="https://github.com/omnigent-ai/omnigent">
-    <h3 class="card-title"><strong>𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁-𝗮𝗶/𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁 — 元调度层：一个平台管所有 AI Agent</strong></h3>
-    <p class="card-body">在 Claude Code、Codex、Pi 等 Agent 上提供统一抽象层，切换工具链不影响工作流。4 天内破千星。<br>⭐ 1,229 (+410/d) · 🔗 <a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/omnigent-ai/omnigent</a></p>
-    <a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/omnigent-ai/omnigent</a>
-</article><article class="card" data-href="https://github.com/orange2ai/renwei-writing">
-    <h3 class="card-title"><strong>𝗼𝗿𝗮𝗻𝗴𝗲𝟮𝗮𝗶/𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：AI 润色不抹去人格</strong></h3>
-    <p class="card-body">面向中文写作的 Agent skill，保留作者个人风格的同时提升文字质量。3 天 571 星。<br>⭐ 571 (+286/d) · 🔗 <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/orange2ai/renwei-writing</a></p>
-    <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/orange2ai/renwei-writing</a>
-</article><article class="card" data-href="https://github.com/royalbhati/sqltoerdiagram">
-    <h3 class="card-title"><strong>𝗿𝗼𝘆𝗮𝗹𝗯𝗵𝗮𝘁𝗶/𝘀𝗾𝗹𝘁𝗼𝗲𝗿𝗱𝗶𝗮𝗴𝗿𝗮𝗺 — 粘贴 SQL 即可生成交互式 ER 图</strong></h3>
-    <p class="card-body">100% 浏览器端运行，无需后端——隐私友好且零配置。发布当天即 280 星。<br>⭐ 280 (+280/d) · 🔗 <a href="https://github.com/royalbhati/sqltoerdiagram" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/royalbhati/sqltoerdiagram</a></p>
-    <a href="https://github.com/royalbhati/sqltoerdiagram" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/royalbhati/sqltoerdiagram</a>
-</article><article class="card" data-href="https://github.com/bjarneo/kli">
-    <h3 class="card-title"><strong>𝗯𝗷𝗮𝗿𝗻𝗲𝗼/𝗸𝗹𝗶 — 键盘驱动的 Kubernetes TUI</strong></h3>
-    <p class="card-body">受 k9s 启发但更轻量、更快，支持资源浏览、对象编辑、日志追踪和 Pod Shell 直连。<br>⭐ 219 (+219/d) · 🔗 <a href="https://github.com/bjarneo/kli" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/bjarneo/kli</a></p>
-    <a href="https://github.com/bjarneo/kli" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/bjarneo/kli</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">💬 社区讨论</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/nex-agi/Nex-N2/issues/4">
-    <h3 class="card-title"><strong>𝗥𝗶𝗼 𝗱𝗲 𝗝𝗮𝗻𝗲𝗶𝗿𝗼 "自研" LLM 被指是已有模型的合并</strong></h3>
-    <p class="card-body">💬 里约政府声称自研的 Nex-N2 大模型被社区发现实际是已有开源模型的拼接，引发对政府 AI 项目透明度的广泛讨论。</p>
-    <a href="https://github.com/nex-agi/Nex-N2/issues/4" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/nex-agi/Nex-N2/issues/4</a>
-</article><article class="card" data-href="https://github.com/tamnd/kage">
-    <h3 class="card-title"><strong>𝗦𝗵𝗼𝘄 𝗛𝗡: 𝗞𝗮𝗴𝗲 — 将任意网站打包为单二进制离线浏览</strong></h3>
-    <p class="card-body">💬 HN 404 分高赞项目——解决网络不稳定环境下的文档查阅痛点，引发对「数字永久保存」的讨论。</p>
-    <a href="https://github.com/tamnd/kage" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/tamnd/kage</a>
-</article><article class="card" data-href="https://www.v2ex.com/t/1220264">
-    <h3 class="card-title"><strong>𝗩𝟮𝗘𝗫 热议：AI 付费服务的性价比困境</strong></h3>
-    <p class="card-body">💬 用户反映 GLM token plan 买不到、AI 付费服务定价与实际体验不匹配，社区讨论聚焦「AI 服务定价透明化」问题。</p>
-    <a href="https://www.v2ex.com/t/1220264" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.v2ex.com/t/1220264</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">📄 AI 热门论文</h2>
-    <div class="cards"><article class="card" data-href="https://huggingface.co/papers/2606.11599">
-    <h3 class="card-title"><strong>𝗪𝗵𝗲𝗻 𝗶𝘀 𝗬𝗼𝘂𝗿 𝗟𝗟𝗠 𝗦𝘁𝗲𝗲𝗿𝗮𝗯𝗹𝗲?</strong></h3>
-    <p class="card-body">📄 系统研究 activation steering 何时成功/失败——结论：取决于 prompt、概念、模型和 steering 配置的组合。对想用轻量方法控制 LLM 输出的开发者有直接指导意义。</p>
-    <a href="https://huggingface.co/papers/2606.11599" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://huggingface.co/papers/2606.11599</a>
-</article><article class="card" data-href="https://huggingface.co/papers/2606.13594">
-    <h3 class="card-title"><strong>𝗦𝗲𝗲 𝗪𝗵𝗮𝘁 𝗜 𝗦𝗲𝗲, 𝗞𝗻𝗼𝘄 𝗪𝗵𝗮𝘁 𝗜 𝗧𝗵𝗶𝗻𝗸 — 异构 Agent 间密集潜空间通信</strong></h3>
-    <p class="card-body">📄 提出跨模型 KV-cache 通信协议，让不同架构的 Agent 无需 decode→text→re-encode 即可直接交换信息，大幅降低通信开销。</p>
-    <a href="https://huggingface.co/papers/2606.13594" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://huggingface.co/papers/2606.13594</a>
-</article><article class="card" data-href="https://huggingface.co/papers/2606.07867">
-    <h3 class="card-title"><strong>𝗧𝗵𝗲 𝗖𝗼𝗹𝗱-𝗦𝘁𝗮𝗿𝘁 𝗦𝗮𝗳𝗲𝘁𝘆 𝗚𝗮𝗽 𝗶𝗻 𝗟𝗟𝗠 𝗔𝗴𝗲𝗻𝘁𝘀</strong></h3>
-    <p class="card-body">📄 发现 LLM Agent 在会话开始时最不安全，执行几次常规任务后安全性显著提升——揭示了工具调用 Agent 的冷启动安全脆弱性，对部署 Agent 系统的安全策略设计有重要影响。</p>
-    <a href="https://huggingface.co/papers/2606.07867" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://huggingface.co/papers/2606.07867</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">🆕 产品/工具</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/memi-ai/memi">
-    <h3 class="card-title"><strong>𝗺𝗲𝗺𝗶-𝗮𝗶/𝗺𝗲𝗺𝗶：本地 AI Agent，63 工具 + 80+ Provider + ClawHub 兼容</strong></h3>
-    <p class="card-body">🆕 主打本地运行、全功能 Agent 框架——不需要云端 API key，隐私优先。与 ClawHub 技能生态兼容，降低了技能复用门槛。</p>
-    <a href="https://github.com/memi-ai/memi" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/memi-ai/memi</a>
-</article></div>
+    <div class="date-summary">
+        <span id="total-count"><strong>共 0 篇</strong></span>
+        <span id="visible-count"></span>
+        <span id="bookmark-count"></span>
+        <span id="unread-count"></span>
+    </div>
+    <nav class="archive-bar"><a href="2026-06-16.html" class="">06-16</a><a href="2026-06-15.html" class="active">06-15</a><a href="2026-06-14.html" class="">06-14</a><a href="2026-06-13.html" class="">06-13</a><a href="2026-06-12.html" class="">06-12</a><a href="2026-06-11.html" class="">06-11</a><a href="2026-06-09.html" class="">06-09</a><a href="2026-06-08.html" class="">06-08</a></nav>
+
+    <section class="section" data-category="news">
+    <h2 class="section-title">🌐 AI/科技新闻 <span class="section-count">(13)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://www.anthropic.com/news/fable-mythos-access" data-url="https://www.anthropic.com/news/fable-mythos-access">
+    <div class="card-header">
+        <h3 class="card-title">𝗨𝗦 政府以国家安全为由强制 Anthropic 关闭 Fable 5 和 Mythos 5 模型</h3>
+        <button class="card-bookmark" data-url="https://www.anthropic.com/news/fable-mythos-access" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Anthropic 公告确认两款旗舰模型因商务部禁令下线——AI 史上首次政府强制关闭已部署前沿模型。Amazon 等六家公司被指触发此次禁令，另白宫称中国可能已通过第三方访问 Mythos 模型权重。</p>
+    <div class="card-insight">💡 这不仅是一次模型下线，更是 AI 地缘政治化的里程碑事件。对依赖 Claude API 的企业，需评估合规风险与模型替代方案，备选包括 OpenAI/Google 商业模型或开源模型。</div>
+    <div class="card-actions">
+        <a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.anthropic.com</span>
+        <span class="card-read-badge" data-url="https://www.anthropic.com/news/fable-mythos-access">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE" data-url="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE">
+    <div class="card-header">
+        <h3 class="card-title">𝗪𝗪𝗗𝗖 𝟮𝟬𝟮𝟲：Apple Siri 引入 Gemini 1.2T 参数模型，但仅限云端运行</h3>
+        <button class="card-bookmark" data-url="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Apple 与 Google 达成合作，Siri AI 能力由 Gemini 提供算力支撑。然而 1.2T 参数的模型无法在 iPhone 本地运行，全部推理依赖云端。</p>
+    <div class="card-insight">💡 Apple 在 AI 上的&quot;借力策略&quot;愈发明确——自研模型进展落后，转而押注 Google 生态。对开发者而言，Siri AI 开放 API 程度将是关键变量。</div>
+    <div class="card-actions">
+        <a href="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.infoq.cn</span>
+        <span class="card-read-badge" data-url="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u" data-url="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u">
+    <div class="card-header">
+        <h3 class="card-title">𝗟𝗶𝗻𝘂𝘅 𝟳.𝟭 正式发布</h3>
+        <button class="card-bookmark" data-url="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Linus Torvalds 宣布 Linux 7.1 版本就绪，这是继 7.0 之后的第一个稳定更新，涵盖架构支持增强、驱动更新和性能优化。</p>
+    <div class="card-insight">💡 Linux 主版本号从 6 跳到 7 标志着内核的重大演进（7.0 于 2025 年发布），7.1 延续了高频率迭代节奏。云端基础设施和嵌入式开发者应关注内核 ABI 变更。</div>
+    <div class="card-actions">
+        <a href="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">lore.kernel.org</span>
+        <span class="card-read-badge" data-url="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.ifanr.com/1668931" data-url="https://www.ifanr.com/1668931">
+    <div class="card-header">
+        <h3 class="card-title">𝗛𝗗𝗖 𝟮𝟬𝟮𝟲 深度：鸿蒙全面向 Agent 架构演进，小艺 AI 完成三大升级</h3>
+        <button class="card-bookmark" data-url="https://www.ifanr.com/1668931" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">华为开发者大会揭示鸿蒙系统级 Agent 化路径——小艺助手从语音助手升级为跨应用自主 Agent，可跨 App 完成多步骤任务编排。</p>
+    <div class="card-insight">💡 &quot;系统即 Agent&quot;是 2026 年的终端趋势。鸿蒙的做法与 Apple Intelligence 和 Android AI Core 理念趋同，但华为在端侧推理和硬件协同上有差异化优势。</div>
+    <div class="card-actions">
+        <a href="https://www.ifanr.com/1668931" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.ifanr.com</span>
+        <span class="card-read-badge" data-url="https://www.ifanr.com/1668931">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/" data-url="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/">
+    <div class="card-header">
+        <h3 class="card-title">英国拟立法禁止 16 岁以下儿童使用社交媒体</h3>
+        <button class="card-bookmark" data-url="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">TechCrunch 报道，英国议会正酝酿新法案，将社交媒体最低年龄从 13 岁提高至 16 岁，覆盖 TikTok、Instagram、Snapchat 等主流平台。</p>
+    <div class="card-insight">💡 继澳大利亚之后，英国的跟进意味着儿童网络保护立法的全球化加速。对社交平台而言，年龄验证技术将成为合规刚需，可能催生一批身份验证工具需求。</div>
+    <div class="card-actions">
+        <a href="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">techcrunch.com</span>
+        <span class="card-read-badge" data-url="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://developer.apple.com/private-cloud-compute/" data-url="https://developer.apple.com/private-cloud-compute/">
+    <div class="card-header">
+        <h3 class="card-title">𝗔𝗽𝗽𝗹𝗲 𝗣𝗿𝗶𝘃𝗮𝘁𝗲 𝗖𝗹𝗼𝘂𝗱 𝗖𝗼𝗺𝗽𝘂𝘁𝗲 对第三方开发者严重受限</h3>
+        <button class="card-bookmark" data-url="https://developer.apple.com/private-cloud-compute/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Apple 私密云计算（PCC）虽在隐私保护上获得好评，但开发者文档显示其 API 和模型访问权限极度有限，第三方几乎无法深度集成。</p>
+    <div class="card-insight">💡 PCC 目前更像是 Apple 自用的封闭特权——隐私做得好，但生态开放性不足。对于做 AI 应用的开发者，仍需自建或选用 AWS/GCP 的推理基础设施。</div>
+    <div class="card-actions">
+        <a href="https://developer.apple.com/private-cloud-compute/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">developer.apple.com</span>
+        <span class="card-read-badge" data-url="https://developer.apple.com/private-cloud-compute/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://openai.com/index/introducing-openai-partner-network" data-url="https://openai.com/index/introducing-openai-partner-network">
+    <div class="card-header">
+        <h3 class="card-title">𝗢𝗽𝗲𝗻𝗔𝗜 推出合作伙伴网络（Partner Network）</h3>
+        <button class="card-bookmark" data-url="https://openai.com/index/introducing-openai-partner-network" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">OpenAI 正式发布全球合作伙伴计划，为系统集成商、咨询公司和 ISV 提供培训、认证和联合销售通道，加速 GPT/ChatGPT/Codex 在企业端的落地。</p>
+    <div class="card-insight">💡 这是 OpenAI 企业化的关键一步——从技术提供商转型为平台生态商。对企业的启示：通过官方合作伙伴采购可能获得更好的 SLA 和集成支持。</div>
+    <div class="card-actions">
+        <a href="https://openai.com/index/introducing-openai-partner-network" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">openai.com</span>
+        <span class="card-read-badge" data-url="https://openai.com/index/introducing-openai-partner-network">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.qbitai.com/2026/06/435394.html" data-url="https://www.qbitai.com/2026/06/435394.html">
+    <div class="card-header">
+        <h3 class="card-title">𝟮𝟬𝟮𝟲 智源大会开幕：推动 AI、物理世界和生命科学"三体互动"</h3>
+        <button class="card-bookmark" data-url="https://www.qbitai.com/2026/06/435394.html" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">北京智源大会提出 AI 须与物理世界（机器人、自动驾驶）和生命科学（蛋白质设计、药物发现）深度融合，发布多项基础模型和开源数据集。</p>
+    <div class="card-insight">💡 中国 AI 学界正在推动 AI 研究从&quot;数字虚拟&quot;走向&quot;物理真实&quot;。这种跨学科融合是下一代 AI 应用的底层逻辑，也对应着巨大的产业机会。</div>
+    <div class="card-actions">
+        <a href="https://www.qbitai.com/2026/06/435394.html" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.qbitai.com</span>
+        <span class="card-read-badge" data-url="https://www.qbitai.com/2026/06/435394.html">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/" data-url="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/">
+    <div class="card-header">
+        <h3 class="card-title">𝗞𝗣𝗠𝗚 被曝编造 AI 案例研究以推销客户</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">KPMG 在一份向客户推广 AI 采纳的报告中虚构了多个 AI 应用案例，被外媒揭露后引发信任危机。</p>
+    <div class="card-insight">💡 咨询公司兜售 AI 的&quot;FOMO 焦虑&quot;正达到顶峰——客户需对供应商宣称的 AI 成果保持警惕，要求可验证的证据而非漂亮的 PPT。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/asgeirtj/system_prompts_leaks" data-url="https://github.com/asgeirtj/system_prompts_leaks">
+    <div class="card-header">
+        <h3 class="card-title">𝗖𝗹𝗮𝘂𝗱𝗲/𝗖𝗵𝗮𝘁𝗚𝗣𝗧/𝗚𝗲𝗺𝗶𝗻𝗶 系统提示词大规模泄露</h3>
+        <button class="card-bookmark" data-url="https://github.com/asgeirtj/system_prompts_leaks" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">GitHub 仓库 `system_prompts_leaks` 公布了三家顶级 AI 公司的完整系统提示词——Claude Fable 5、Opus 4.8、ChatGPT 5.5 Thinking、Gemini 3.5 Flash 等模型的内部指令全部曝光。</p>
+    <div class="card-insight">💡 这是 2026 年迄今最大的 AI security 事件之一。系统提示词泄露可能帮助攻击者绕过安全护栏（jailbreak），但也为研究者提供了研究模型行为的宝贵透明度。</div>
+    <div class="card-actions">
+        <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/asgeirtj/system_prompts_leaks">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/harvard-edge/cs249r_book" data-url="https://github.com/harvard-edge/cs249r_book">
+    <div class="card-header">
+        <h3 class="card-title">哈佛开源《Machine Learning Systems》教材</h3>
+        <button class="card-bookmark" data-url="https://github.com/harvard-edge/cs249r_book" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">哈佛边缘计算实验室（Harvard Edge）发布 ML 系统工程化教材，覆盖训练、部署、监控、MLOps 全链路，适合进阶开发者系统学习。</p>
+    <div class="card-insight">💡 这是继 Chip Huyen 的 ML 系统设计之后又一本高质量的免费资源。对正在搭建 ML 基础设施的团队有直接参考价值。</div>
+    <div class="card-actions">
+        <a href="https://github.com/harvard-edge/cs249r_book" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/harvard-edge/cs249r_book">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/" data-url="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/">
+    <div class="card-header">
+        <h3 class="card-title">𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 𝗠𝗶𝗿𝗮𝗴𝗲：赋予视频生成的持久空间记忆</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Microsoft Research 发布 Mirage 模型，能在视频生成中维持贯穿多帧的持久空间记忆，解决&quot;转个角就忘了&quot;的经典问题。</p>
+    <div class="card-insight">💡 视频生成的下一关是 temporal consistency（时序一致性）。Mirage 路线有望在 AR/VR 和游戏内容生成中找到应用场景。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/" data-url="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/">
+    <div class="card-header">
+        <h3 class="card-title">𝗔𝗜 公司 IPO 竞赛全面开启——谁是下一个上车者？</h3>
+        <button class="card-bookmark" data-url="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">TechCrunch 分析指出 OpenAI、Anthropic、CoreWeave 等多家 AI 公司正跑步上市，但二级市场对高估值 AI 公司的态度从狂热转向谨慎。</p>
+    <div class="card-insight">💡 AI 估值泡沫面临首次公开市场考验。普通投资者应区分&quot;卖铲子的&quot;（基础设施）和&quot;淘金的&quot;（应用层），前者如 CoreWeave/GPU 云更可能在 IPO 中支撑住估值。</div>
+    <div class="card-actions">
+        <a href="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">techcrunch.com</span>
+        <span class="card-read-badge" data-url="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/">✓ 已读</span>
+    </div>
+</article>
+    </div>
 </section>
-    <footer>🤖 follow-news v4.0</footer>
+<section class="section" data-category="github">
+    <h2 class="section-title">🔥 GitHub Trending <span class="section-count">(5)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/DietrichGebert/ponytail" data-url="https://github.com/DietrichGebert/ponytail">
+    <div class="card-header">
+        <h3 class="card-title">𝗗𝗶𝗲𝘁𝗿𝗶𝗰𝗵𝗚𝗲𝗯𝗲𝗿𝘁/𝗽𝗼𝗻𝘆𝘁𝗮𝗶𝗹 — 让 AI agent 学会"最懒的资深开发者"思维</h3>
+        <button class="card-bookmark" data-url="https://github.com/DietrichGebert/ponytail" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">一个 Claude Code 插件，教 AI 以最小代码解决需求——少写代码 = 少维护 = 少 Bug。3 天内从 0→8322 星。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 8,322 (+2,774/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/DietrichGebert/ponytail">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/omnigent-ai/omnigent" data-url="https://github.com/omnigent-ai/omnigent">
+    <div class="card-header">
+        <h3 class="card-title">𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁-𝗮𝗶/𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁 — 元调度层：一个平台管所有 AI Agent</h3>
+        <button class="card-bookmark" data-url="https://github.com/omnigent-ai/omnigent" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">在 Claude Code、Codex、Pi 等 Agent 上提供统一抽象层，切换工具链不影响工作流。4 天内破千星。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 1,229 (+410/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/omnigent-ai/omnigent">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/orange2ai/renwei-writing" data-url="https://github.com/orange2ai/renwei-writing">
+    <div class="card-header">
+        <h3 class="card-title">𝗼𝗿𝗮𝗻𝗴𝗲𝟮𝗮𝗶/𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：AI 润色不抹去人格</h3>
+        <button class="card-bookmark" data-url="https://github.com/orange2ai/renwei-writing" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">面向中文写作的 Agent skill，保留作者个人风格的同时提升文字质量。3 天 571 星。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 571 (+286/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/orange2ai/renwei-writing">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/royalbhati/sqltoerdiagram" data-url="https://github.com/royalbhati/sqltoerdiagram">
+    <div class="card-header">
+        <h3 class="card-title">𝗿𝗼𝘆𝗮𝗹𝗯𝗵𝗮𝘁𝗶/𝘀𝗾𝗹𝘁𝗼𝗲𝗿𝗱𝗶𝗮𝗴𝗿𝗮𝗺 — 粘贴 SQL 即可生成交互式 ER 图</h3>
+        <button class="card-bookmark" data-url="https://github.com/royalbhati/sqltoerdiagram" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">100% 浏览器端运行，无需后端——隐私友好且零配置。发布当天即 280 星。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/royalbhati/sqltoerdiagram" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 280 (+280/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/royalbhati/sqltoerdiagram">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/bjarneo/kli" data-url="https://github.com/bjarneo/kli">
+    <div class="card-header">
+        <h3 class="card-title">𝗯𝗷𝗮𝗿𝗻𝗲𝗼/𝗸𝗹𝗶 — 键盘驱动的 Kubernetes TUI</h3>
+        <button class="card-bookmark" data-url="https://github.com/bjarneo/kli" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">受 k9s 启发但更轻量、更快，支持资源浏览、对象编辑、日志追踪和 Pod Shell 直连。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/bjarneo/kli" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 219 (+219/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/bjarneo/kli">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+<section class="section" data-category="community">
+    <h2 class="section-title">💬 社区讨论 <span class="section-count">(3)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/nex-agi/Nex-N2/issues/4" data-url="https://github.com/nex-agi/Nex-N2/issues/4">
+    <div class="card-header">
+        <h3 class="card-title">𝗥𝗶𝗼 𝗱𝗲 𝗝𝗮𝗻𝗲𝗶𝗿𝗼 "自研" LLM 被指是已有模型的合并</h3>
+        <button class="card-bookmark" data-url="https://github.com/nex-agi/Nex-N2/issues/4" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">里约政府声称自研的 Nex-N2 大模型被社区发现实际是已有开源模型的拼接，引发对政府 AI 项目透明度的广泛讨论。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/nex-agi/Nex-N2/issues/4" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/nex-agi/Nex-N2/issues/4">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/tamnd/kage" data-url="https://github.com/tamnd/kage">
+    <div class="card-header">
+        <h3 class="card-title">𝗦𝗵𝗼𝘄 𝗛𝗡: 𝗞𝗮𝗴𝗲 — 将任意网站打包为单二进制离线浏览</h3>
+        <button class="card-bookmark" data-url="https://github.com/tamnd/kage" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">HN 404 分高赞项目——解决网络不稳定环境下的文档查阅痛点，引发对「数字永久保存」的讨论。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/tamnd/kage" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/tamnd/kage">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.v2ex.com/t/1220264" data-url="https://www.v2ex.com/t/1220264">
+    <div class="card-header">
+        <h3 class="card-title">𝗩𝟮𝗘𝗫 热议：AI 付费服务的性价比困境</h3>
+        <button class="card-bookmark" data-url="https://www.v2ex.com/t/1220264" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">用户反映 GLM token plan 买不到、AI 付费服务定价与实际体验不匹配，社区讨论聚焦「AI 服务定价透明化」问题。</p>
+    
+    <div class="card-actions">
+        <a href="https://www.v2ex.com/t/1220264" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.v2ex.com</span>
+        <span class="card-read-badge" data-url="https://www.v2ex.com/t/1220264">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+<section class="section" data-category="papers">
+    <h2 class="section-title">📄 AI 热门论文 <span class="section-count">(3)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://huggingface.co/papers/2606.11599" data-url="https://huggingface.co/papers/2606.11599">
+    <div class="card-header">
+        <h3 class="card-title">𝗪𝗵𝗲𝗻 𝗶𝘀 𝗬𝗼𝘂𝗿 𝗟𝗟𝗠 𝗦𝘁𝗲𝗲𝗿𝗮𝗯𝗹𝗲?</h3>
+        <button class="card-bookmark" data-url="https://huggingface.co/papers/2606.11599" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">系统研究 activation steering 何时成功/失败——结论：取决于 prompt、概念、模型和 steering 配置的组合。对想用轻量方法控制 LLM 输出的开发者有直接指导意义。</p>
+    
+    <div class="card-actions">
+        <a href="https://huggingface.co/papers/2606.11599" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">huggingface.co</span>
+        <span class="card-read-badge" data-url="https://huggingface.co/papers/2606.11599">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://huggingface.co/papers/2606.13594" data-url="https://huggingface.co/papers/2606.13594">
+    <div class="card-header">
+        <h3 class="card-title">𝗦𝗲𝗲 𝗪𝗵𝗮𝘁 𝗜 𝗦𝗲𝗲, 𝗞𝗻𝗼𝘄 𝗪𝗵𝗮𝘁 𝗜 𝗧𝗵𝗶𝗻𝗸 — 异构 Agent 间密集潜空间通信</h3>
+        <button class="card-bookmark" data-url="https://huggingface.co/papers/2606.13594" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">提出跨模型 KV-cache 通信协议，让不同架构的 Agent 无需 decode→text→re-encode 即可直接交换信息，大幅降低通信开销。</p>
+    
+    <div class="card-actions">
+        <a href="https://huggingface.co/papers/2606.13594" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">huggingface.co</span>
+        <span class="card-read-badge" data-url="https://huggingface.co/papers/2606.13594">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://huggingface.co/papers/2606.07867" data-url="https://huggingface.co/papers/2606.07867">
+    <div class="card-header">
+        <h3 class="card-title">𝗧𝗵𝗲 𝗖𝗼𝗹𝗱-𝗦𝘁𝗮𝗿𝘁 𝗦𝗮𝗳𝗲𝘁𝘆 𝗚𝗮𝗽 𝗶𝗻 𝗟𝗟𝗠 𝗔𝗴𝗲𝗻𝘁𝘀</h3>
+        <button class="card-bookmark" data-url="https://huggingface.co/papers/2606.07867" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">发现 LLM Agent 在会话开始时最不安全，执行几次常规任务后安全性显著提升——揭示了工具调用 Agent 的冷启动安全脆弱性，对部署 Agent 系统的安全策略设计有重要影响。</p>
+    
+    <div class="card-actions">
+        <a href="https://huggingface.co/papers/2606.07867" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">huggingface.co</span>
+        <span class="card-read-badge" data-url="https://huggingface.co/papers/2606.07867">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+<section class="section" data-category="products">
+    <h2 class="section-title">🆕 产品/工具 <span class="section-count">(1)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/memi-ai/memi" data-url="https://github.com/memi-ai/memi">
+    <div class="card-header">
+        <h3 class="card-title">𝗺𝗲𝗺𝗶-𝗮𝗶/𝗺𝗲𝗺𝗶：本地 AI Agent，63 工具 + 80+ Provider + ClawHub 兼容</h3>
+        <button class="card-bookmark" data-url="https://github.com/memi-ai/memi" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">主打本地运行、全功能 Agent 框架——不需要云端 API key，隐私优先。与 ClawHub 技能生态兼容，降低了技能复用门槛。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/memi-ai/memi" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/memi-ai/memi">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+
+    <div class="no-results" id="no-results">
+        <div class="no-results-icon">🔍</div>
+        <p>没有匹配的文章</p>
+    </div>
+
+    <footer>🤖 follow-news v5.0 · <span id="footer-stats"></span></footer>
 </div>
-<button id="back-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<button id="back-top" title="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast"></div>
+
 <script>
-// Card click → open first link in new tab
-document.querySelectorAll('.card[data-href]').forEach(el=>{
-    el.addEventListener('click',function(e){
-        if(e.target.closest('a'))return;
-        var a=document.createElement('a');
-        a.href=this.dataset.href;a.target='_blank';a.rel='noopener';
-        a.click()
-    })
-})
-// Back to top visibility
-const btn=document.getElementById('back-top')
-window.addEventListener('scroll',function(){
-    btn.classList.toggle('visible',window.scrollY>500)
-})
+// ═══════════════════════════════════════════════════════════
+//  follow-news v5.0 — Client-side logic
+// ═══════════════════════════════════════════════════════════
+
+const DIGEST_DATE = "2026-06-15";
+const ALL_ARTICLES = [
+{"title": "𝗨𝗦 政府以国家安全为由强制 Anthropic 关闭 Fable 5 和 Mythos 5 模型", "summary": "Anthropic 公告确认两款旗舰模型因商务部禁令下线——AI 史上首次政府强制关闭已部署前沿模型。Amazon 等六家公司被指触发此次禁令，另白宫称中国可能已通过第三方访问 Mythos 模型权重。", "insight": "这不仅是一次模型下线，更是 AI 地缘政治化的里程碑事件。对依赖 Claude API 的企业，需评估合规风险与模型替代方案，备选包括 OpenAI/Google 商业模型或开源模型。", "url": "https://www.anthropic.com/news/fable-mythos-access", "category": "news", "stars": "", "domain": "www.anthropic.com"},
+{"title": "𝗪𝗪𝗗𝗖 𝟮𝟬𝟮𝟲：Apple Siri 引入 Gemini 1.2T 参数模型，但仅限云端运行", "summary": "Apple 与 Google 达成合作，Siri AI 能力由 Gemini 提供算力支撑。然而 1.2T 参数的模型无法在 iPhone 本地运行，全部推理依赖云端。", "insight": "Apple 在 AI 上的\"借力策略\"愈发明确——自研模型进展落后，转而押注 Google 生态。对开发者而言，Siri AI 开放 API 程度将是关键变量。", "url": "https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE", "category": "news", "stars": "", "domain": "www.infoq.cn"},
+{"title": "𝗟𝗶𝗻𝘂𝘅 𝟳.𝟭 正式发布", "summary": "Linus Torvalds 宣布 Linux 7.1 版本就绪，这是继 7.0 之后的第一个稳定更新，涵盖架构支持增强、驱动更新和性能优化。", "insight": "Linux 主版本号从 6 跳到 7 标志着内核的重大演进（7.0 于 2025 年发布），7.1 延续了高频率迭代节奏。云端基础设施和嵌入式开发者应关注内核 ABI 变更。", "url": "https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u", "category": "news", "stars": "", "domain": "lore.kernel.org"},
+{"title": "𝗛𝗗𝗖 𝟮𝟬𝟮𝟲 深度：鸿蒙全面向 Agent 架构演进，小艺 AI 完成三大升级", "summary": "华为开发者大会揭示鸿蒙系统级 Agent 化路径——小艺助手从语音助手升级为跨应用自主 Agent，可跨 App 完成多步骤任务编排。", "insight": "\"系统即 Agent\"是 2026 年的终端趋势。鸿蒙的做法与 Apple Intelligence 和 Android AI Core 理念趋同，但华为在端侧推理和硬件协同上有差异化优势。", "url": "https://www.ifanr.com/1668931", "category": "news", "stars": "", "domain": "www.ifanr.com"},
+{"title": "英国拟立法禁止 16 岁以下儿童使用社交媒体", "summary": "TechCrunch 报道，英国议会正酝酿新法案，将社交媒体最低年龄从 13 岁提高至 16 岁，覆盖 TikTok、Instagram、Snapchat 等主流平台。", "insight": "继澳大利亚之后，英国的跟进意味着儿童网络保护立法的全球化加速。对社交平台而言，年龄验证技术将成为合规刚需，可能催生一批身份验证工具需求。", "url": "https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/", "category": "news", "stars": "", "domain": "techcrunch.com"},
+{"title": "𝗔𝗽𝗽𝗹𝗲 𝗣𝗿𝗶𝘃𝗮𝘁𝗲 𝗖𝗹𝗼𝘂𝗱 𝗖𝗼𝗺𝗽𝘂𝘁𝗲 对第三方开发者严重受限", "summary": "Apple 私密云计算（PCC）虽在隐私保护上获得好评，但开发者文档显示其 API 和模型访问权限极度有限，第三方几乎无法深度集成。", "insight": "PCC 目前更像是 Apple 自用的封闭特权——隐私做得好，但生态开放性不足。对于做 AI 应用的开发者，仍需自建或选用 AWS/GCP 的推理基础设施。", "url": "https://developer.apple.com/private-cloud-compute/", "category": "news", "stars": "", "domain": "developer.apple.com"},
+{"title": "𝗢𝗽𝗲𝗻𝗔𝗜 推出合作伙伴网络（Partner Network）", "summary": "OpenAI 正式发布全球合作伙伴计划，为系统集成商、咨询公司和 ISV 提供培训、认证和联合销售通道，加速 GPT/ChatGPT/Codex 在企业端的落地。", "insight": "这是 OpenAI 企业化的关键一步——从技术提供商转型为平台生态商。对企业的启示：通过官方合作伙伴采购可能获得更好的 SLA 和集成支持。", "url": "https://openai.com/index/introducing-openai-partner-network", "category": "news", "stars": "", "domain": "openai.com"},
+{"title": "𝟮𝟬𝟮𝟲 智源大会开幕：推动 AI、物理世界和生命科学\"三体互动\"", "summary": "北京智源大会提出 AI 须与物理世界（机器人、自动驾驶）和生命科学（蛋白质设计、药物发现）深度融合，发布多项基础模型和开源数据集。", "insight": "中国 AI 学界正在推动 AI 研究从\"数字虚拟\"走向\"物理真实\"。这种跨学科融合是下一代 AI 应用的底层逻辑，也对应着巨大的产业机会。", "url": "https://www.qbitai.com/2026/06/435394.html", "category": "news", "stars": "", "domain": "www.qbitai.com"},
+{"title": "𝗞𝗣𝗠𝗚 被曝编造 AI 案例研究以推销客户", "summary": "KPMG 在一份向客户推广 AI 采纳的报告中虚构了多个 AI 应用案例，被外媒揭露后引发信任危机。", "insight": "咨询公司兜售 AI 的\"FOMO 焦虑\"正达到顶峰——客户需对供应商宣称的 AI 成果保持警惕，要求可验证的证据而非漂亮的 PPT。", "url": "https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "𝗖𝗹𝗮𝘂𝗱𝗲/𝗖𝗵𝗮𝘁𝗚𝗣𝗧/𝗚𝗲𝗺𝗶𝗻𝗶 系统提示词大规模泄露", "summary": "GitHub 仓库 `system_prompts_leaks` 公布了三家顶级 AI 公司的完整系统提示词——Claude Fable 5、Opus 4.8、ChatGPT 5.5 Thinking、Gemini 3.5 Flash 等模型的内部指令全部曝光。", "insight": "这是 2026 年迄今最大的 AI security 事件之一。系统提示词泄露可能帮助攻击者绕过安全护栏（jailbreak），但也为研究者提供了研究模型行为的宝贵透明度。", "url": "https://github.com/asgeirtj/system_prompts_leaks", "category": "news", "stars": "", "domain": "github.com"},
+{"title": "哈佛开源《Machine Learning Systems》教材", "summary": "哈佛边缘计算实验室（Harvard Edge）发布 ML 系统工程化教材，覆盖训练、部署、监控、MLOps 全链路，适合进阶开发者系统学习。", "insight": "这是继 Chip Huyen 的 ML 系统设计之后又一本高质量的免费资源。对正在搭建 ML 基础设施的团队有直接参考价值。", "url": "https://github.com/harvard-edge/cs249r_book", "category": "news", "stars": "", "domain": "github.com"},
+{"title": "𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 𝗠𝗶𝗿𝗮𝗴𝗲：赋予视频生成的持久空间记忆", "summary": "Microsoft Research 发布 Mirage 模型，能在视频生成中维持贯穿多帧的持久空间记忆，解决\"转个角就忘了\"的经典问题。", "insight": "视频生成的下一关是 temporal consistency（时序一致性）。Mirage 路线有望在 AR/VR 和游戏内容生成中找到应用场景。", "url": "https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "𝗔𝗜 公司 IPO 竞赛全面开启——谁是下一个上车者？", "summary": "TechCrunch 分析指出 OpenAI、Anthropic、CoreWeave 等多家 AI 公司正跑步上市，但二级市场对高估值 AI 公司的态度从狂热转向谨慎。", "insight": "AI 估值泡沫面临首次公开市场考验。普通投资者应区分\"卖铲子的\"（基础设施）和\"淘金的\"（应用层），前者如 CoreWeave/GPU 云更可能在 IPO 中支撑住估值。", "url": "https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/", "category": "news", "stars": "", "domain": "techcrunch.com"},
+{"title": "𝗗𝗶𝗲𝘁𝗿𝗶𝗰𝗵𝗚𝗲𝗯𝗲𝗿𝘁/𝗽𝗼𝗻𝘆𝘁𝗮𝗶𝗹 — 让 AI agent 学会\"最懒的资深开发者\"思维", "summary": "一个 Claude Code 插件，教 AI 以最小代码解决需求——少写代码 = 少维护 = 少 Bug。3 天内从 0→8322 星。", "insight": "", "url": "https://github.com/DietrichGebert/ponytail", "category": "github", "stars": "8,322 (+2,774/d)", "domain": "github.com"},
+{"title": "𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁-𝗮𝗶/𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁 — 元调度层：一个平台管所有 AI Agent", "summary": "在 Claude Code、Codex、Pi 等 Agent 上提供统一抽象层，切换工具链不影响工作流。4 天内破千星。", "insight": "", "url": "https://github.com/omnigent-ai/omnigent", "category": "github", "stars": "1,229 (+410/d)", "domain": "github.com"},
+{"title": "𝗼𝗿𝗮𝗻𝗴𝗲𝟮𝗮𝗶/𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：AI 润色不抹去人格", "summary": "面向中文写作的 Agent skill，保留作者个人风格的同时提升文字质量。3 天 571 星。", "insight": "", "url": "https://github.com/orange2ai/renwei-writing", "category": "github", "stars": "571 (+286/d)", "domain": "github.com"},
+{"title": "𝗿𝗼𝘆𝗮𝗹𝗯𝗵𝗮𝘁𝗶/𝘀𝗾𝗹𝘁𝗼𝗲𝗿𝗱𝗶𝗮𝗴𝗿𝗮𝗺 — 粘贴 SQL 即可生成交互式 ER 图", "summary": "100% 浏览器端运行，无需后端——隐私友好且零配置。发布当天即 280 星。", "insight": "", "url": "https://github.com/royalbhati/sqltoerdiagram", "category": "github", "stars": "280 (+280/d)", "domain": "github.com"},
+{"title": "𝗯𝗷𝗮𝗿𝗻𝗲𝗼/𝗸𝗹𝗶 — 键盘驱动的 Kubernetes TUI", "summary": "受 k9s 启发但更轻量、更快，支持资源浏览、对象编辑、日志追踪和 Pod Shell 直连。", "insight": "", "url": "https://github.com/bjarneo/kli", "category": "github", "stars": "219 (+219/d)", "domain": "github.com"},
+{"title": "𝗥𝗶𝗼 𝗱𝗲 𝗝𝗮𝗻𝗲𝗶𝗿𝗼 \"自研\" LLM 被指是已有模型的合并", "summary": "里约政府声称自研的 Nex-N2 大模型被社区发现实际是已有开源模型的拼接，引发对政府 AI 项目透明度的广泛讨论。", "insight": "", "url": "https://github.com/nex-agi/Nex-N2/issues/4", "category": "community", "stars": "", "domain": "github.com"},
+{"title": "𝗦𝗵𝗼𝘄 𝗛𝗡: 𝗞𝗮𝗴𝗲 — 将任意网站打包为单二进制离线浏览", "summary": "HN 404 分高赞项目——解决网络不稳定环境下的文档查阅痛点，引发对「数字永久保存」的讨论。", "insight": "", "url": "https://github.com/tamnd/kage", "category": "community", "stars": "", "domain": "github.com"},
+{"title": "𝗩𝟮𝗘𝗫 热议：AI 付费服务的性价比困境", "summary": "用户反映 GLM token plan 买不到、AI 付费服务定价与实际体验不匹配，社区讨论聚焦「AI 服务定价透明化」问题。", "insight": "", "url": "https://www.v2ex.com/t/1220264", "category": "community", "stars": "", "domain": "www.v2ex.com"},
+{"title": "𝗪𝗵𝗲𝗻 𝗶𝘀 𝗬𝗼𝘂𝗿 𝗟𝗟𝗠 𝗦𝘁𝗲𝗲𝗿𝗮𝗯𝗹𝗲?", "summary": "系统研究 activation steering 何时成功/失败——结论：取决于 prompt、概念、模型和 steering 配置的组合。对想用轻量方法控制 LLM 输出的开发者有直接指导意义。", "insight": "", "url": "https://huggingface.co/papers/2606.11599", "category": "papers", "stars": "", "domain": "huggingface.co"},
+{"title": "𝗦𝗲𝗲 𝗪𝗵𝗮𝘁 𝗜 𝗦𝗲𝗲, 𝗞𝗻𝗼𝘄 𝗪𝗵𝗮𝘁 𝗜 𝗧𝗵𝗶𝗻𝗸 — 异构 Agent 间密集潜空间通信", "summary": "提出跨模型 KV-cache 通信协议，让不同架构的 Agent 无需 decode→text→re-encode 即可直接交换信息，大幅降低通信开销。", "insight": "", "url": "https://huggingface.co/papers/2606.13594", "category": "papers", "stars": "", "domain": "huggingface.co"},
+{"title": "𝗧𝗵𝗲 𝗖𝗼𝗹𝗱-𝗦𝘁𝗮𝗿𝘁 𝗦𝗮𝗳𝗲𝘁𝘆 𝗚𝗮𝗽 𝗶𝗻 𝗟𝗟𝗠 𝗔𝗴𝗲𝗻𝘁𝘀", "summary": "发现 LLM Agent 在会话开始时最不安全，执行几次常规任务后安全性显著提升——揭示了工具调用 Agent 的冷启动安全脆弱性，对部署 Agent 系统的安全策略设计有重要影响。", "insight": "", "url": "https://huggingface.co/papers/2606.07867", "category": "papers", "stars": "", "domain": "huggingface.co"},
+{"title": "𝗺𝗲𝗺𝗶-𝗮𝗶/𝗺𝗲𝗺𝗶：本地 AI Agent，63 工具 + 80+ Provider + ClawHub 兼容", "summary": "主打本地运行、全功能 Agent 框架——不需要云端 API key，隐私优先。与 ClawHub 技能生态兼容，降低了技能复用门槛。", "insight": "", "url": "https://github.com/memi-ai/memi", "category": "products", "stars": "", "domain": "github.com"}
+];
+
+// ── localStorage helpers ──
+const LS_BOOKMARKS = 'fn_bookmarks';
+const LS_READ = 'fn_read';
+
+function getLS(key) {
+    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }
+    catch { return new Set(); }
+}
+function setLS(key, set) {
+    try { localStorage.setItem(key, JSON.stringify([...set])); } catch {}
+}
+function inLS(key, url) { return getLS(key).has(url); }
+function toggleLS(key, url) {
+    const s = getLS(key);
+    if (s.has(url)) { s.delete(url); } else { s.add(url); }
+    setLS(key, s);
+    return s.has(url);
+}
+
+// ── State ──
+let activeFilter = 'all';
+let searchQuery = '';
+
+// ── DOM refs ──
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const searchInfo = document.getElementById('search-info');
+const filterChips = document.getElementById('filter-chips');
+const noResults = document.getElementById('no-results');
+const toast = document.getElementById('toast');
+const backTop = document.getElementById('back-top');
+
+// ── Card click → open URL ──
+document.querySelectorAll('.card[data-href]').forEach(card => {
+    card.addEventListener('click', function(e) {
+        if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.card-bookmark')) return;
+        const url = this.dataset.href;
+        if (url) {
+            markRead(this.dataset.url || url);
+            window.open(url, '_blank', 'noopener');
+        }
+    });
+});
+
+// ── Bookmark buttons ──
+document.querySelectorAll('.card-bookmark').forEach(btn => {
+    const url = btn.dataset.url;
+    if (inLS(LS_BOOKMARKS, url)) btn.classList.add('bookmarked');
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isNow = toggleLS(LS_BOOKMARKS, url);
+        this.classList.toggle('bookmarked', isNow);
+        showToast(isNow ? '已收藏 ★' : '已取消收藏');
+        updateCounts();
+        applyAllFilters();
+    });
+});
+
+// ── Read tracking ──
+function markRead(url) {
+    if (!inLS(LS_READ, url)) {
+        getLS(LS_READ).add(url);
+        setLS(LS_READ, getLS(LS_READ));
+    }
+    updateReadUI();
+    updateCounts();
+}
+
+function updateReadUI() {
+    const readSet = getLS(LS_READ);
+    document.querySelectorAll('.card[data-url]').forEach(card => {
+        if (readSet.has(card.dataset.url)) card.classList.add('read');
+    });
+}
+
+// ── Filter chips ──
+filterChips.addEventListener('click', function(e) {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    const filter = chip.dataset.filter;
+
+    // Toggle: clicking active chip deactivates → goes to 'all'
+    if (chip.classList.contains('active') && filter !== 'all') {
+        activeFilter = 'all';
+    } else {
+        activeFilter = filter;
+    }
+
+    updateChipUI();
+    applyAllFilters();
+});
+
+function updateChipUI() {
+    filterChips.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.filter === activeFilter);
+    });
+}
+
+// ── Search ──
+let searchTimer;
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        searchQuery = this.value.trim().toLowerCase();
+        searchClear.classList.toggle('visible', searchQuery.length > 0);
+        applyAllFilters();
+    }, 150);
+});
+searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchQuery = '';
+    searchClear.classList.remove('visible');
+    searchInput.focus();
+    applyAllFilters();
+});
+
+// ── Apply all filters ──
+function applyAllFilters() {
+    const readSet = getLS(LS_READ);
+    const bookmarkSet = getLS(LS_BOOKMARKS);
+    let visibleCount = 0;
+    let totalInFilter = 0;
+
+    document.querySelectorAll('.section').forEach(section => {
+        const cat = section.dataset.category;
+        let sectionHasVisible = false;
+
+        section.querySelectorAll('.card').forEach(card => {
+            const url = card.dataset.url;
+            let show = true;
+
+            // Category filter
+            if (activeFilter === 'bookmarks') {
+                show = bookmarkSet.has(url);
+            } else if (activeFilter === 'unread') {
+                show = !readSet.has(url);
+            } else if (activeFilter !== 'all') {
+                show = (cat === activeFilter);
+            }
+
+            // Search filter
+            if (show && searchQuery) {
+                const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+                const body = (card.querySelector('.card-body')?.textContent || '').toLowerCase();
+                const insight = (card.querySelector('.card-insight')?.textContent || '').toLowerCase();
+                const allText = title + ' ' + body + ' ' + insight;
+                const terms = searchQuery.split(/\s+/).filter(Boolean);
+                show = terms.every(t => allText.includes(t));
+            }
+
+            if (show) {
+                card.classList.remove('hidden-by-search');
+                visibleCount++;
+                sectionHasVisible = true;
+            } else {
+                card.classList.add('hidden-by-search');
+            }
+            totalInFilter++;
+        });
+
+        section.classList.toggle('hidden', !sectionHasVisible);
+    });
+
+    // No results
+    noResults.classList.toggle('visible', visibleCount === 0 && totalInFilter > 0);
+
+    // Search info
+    if (searchQuery) {
+        searchInfo.textContent = `找到 ${visibleCount} 篇`;
+    } else {
+        searchInfo.textContent = '';
+    }
+
+    updateCounts();
+}
+
+// ── Counts ──
+function updateCounts() {
+    const visible = document.querySelectorAll('.card:not(.hidden-by-search)').length;
+    const total = document.querySelectorAll('.card').length;
+    const bookmarkN = getLS(LS_BOOKMARKS).size;
+    const readN = getLS(LS_READ).size;
+    const unreadN = total - readN;
+
+    document.getElementById('total-count').innerHTML = `<strong>共 ${total} 篇</strong>`;
+    document.getElementById('visible-count').textContent = visible !== total ? `显示 ${visible} 篇` : '';
+    document.getElementById('bookmark-count').textContent = bookmarkN > 0 ? `📌 ${bookmarkN} 书签` : '';
+    document.getElementById('unread-count').textContent = unreadN > 0 ? `👁 ${unreadN} 未读` : '';
+    document.getElementById('footer-stats').textContent =
+        `${total} articles · ${bookmarkN} bookmarked · ${readN} read · built ${new Date().toISOString().slice(0,10)}`;
+
+    // Update chip labels
+    const bookmarkChip = filterChips.querySelector('[data-filter="bookmarks"]');
+    if (bookmarkChip) bookmarkChip.textContent = `📌 书签 (${bookmarkN})`;
+    const unreadChip = filterChips.querySelector('[data-filter="unread"]');
+    if (unreadChip) unreadChip.textContent = `👁 未读 (${unreadN})`;
+}
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+// ── Back to top ──
+window.addEventListener('scroll', function() {
+    backTop.classList.toggle('visible', window.scrollY > 500);
+});
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', function(e) {
+    // Ctrl+K or / → focus search
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement === document.body)) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+    }
+    // Escape → clear search
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchQuery = '';
+        searchClear.classList.remove('visible');
+        searchInput.blur();
+        applyAllFilters();
+    }
+});
+
+// ── Init ──
+updateReadUI();
+updateCounts();
 </script>
 </body>
 </html>

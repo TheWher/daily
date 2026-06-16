@@ -7,173 +7,875 @@
 <title>🤖 AI 科技日报 | 2026年6月12日 — AI 科技日报</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════════════════
+   follow-news v5.0 — Enhanced Reading Experience
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset & Tokens ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
     --bg:#0a0f1a;
     --card:#121a29;
+    --card2:#162032;
     --text:#cbd5e1;
+    --text2:#94a3b8;
     --muted:#64748b;
     --accent:#60a5fa;
+    --accent2:#3b82f6;
     --success:#34d399;
     --warning:#fbbf24;
     --danger:#f87171;
-    --card-hover:#162032;
+    --border:rgba(255,255,255,.06);
+    --shadow:0 1px 3px rgba(0,0,0,.4);
+    --radius:8px;
+    --font:'Inter',-apple-system,'Segoe UI','Noto Sans SC',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --transition:150ms ease;
 }
 html{scroll-behavior:smooth}
 body{
-    font-family:'Inter',-apple-system,sans-serif;
-    font-size:15px;line-height:1.55;
+    font-family:var(--font);
+    font-size:15px;line-height:1.6;
     background:var(--bg);color:var(--text);
-    font-weight:400;
+    -webkit-font-smoothing:antialiased;
 }
-a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-family:'JetBrains Mono',monospace;font-size:13px}
-a:hover{color:#93c5fd}
-.container{max-width:1400px;margin:0 auto;padding:32px 16px}
-h1{font-size:22px;font-weight:600;margin-bottom:8px;color:var(--text)}
-.delayed{color:var(--warning);font-size:13px;margin-bottom:24px}
-.section{margin-bottom:24px}
-.section-title{font-size:18px;font-weight:600;margin-bottom:12px;color:var(--text);text-transform:uppercase;letter-spacing:.03em}
-.cards{display:flex;flex-direction:column;gap:16px}
-.card{
-    background:var(--card);border-radius:4px;padding:12px;
-    box-shadow:0 1px 2px rgba(0,0,0,.3);
-    cursor:pointer;transition:background .15s;
+
+/* ── Top Bar (sticky) ── */
+.top-bar{
+    position:sticky;top:0;z-index:100;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    padding:12px 16px;
+    backdrop-filter:blur(12px);
+}
+.top-bar-inner{
+    max-width:1400px;margin:0 auto;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.search-wrap{
+    flex:1;min-width:200px;max-width:480px;
     position:relative;
 }
-.card:hover{background:var(--card-hover)}
-.card-title{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:4px;line-height:1.4}
-.card-body{font-size:15px;color:var(--text);margin-bottom:8px;line-height:1.55}
-.card-body br{display:block;content:'';margin-top:8px}
-.card-link{font-size:13px;word-break:break-all;display:inline-block;position:relative;z-index:2}
-.card-link:hover{color:#93c5fd!important}
-footer{text-align:center;color:var(--muted);font-size:13px;margin-top:32px;padding-top:16px;border-top:1px solid var(--card)}
-/* Archive bar */
+.search-wrap input{
+    width:100%;padding:8px 12px 8px 36px;
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);color:var(--text);
+    font-family:var(--font);font-size:14px;
+    outline:none;transition:border-color var(--transition),box-shadow var(--transition);
+}
+.search-wrap input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(96,165,250,.15);
+}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-icon{
+    position:absolute;left:10px;top:50%;transform:translateY(-50%);
+    color:var(--muted);font-size:16px;pointer-events:none;
+}
+.search-clear{
+    position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:16px;display:none;padding:2px 6px;border-radius:4px;
+}
+.search-clear:hover{color:var(--text);background:var(--card2)}
+.search-clear.visible{display:block}
+.search-info{
+    font-size:12px;color:var(--muted);white-space:nowrap;
+}
+
+/* ── Filter Chips ── */
+.chips{
+    display:flex;flex-wrap:nowrap;gap:6px;
+    overflow-x:auto;scrollbar-width:none;
+    padding:2px 0;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+    padding:5px 12px;border-radius:20px;
+    font-size:13px;font-family:var(--font);
+    border:1px solid var(--border);background:var(--card);
+    color:var(--text2);cursor:pointer;
+    white-space:nowrap;transition:all var(--transition);
+    user-select:none;
+}
+.chip:hover{border-color:var(--muted);color:var(--text)}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500}
+
+/* ── Container ── */
+.container{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
+.delayed{color:var(--warning);font-size:13px;margin-bottom:16px}
+
+/* ── Date Summary ── */
+.date-summary{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    margin-bottom:20px;font-size:13px;color:var(--text2);
+}
+.date-summary strong{color:var(--text)}
+
+/* ── Archive Bar (horizontal scroll) ── */
 .archive-bar{
-    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;
-    padding-bottom:16px;border-bottom:1px solid var(--card);
+    display:flex;gap:6px;margin-bottom:20px;padding-bottom:14px;
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;scroll-snap-type:x proximity;
+    scrollbar-width:thin;scrollbar-color:var(--muted) transparent;
 }
 .archive-bar a{
+    flex-shrink:0;scroll-snap-align:start;
     font-size:13px;color:var(--muted);text-decoration:none;
-    padding:2px 8px;border-radius:3px;font-family:'Inter',sans-serif;
-    transition:color .15s,background .15s;
+    padding:4px 10px;border-radius:var(--radius);
+    font-family:var(--font);transition:all var(--transition);
 }
-.archive-bar a:hover,.archive-bar a.active{color:var(--accent);background:var(--card)}
-/* Back to top */
+.archive-bar a:hover{color:var(--accent);background:var(--card)}
+.archive-bar a.active{color:var(--accent);background:var(--card);font-weight:600}
+
+/* ── Sections ── */
+.section{margin-bottom:28px}
+.section.hidden{display:none}
+.section-title{
+    font-size:17px;font-weight:600;margin-bottom:12px;
+    color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.section-count{font-size:13px;font-weight:400;color:var(--muted)}
+
+/* ── Cards ── */
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{
+    background:var(--card);border-radius:var(--radius);padding:16px;
+    box-shadow:var(--shadow);cursor:pointer;
+    transition:background var(--transition),opacity var(--transition),border-color var(--transition);
+    position:relative;border-left:3px solid transparent;
+}
+.card:hover{background:var(--card2)}
+.card.hidden-by-search{display:none}
+
+/* Read state */
+.card.read{
+    opacity:.55;
+    border-left-color:var(--muted);
+}
+.card.read:hover{opacity:.75}
+
+/* Card header (title + bookmark) */
+.card-header{
+    display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;
+}
+.card-title{
+    flex:1;font-size:16px;font-weight:600;color:var(--accent);
+    line-height:1.4;
+}
+.card-body{font-size:15px;color:var(--text);margin-bottom:6px;line-height:1.6}
+.card-insight{
+    font-size:14px;color:var(--text2);margin-bottom:8px;
+    padding:8px 12px;border-radius:6px;
+    background:rgba(96,165,250,.06);
+    border-left:2px solid var(--accent);
+}
+
+/* Card actions bar */
+.card-actions{
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    margin-top:4px;
+}
+.card-btn{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:6px 14px;border-radius:6px;
+    font-size:13px;font-family:var(--font);font-weight:500;
+    text-decoration:none;cursor:pointer;
+    transition:all var(--transition);position:relative;z-index:2;
+    user-select:none;
+}
+.card-btn-primary{
+    background:var(--accent);color:#fff;border:1px solid var(--accent);
+}
+.card-btn-primary:hover{
+    background:var(--accent2);border-color:var(--accent2);
+}
+
+/* Bookmark button */
+.card-bookmark{
+    flex-shrink:0;
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:18px;padding:4px 6px;border-radius:6px;
+    transition:all var(--transition);position:relative;z-index:2;
+    line-height:1;
+}
+.card-bookmark:hover{color:var(--warning);background:rgba(251,191,36,.1)}
+.card-bookmark.bookmarked{color:var(--warning)}
+.card-bookmark.bookmarked .bm-icon::before{content:'★'}
+
+/* Stars & Domain badges */
+.card-stars{font-size:12px;color:var(--success);font-weight:500}
+.card-domain{
+    font-size:11px;color:var(--muted);font-family:var(--mono);
+    padding:2px 8px;border-radius:4px;background:var(--card2);
+}
+
+/* Read badge */
+.card-read-badge{
+    font-size:12px;color:var(--success);
+    display:none;align-items:center;gap:3px;
+    margin-left:auto;
+}
+.card.read .card-read-badge{display:inline-flex}
+
+/* ── No results ── */
+.no-results{
+    display:none;text-align:center;padding:48px 16px;color:var(--muted);
+}
+.no-results.visible{display:block}
+.no-results-icon{font-size:48px;margin-bottom:12px}
+
+/* ── Footer ── */
+footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    margin-top:40px;padding-top:16px;border-top:1px solid var(--border);
+}
+
+/* ── Back to top ── */
 #back-top{
     position:fixed;bottom:24px;right:24px;
-    width:36px;height:36px;border-radius:50%;
+    width:40px;height:40px;border-radius:50%;
     background:var(--card);color:var(--muted);
     border:1px solid var(--muted);cursor:pointer;
     display:none;align-items:center;justify-content:center;
-    font-size:18px;z-index:100;transition:color .15s,border-color .15s;
+    font-size:18px;z-index:100;transition:all var(--transition);
 }
 #back-top:hover{color:var(--accent);border-color:var(--accent)}
 #back-top.visible{display:flex}
+
+/* ── Toast ── */
+.toast{
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:var(--card);color:var(--text);
+    padding:8px 20px;border-radius:20px;font-size:13px;
+    box-shadow:0 4px 12px rgba(0,0,0,.5);
+    z-index:200;opacity:0;transition:opacity .2s;
+    pointer-events:none;
+}
+.toast.show{opacity:1}
+
+/* ── Responsive ── */
 @media(max-width:768px){
+    .top-bar{padding:10px 12px}
+    .top-bar-inner{gap:8px}
+    .search-wrap{max-width:100%}
     .container{padding:16px 12px}
-    h1{font-size:20px}
-    .section-title{font-size:16px}
+    h1{font-size:19px}
+    .section-title{font-size:15px}
     .card-title{font-size:15px}
     .card-body{font-size:14px}
+    .card{padding:14px}
+    .card-actions{gap:6px}
+    .card-btn{padding:5px 12px;font-size:12px}
+    .chips{gap:4px}
+    .chip{padding:4px 10px;font-size:12px}
+    .archive-bar a{font-size:12px;padding:3px 8px}
+}
+@media(max-width:480px){
+    h1{font-size:17px}
+    .card{padding:12px;border-radius:6px}
+    .card-title{font-size:14px}
+    .card-body{font-size:13px}
+    .card-insight{font-size:13px;padding:6px 10px}
+    .card-btn{padding:5px 10px;font-size:11px}
+    .section{margin-bottom:20px}
+    .cards{gap:8px}
 }
 </style>
 </head>
 <body>
+
+<!-- ═══ Top Bar ═══ -->
+<div class="top-bar">
+<div class="top-bar-inner">
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="search-input" placeholder="搜索标题、摘要..." autocomplete="off">
+        <button class="search-clear" id="search-clear" title="清除">✕</button>
+    </div>
+    <span class="search-info" id="search-info"></span>
+    <div class="chips" id="filter-chips">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="news">🌐 新闻</button>
+        <button class="chip" data-filter="github">🔥 GitHub</button>
+        <button class="chip" data-filter="community">💬 社区</button>
+        <button class="chip" data-filter="papers">📄 论文</button>
+        <button class="chip" data-filter="products">🆕 产品</button>
+        <button class="chip" data-filter="bookmarks">📌 书签</button>
+        <button class="chip" data-filter="unread">👁 未读</button>
+    </div>
+</div>
+</div>
+
+<!-- ═══ Content ═══ -->
 <div class="container">
     <h1>🤖 AI 科技日报 | 2026年6月12日</h1>
     <p class="delayed">⏰ 今日延迟发送，请见谅。</p>
-    <nav class="archive-bar"><a href="2026-06-16.html">06-16</a><a href="2026-06-15.html">06-15</a><a href="2026-06-14.html">06-14</a><a href="2026-06-13.html">06-13</a><a href="2026-06-12.html" class="active">06-12</a><a href="2026-06-11.html">06-11</a><a href="2026-06-09.html">06-09</a><a href="2026-06-08.html">06-08</a></nav>
-    <section class="section">
-    <h2 class="section-title">AI/科技新闻</h2>
-    <div class="cards"><article class="card" data-href="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/">
-    <h3 class="card-title"><strong>SpaceX 正式定价 $135/股，史上最大 IPO</strong></h3>
-    <p class="card-body">SpaceX 以每股 $135 定价上市，成为有史以来规模最大的 IPO。<br>💡 SpaceX 上市将重新定义太空经济板块，Starlink 盈利能力是估值核心支撑。关注相关供应链标的。</p>
-    <a href="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/</a>
-</article><article class="card" data-href="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr">
-    <h3 class="card-title"><strong>OpenAI 秘密递表，AI 三巨头齐抢「史上最贵融资」</strong></h3>
-    <p class="card-body">OpenAI 已秘密提交 IPO 申请，与 Anthropic、xAI 三家 AI 巨头几乎同期冲击资本市场。<br>💡 AI 行业的资本密集竞赛进入新阶段，IPO 募资将直接决定下一轮算力军备竞赛的格局。</p>
-    <a href="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr</a>
-</article><article class="card" data-href="https://github.com/asgeirtj/system_prompts_leaks">
-    <h3 class="card-title"><strong>Claude Fable 5 / Opus 4.8 系统提示词泄露</strong></h3>
-    <p class="card-body">Anthropic 最新模型 Claude Fable 5、Opus 4.8、Claude Code 的系统提示词被提取并公开。<br>💡 系统提示词泄露暴露了模型行为约束和工具使用逻辑，但也为社区理解 frontier model 设计提供了参考。</p>
-    <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/asgeirtj/system_prompts_leaks</a>
-</article><article class="card" data-href="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/">
-    <h3 class="card-title"><strong>Oracle 严重安全漏洞被利用，超 100 家企业遭入侵</strong></h3>
-    <p class="card-body">Oracle 警告一个已被黑客利用的安全漏洞，导致超过 100 家企业被攻破。<br>💡 企业级软件供应链安全再次敲响警钟。如果你在用 Oracle 产品，立即检查官方补丁公告。</p>
-    <a href="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/</a>
-</article><article class="card" data-href="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/">
-    <h3 class="card-title"><strong>Apple 确认 Siri AI 因 DMA 法规在欧盟延迟上线</strong></h3>
-    <p class="card-body">Apple 官方声明：由于欧盟数字市场法案（DMA），Siri AI 功能将在 iOS 27 / iPadOS 27 中于欧盟地区推迟。<br>💡 DMA 正在实质性地影响大型科技公司的 AI 产品发布节奏。合规成本正在成为 AI 部署的新变量。</p>
-    <a href="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/</a>
-</article><article class="card" data-href="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/">
-    <h3 class="card-title"><strong>Craig Federighi 公开详解 Apple × Google Siri AI 合作细节</strong></h3>
-    <p class="card-body">Apple 软件工程 SVP 在 WWDC 上首度披露 Siri AI 与 Google 的合作架构，双方模型协同工作。<br>💡 苹果选择与 Google 而非 OpenAI 深度绑定 Siri AI，显示 Google 在端侧推理和多模态方面的技术优势。</p>
-    <a href="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/</a>
-</article><article class="card" data-href="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N">
-    <h3 class="card-title"><strong>硅谷大厂员工人均月花 5 万养 AI</strong></h3>
-    <p class="card-body">硅谷科技巨头员工每月在 AI 工具和服务上的支出已达到人均 $700+，涵盖 API、Agent、模型订阅等。<br>💡 AI 工具的内部采用正在成为企业隐性成本。同时也说明 AI-native 工作流已经在硅谷大规模落地。</p>
-    <a href="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N</a>
-</article><article class="card" data-href="https://www.ifanr.com/1668621">
-    <h3 class="card-title"><strong>Codex 大降价在即，官方发布高效使用指南</strong></h3>
-    <p class="card-body">OpenAI Codex 价格即将大幅下调，同时官方发布了一份「高效榨干额度」的使用指南。<br>💡 Codex 降价意味着 AI 编程工具进入价格战阶段。对个人开发者和小团队是好消息。</p>
-    <a href="https://www.ifanr.com/1668621" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.ifanr.com/1668621</a>
-</article><article class="card" data-href="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr">
-    <h3 class="card-title"><strong>Arm 神经技术 + 虚幻引擎 MegaLights 首登移动端</strong></h3>
-    <p class="card-body">Arm 的神经网络技术与 Epic 虚幻引擎 MegaLights 技术首次在移动端实现，手游画质进入电影级时代。<br>💡 端侧 AI 推理与游戏渲染的结合正在突破移动设备的物理限制，移动游戏和 XR 都将受益。</p>
-    <a href="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr</a>
-</article><article class="card" data-href="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/">
-    <h3 class="card-title"><strong>Amazon 数据中心已导致密西西比州居民电费上涨</strong></h3>
-    <p class="card-body">404 Media 调查报告显示，Amazon 在密西西比州的数据中心已经实质性地推高了当地居民电价。<br>💡 AI 基础设施的能源成本正在从企业端外溢到社会端。数据中心的选址争议将成为下一个 NIMBY 议题。</p>
-    <a href="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/</a>
-</article><article class="card" data-href="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/">
-    <h3 class="card-title"><strong>Flock 车牌识别系统通过搜索引擎泄露警方搜查记录</strong></h3>
-    <p class="card-body">Flock 的车牌识别系统因 DuckDuckGo 和 Bing 的搜索引擎缓存暴露了警方的实时车牌查询记录。<br>💡 AI 监控系统的数据安全问题再次爆雷。执法机构的技术供应商需要更严格的审计标准。</p>
-    <a href="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">🔥 GitHub Trending</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/affaan-m/ECC">
-    <h3 class="card-title"><strong>affaan-m/ECC — Agent 性能优化系统</strong> ⭐213,497 (+1,483/d)</h3>
-    <p class="card-body">The agent harness performance optimization system。技能、本能、记忆、安全一体化框架。<br>💡 Agent 工程化正在向系统级优化演进，性能调校成为差异化关键。</p>
-    <a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/affaan-m/ECC</a>
-</article><article class="card" data-href="https://github.com/NousResearch/hermes-agent">
-    <h3 class="card-title"><strong>NousResearch/hermes-agent — 自进化 Agent</strong> ⭐190,978 (+589/d)</h3>
-    <p class="card-body">The agent that grows with you。强调个性化自适应能力的 Agent 框架。<br>💡 「随你成长」的 Agent 理念正在取代传统的一体化 chatbot，个性化 Agent 是下一个爆发点。</p>
-    <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/NousResearch/hermes-agent</a>
-</article><article class="card" data-href="https://github.com/JimLiu/baoyu-design">
-    <h3 class="card-title"><strong>JimLiu/baoyu-design — 本地运行 Claude Design</strong> ⭐767 (+192/d)</h3>
-    <p class="card-body">Run Claude Design locally as an Agent Skill。支持 Cursor、Claude Code 等。<br>💡 将 Claude Design 本地化的需求说明设计师群体对 AI 工具链的依赖正在加深。</p>
-    <a href="https://github.com/JimLiu/baoyu-design" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/JimLiu/baoyu-design</a>
-</article><article class="card" data-href="https://github.com/ollama/ollama">
-    <h3 class="card-title"><strong>ollama/ollama — 本地 LLM 运行平台</strong> ⭐173,899 (+161/d)</h3>
-    <p class="card-body">支持 Kimi-K2.6、GLM-5.1、MiniMax、DeepSeek、Qwen、Gemma 等最新模型。<br>💡 本地 LLM 生态持续繁荣，国产模型（Kimi、GLM、Qwen）的 ollama 支持已成为刚需。</p>
-    <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/ollama/ollama</a>
-</article><article class="card" data-href="https://github.com/Significant-Gravitas/AutoGPT">
-    <h3 class="card-title"><strong>AutoGPT — 自主 AI Agent 平台</strong> ⭐184,888 (+156/d)</h3>
-    <p class="card-body">AutoGPT is the vision of accessible AI for everyone, to use and to build.<br>💡 老牌自主 Agent 项目持续保持高活跃度，Agent 民主化仍是社区核心叙事。</p>
-    <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/Significant-Gravitas/AutoGPT</a>
-</article></div>
+    <div class="date-summary">
+        <span id="total-count"><strong>共 0 篇</strong></span>
+        <span id="visible-count"></span>
+        <span id="bookmark-count"></span>
+        <span id="unread-count"></span>
+    </div>
+    <nav class="archive-bar"><a href="2026-06-16.html" class="">06-16</a><a href="2026-06-15.html" class="">06-15</a><a href="2026-06-14.html" class="">06-14</a><a href="2026-06-13.html" class="">06-13</a><a href="2026-06-12.html" class="active">06-12</a><a href="2026-06-11.html" class="">06-11</a><a href="2026-06-09.html" class="">06-09</a><a href="2026-06-08.html" class="">06-08</a></nav>
+
+    <section class="section" data-category="news">
+    <h2 class="section-title">🌐 AI/科技新闻 <span class="section-count">(11)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/" data-url="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/">
+    <div class="card-header">
+        <h3 class="card-title">SpaceX 正式定价 $135/股，史上最大 IPO</h3>
+        <button class="card-bookmark" data-url="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">SpaceX 以每股 $135 定价上市，成为有史以来规模最大的 IPO。</p>
+    <div class="card-insight">💡 SpaceX 上市将重新定义太空经济板块，Starlink 盈利能力是估值核心支撑。关注相关供应链标的。</div>
+    <div class="card-actions">
+        <a href="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">techcrunch.com</span>
+        <span class="card-read-badge" data-url="https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr" data-url="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr">
+    <div class="card-header">
+        <h3 class="card-title">OpenAI 秘密递表，AI 三巨头齐抢「史上最贵融资」</h3>
+        <button class="card-bookmark" data-url="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">OpenAI 已秘密提交 IPO 申请，与 Anthropic、xAI 三家 AI 巨头几乎同期冲击资本市场。</p>
+    <div class="card-insight">💡 AI 行业的资本密集竞赛进入新阶段，IPO 募资将直接决定下一轮算力军备竞赛的格局。</div>
+    <div class="card-actions">
+        <a href="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.infoq.cn</span>
+        <span class="card-read-badge" data-url="https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/asgeirtj/system_prompts_leaks" data-url="https://github.com/asgeirtj/system_prompts_leaks">
+    <div class="card-header">
+        <h3 class="card-title">Claude Fable 5 / Opus 4.8 系统提示词泄露</h3>
+        <button class="card-bookmark" data-url="https://github.com/asgeirtj/system_prompts_leaks" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Anthropic 最新模型 Claude Fable 5、Opus 4.8、Claude Code 的系统提示词被提取并公开。</p>
+    <div class="card-insight">💡 系统提示词泄露暴露了模型行为约束和工具使用逻辑，但也为社区理解 frontier model 设计提供了参考。</div>
+    <div class="card-actions">
+        <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/asgeirtj/system_prompts_leaks">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/" data-url="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/">
+    <div class="card-header">
+        <h3 class="card-title">Oracle 严重安全漏洞被利用，超 100 家企业遭入侵</h3>
+        <button class="card-bookmark" data-url="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Oracle 警告一个已被黑客利用的安全漏洞，导致超过 100 家企业被攻破。</p>
+    <div class="card-insight">💡 企业级软件供应链安全再次敲响警钟。如果你在用 Oracle 产品，立即检查官方补丁公告。</div>
+    <div class="card-actions">
+        <a href="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">techcrunch.com</span>
+        <span class="card-read-badge" data-url="https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/" data-url="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/">
+    <div class="card-header">
+        <h3 class="card-title">Apple 确认 Siri AI 因 DMA 法规在欧盟延迟上线</h3>
+        <button class="card-bookmark" data-url="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Apple 官方声明：由于欧盟数字市场法案（DMA），Siri AI 功能将在 iOS 27 / iPadOS 27 中于欧盟地区推迟。</p>
+    <div class="card-insight">💡 DMA 正在实质性地影响大型科技公司的 AI 产品发布节奏。合规成本正在成为 AI 部署的新变量。</div>
+    <div class="card-actions">
+        <a href="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.apple.com</span>
+        <span class="card-read-badge" data-url="https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/" data-url="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/">
+    <div class="card-header">
+        <h3 class="card-title">Craig Federighi 公开详解 Apple × Google Siri AI 合作细节</h3>
+        <button class="card-bookmark" data-url="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Apple 软件工程 SVP 在 WWDC 上首度披露 Siri AI 与 Google 的合作架构，双方模型协同工作。</p>
+    <div class="card-insight">💡 苹果选择与 Google 而非 OpenAI 深度绑定 Siri AI，显示 Google 在端侧推理和多模态方面的技术优势。</div>
+    <div class="card-actions">
+        <a href="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">9to5mac.com</span>
+        <span class="card-read-badge" data-url="https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N" data-url="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N">
+    <div class="card-header">
+        <h3 class="card-title">硅谷大厂员工人均月花 5 万养 AI</h3>
+        <button class="card-bookmark" data-url="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">硅谷科技巨头员工每月在 AI 工具和服务上的支出已达到人均 $700+，涵盖 API、Agent、模型订阅等。</p>
+    <div class="card-insight">💡 AI 工具的内部采用正在成为企业隐性成本。同时也说明 AI-native 工作流已经在硅谷大规模落地。</div>
+    <div class="card-actions">
+        <a href="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.infoq.cn</span>
+        <span class="card-read-badge" data-url="https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.ifanr.com/1668621" data-url="https://www.ifanr.com/1668621">
+    <div class="card-header">
+        <h3 class="card-title">Codex 大降价在即，官方发布高效使用指南</h3>
+        <button class="card-bookmark" data-url="https://www.ifanr.com/1668621" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">OpenAI Codex 价格即将大幅下调，同时官方发布了一份「高效榨干额度」的使用指南。</p>
+    <div class="card-insight">💡 Codex 降价意味着 AI 编程工具进入价格战阶段。对个人开发者和小团队是好消息。</div>
+    <div class="card-actions">
+        <a href="https://www.ifanr.com/1668621" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.ifanr.com</span>
+        <span class="card-read-badge" data-url="https://www.ifanr.com/1668621">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr" data-url="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr">
+    <div class="card-header">
+        <h3 class="card-title">Arm 神经技术 + 虚幻引擎 MegaLights 首登移动端</h3>
+        <button class="card-bookmark" data-url="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Arm 的神经网络技术与 Epic 虚幻引擎 MegaLights 技术首次在移动端实现，手游画质进入电影级时代。</p>
+    <div class="card-insight">💡 端侧 AI 推理与游戏渲染的结合正在突破移动设备的物理限制，移动游戏和 XR 都将受益。</div>
+    <div class="card-actions">
+        <a href="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.infoq.cn</span>
+        <span class="card-read-badge" data-url="https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/" data-url="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/">
+    <div class="card-header">
+        <h3 class="card-title">Amazon 数据中心已导致密西西比州居民电费上涨</h3>
+        <button class="card-bookmark" data-url="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">404 Media 调查报告显示，Amazon 在密西西比州的数据中心已经实质性地推高了当地居民电价。</p>
+    <div class="card-insight">💡 AI 基础设施的能源成本正在从企业端外溢到社会端。数据中心的选址争议将成为下一个 NIMBY 议题。</div>
+    <div class="card-actions">
+        <a href="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.404media.co</span>
+        <span class="card-read-badge" data-url="https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/" data-url="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/">
+    <div class="card-header">
+        <h3 class="card-title">Flock 车牌识别系统通过搜索引擎泄露警方搜查记录</h3>
+        <button class="card-bookmark" data-url="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Flock 的车牌识别系统因 DuckDuckGo 和 Bing 的搜索引擎缓存暴露了警方的实时车牌查询记录。</p>
+    <div class="card-insight">💡 AI 监控系统的数据安全问题再次爆雷。执法机构的技术供应商需要更严格的审计标准。</div>
+    <div class="card-actions">
+        <a href="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.404media.co</span>
+        <span class="card-read-badge" data-url="https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/">✓ 已读</span>
+    </div>
+</article>
+    </div>
 </section>
-    <footer>🤖 follow-news v4.0</footer>
+<section class="section" data-category="github">
+    <h2 class="section-title">🔥 GitHub Trending <span class="section-count">(5)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/affaan-m/ECC" data-url="https://github.com/affaan-m/ECC">
+    <div class="card-header">
+        <h3 class="card-title">affaan-m/ECC — Agent 性能优化系统</h3>
+        <button class="card-bookmark" data-url="https://github.com/affaan-m/ECC" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐213,497 (+1,483/d) The agent harness performance optimization system。技能、本能、记忆、安全一体化框架。</p>
+    <div class="card-insight">💡 Agent 工程化正在向系统级优化演进，性能调校成为差异化关键。</div>
+    <div class="card-actions">
+        <a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/affaan-m/ECC">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/NousResearch/hermes-agent" data-url="https://github.com/NousResearch/hermes-agent">
+    <div class="card-header">
+        <h3 class="card-title">NousResearch/hermes-agent — 自进化 Agent</h3>
+        <button class="card-bookmark" data-url="https://github.com/NousResearch/hermes-agent" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐190,978 (+589/d) The agent that grows with you。强调个性化自适应能力的 Agent 框架。</p>
+    <div class="card-insight">💡 「随你成长」的 Agent 理念正在取代传统的一体化 chatbot，个性化 Agent 是下一个爆发点。</div>
+    <div class="card-actions">
+        <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/NousResearch/hermes-agent">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/JimLiu/baoyu-design" data-url="https://github.com/JimLiu/baoyu-design">
+    <div class="card-header">
+        <h3 class="card-title">JimLiu/baoyu-design — 本地运行 Claude Design</h3>
+        <button class="card-bookmark" data-url="https://github.com/JimLiu/baoyu-design" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐767 (+192/d) Run Claude Design locally as an Agent Skill。支持 Cursor、Claude Code 等。</p>
+    <div class="card-insight">💡 将 Claude Design 本地化的需求说明设计师群体对 AI 工具链的依赖正在加深。</div>
+    <div class="card-actions">
+        <a href="https://github.com/JimLiu/baoyu-design" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/JimLiu/baoyu-design">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/ollama/ollama" data-url="https://github.com/ollama/ollama">
+    <div class="card-header">
+        <h3 class="card-title">ollama/ollama — 本地 LLM 运行平台</h3>
+        <button class="card-bookmark" data-url="https://github.com/ollama/ollama" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐173,899 (+161/d) 支持 Kimi-K2.6、GLM-5.1、MiniMax、DeepSeek、Qwen、Gemma 等最新模型。</p>
+    <div class="card-insight">💡 本地 LLM 生态持续繁荣，国产模型（Kimi、GLM、Qwen）的 ollama 支持已成为刚需。</div>
+    <div class="card-actions">
+        <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/ollama/ollama">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/Significant-Gravitas/AutoGPT" data-url="https://github.com/Significant-Gravitas/AutoGPT">
+    <div class="card-header">
+        <h3 class="card-title">AutoGPT — 自主 AI Agent 平台</h3>
+        <button class="card-bookmark" data-url="https://github.com/Significant-Gravitas/AutoGPT" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐184,888 (+156/d) AutoGPT is the vision of accessible AI for everyone, to use and to build.</p>
+    <div class="card-insight">💡 老牌自主 Agent 项目持续保持高活跃度，Agent 民主化仍是社区核心叙事。</div>
+    <div class="card-actions">
+        <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/Significant-Gravitas/AutoGPT">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+
+    <div class="no-results" id="no-results">
+        <div class="no-results-icon">🔍</div>
+        <p>没有匹配的文章</p>
+    </div>
+
+    <footer>🤖 follow-news v5.0 · <span id="footer-stats"></span></footer>
 </div>
-<button id="back-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<button id="back-top" title="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast"></div>
+
 <script>
-// Card click → open first link in new tab
-document.querySelectorAll('.card[data-href]').forEach(el=>{
-    el.addEventListener('click',function(e){
-        if(e.target.closest('a'))return;
-        var a=document.createElement('a');
-        a.href=this.dataset.href;a.target='_blank';a.rel='noopener';
-        a.click()
-    })
-})
-// Back to top visibility
-const btn=document.getElementById('back-top')
-window.addEventListener('scroll',function(){
-    btn.classList.toggle('visible',window.scrollY>500)
-})
+// ═══════════════════════════════════════════════════════════
+//  follow-news v5.0 — Client-side logic
+// ═══════════════════════════════════════════════════════════
+
+const DIGEST_DATE = "2026-06-12";
+const ALL_ARTICLES = [
+{"title": "SpaceX 正式定价 $135/股，史上最大 IPO", "summary": "SpaceX 以每股 $135 定价上市，成为有史以来规模最大的 IPO。", "insight": "SpaceX 上市将重新定义太空经济板块，Starlink 盈利能力是估值核心支撑。关注相关供应链标的。", "url": "https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/", "category": "news", "stars": "", "domain": "techcrunch.com"},
+{"title": "OpenAI 秘密递表，AI 三巨头齐抢「史上最贵融资」", "summary": "OpenAI 已秘密提交 IPO 申请，与 Anthropic、xAI 三家 AI 巨头几乎同期冲击资本市场。", "insight": "AI 行业的资本密集竞赛进入新阶段，IPO 募资将直接决定下一轮算力军备竞赛的格局。", "url": "https://www.infoq.cn/article/wNJsVd21BshslzNoUXqr", "category": "news", "stars": "", "domain": "www.infoq.cn"},
+{"title": "Claude Fable 5 / Opus 4.8 系统提示词泄露", "summary": "Anthropic 最新模型 Claude Fable 5、Opus 4.8、Claude Code 的系统提示词被提取并公开。", "insight": "系统提示词泄露暴露了模型行为约束和工具使用逻辑，但也为社区理解 frontier model 设计提供了参考。", "url": "https://github.com/asgeirtj/system_prompts_leaks", "category": "news", "stars": "", "domain": "github.com"},
+{"title": "Oracle 严重安全漏洞被利用，超 100 家企业遭入侵", "summary": "Oracle 警告一个已被黑客利用的安全漏洞，导致超过 100 家企业被攻破。", "insight": "企业级软件供应链安全再次敲响警钟。如果你在用 Oracle 产品，立即检查官方补丁公告。", "url": "https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/", "category": "news", "stars": "", "domain": "techcrunch.com"},
+{"title": "Apple 确认 Siri AI 因 DMA 法规在欧盟延迟上线", "summary": "Apple 官方声明：由于欧盟数字市场法案（DMA），Siri AI 功能将在 iOS 27 / iPadOS 27 中于欧盟地区推迟。", "insight": "DMA 正在实质性地影响大型科技公司的 AI 产品发布节奏。合规成本正在成为 AI 部署的新变量。", "url": "https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/", "category": "news", "stars": "", "domain": "www.apple.com"},
+{"title": "Craig Federighi 公开详解 Apple × Google Siri AI 合作细节", "summary": "Apple 软件工程 SVP 在 WWDC 上首度披露 Siri AI 与 Google 的合作架构，双方模型协同工作。", "insight": "苹果选择与 Google 而非 OpenAI 深度绑定 Siri AI，显示 Google 在端侧推理和多模态方面的技术优势。", "url": "https://9to5mac.com/2026/06/08/craig-federighi-details-apples-collaboration-with-google-for-siri-ai-in-ios-27/", "category": "news", "stars": "", "domain": "9to5mac.com"},
+{"title": "硅谷大厂员工人均月花 5 万养 AI", "summary": "硅谷科技巨头员工每月在 AI 工具和服务上的支出已达到人均 $700+，涵盖 API、Agent、模型订阅等。", "insight": "AI 工具的内部采用正在成为企业隐性成本。同时也说明 AI-native 工作流已经在硅谷大规模落地。", "url": "https://www.infoq.cn/article/g0gwDH3edWuateVXqp6N", "category": "news", "stars": "", "domain": "www.infoq.cn"},
+{"title": "Codex 大降价在即，官方发布高效使用指南", "summary": "OpenAI Codex 价格即将大幅下调，同时官方发布了一份「高效榨干额度」的使用指南。", "insight": "Codex 降价意味着 AI 编程工具进入价格战阶段。对个人开发者和小团队是好消息。", "url": "https://www.ifanr.com/1668621", "category": "news", "stars": "", "domain": "www.ifanr.com"},
+{"title": "Arm 神经技术 + 虚幻引擎 MegaLights 首登移动端", "summary": "Arm 的神经网络技术与 Epic 虚幻引擎 MegaLights 技术首次在移动端实现，手游画质进入电影级时代。", "insight": "端侧 AI 推理与游戏渲染的结合正在突破移动设备的物理限制，移动游戏和 XR 都将受益。", "url": "https://www.infoq.cn/article/zaWyR4Kg3d7ubjcHR3Lr", "category": "news", "stars": "", "domain": "www.infoq.cn"},
+{"title": "Amazon 数据中心已导致密西西比州居民电费上涨", "summary": "404 Media 调查报告显示，Amazon 在密西西比州的数据中心已经实质性地推高了当地居民电价。", "insight": "AI 基础设施的能源成本正在从企业端外溢到社会端。数据中心的选址争议将成为下一个 NIMBY 议题。", "url": "https://www.404media.co/amazon-data-centers-in-mississippi-have-already-raised-electricity-rates-for-local-customers-report-suggests/", "category": "news", "stars": "", "domain": "www.404media.co"},
+{"title": "Flock 车牌识别系统通过搜索引擎泄露警方搜查记录", "summary": "Flock 的车牌识别系统因 DuckDuckGo 和 Bing 的搜索引擎缓存暴露了警方的实时车牌查询记录。", "insight": "AI 监控系统的数据安全问题再次爆雷。执法机构的技术供应商需要更严格的审计标准。", "url": "https://www.404media.co/flock-leaked-cops-license-plate-searches-via-duckduckgo-bing/", "category": "news", "stars": "", "domain": "www.404media.co"},
+{"title": "affaan-m/ECC — Agent 性能优化系统", "summary": "⭐213,497 (+1,483/d) The agent harness performance optimization system。技能、本能、记忆、安全一体化框架。", "insight": "Agent 工程化正在向系统级优化演进，性能调校成为差异化关键。", "url": "https://github.com/affaan-m/ECC", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "NousResearch/hermes-agent — 自进化 Agent", "summary": "⭐190,978 (+589/d) The agent that grows with you。强调个性化自适应能力的 Agent 框架。", "insight": "「随你成长」的 Agent 理念正在取代传统的一体化 chatbot，个性化 Agent 是下一个爆发点。", "url": "https://github.com/NousResearch/hermes-agent", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "JimLiu/baoyu-design — 本地运行 Claude Design", "summary": "⭐767 (+192/d) Run Claude Design locally as an Agent Skill。支持 Cursor、Claude Code 等。", "insight": "将 Claude Design 本地化的需求说明设计师群体对 AI 工具链的依赖正在加深。", "url": "https://github.com/JimLiu/baoyu-design", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "ollama/ollama — 本地 LLM 运行平台", "summary": "⭐173,899 (+161/d) 支持 Kimi-K2.6、GLM-5.1、MiniMax、DeepSeek、Qwen、Gemma 等最新模型。", "insight": "本地 LLM 生态持续繁荣，国产模型（Kimi、GLM、Qwen）的 ollama 支持已成为刚需。", "url": "https://github.com/ollama/ollama", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "AutoGPT — 自主 AI Agent 平台", "summary": "⭐184,888 (+156/d) AutoGPT is the vision of accessible AI for everyone, to use and to build.", "insight": "老牌自主 Agent 项目持续保持高活跃度，Agent 民主化仍是社区核心叙事。", "url": "https://github.com/Significant-Gravitas/AutoGPT", "category": "github", "stars": "", "domain": "github.com"}
+];
+
+// ── localStorage helpers ──
+const LS_BOOKMARKS = 'fn_bookmarks';
+const LS_READ = 'fn_read';
+
+function getLS(key) {
+    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }
+    catch { return new Set(); }
+}
+function setLS(key, set) {
+    try { localStorage.setItem(key, JSON.stringify([...set])); } catch {}
+}
+function inLS(key, url) { return getLS(key).has(url); }
+function toggleLS(key, url) {
+    const s = getLS(key);
+    if (s.has(url)) { s.delete(url); } else { s.add(url); }
+    setLS(key, s);
+    return s.has(url);
+}
+
+// ── State ──
+let activeFilter = 'all';
+let searchQuery = '';
+
+// ── DOM refs ──
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const searchInfo = document.getElementById('search-info');
+const filterChips = document.getElementById('filter-chips');
+const noResults = document.getElementById('no-results');
+const toast = document.getElementById('toast');
+const backTop = document.getElementById('back-top');
+
+// ── Card click → open URL ──
+document.querySelectorAll('.card[data-href]').forEach(card => {
+    card.addEventListener('click', function(e) {
+        if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.card-bookmark')) return;
+        const url = this.dataset.href;
+        if (url) {
+            markRead(this.dataset.url || url);
+            window.open(url, '_blank', 'noopener');
+        }
+    });
+});
+
+// ── Bookmark buttons ──
+document.querySelectorAll('.card-bookmark').forEach(btn => {
+    const url = btn.dataset.url;
+    if (inLS(LS_BOOKMARKS, url)) btn.classList.add('bookmarked');
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isNow = toggleLS(LS_BOOKMARKS, url);
+        this.classList.toggle('bookmarked', isNow);
+        showToast(isNow ? '已收藏 ★' : '已取消收藏');
+        updateCounts();
+        applyAllFilters();
+    });
+});
+
+// ── Read tracking ──
+function markRead(url) {
+    if (!inLS(LS_READ, url)) {
+        getLS(LS_READ).add(url);
+        setLS(LS_READ, getLS(LS_READ));
+    }
+    updateReadUI();
+    updateCounts();
+}
+
+function updateReadUI() {
+    const readSet = getLS(LS_READ);
+    document.querySelectorAll('.card[data-url]').forEach(card => {
+        if (readSet.has(card.dataset.url)) card.classList.add('read');
+    });
+}
+
+// ── Filter chips ──
+filterChips.addEventListener('click', function(e) {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    const filter = chip.dataset.filter;
+
+    // Toggle: clicking active chip deactivates → goes to 'all'
+    if (chip.classList.contains('active') && filter !== 'all') {
+        activeFilter = 'all';
+    } else {
+        activeFilter = filter;
+    }
+
+    updateChipUI();
+    applyAllFilters();
+});
+
+function updateChipUI() {
+    filterChips.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.filter === activeFilter);
+    });
+}
+
+// ── Search ──
+let searchTimer;
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        searchQuery = this.value.trim().toLowerCase();
+        searchClear.classList.toggle('visible', searchQuery.length > 0);
+        applyAllFilters();
+    }, 150);
+});
+searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchQuery = '';
+    searchClear.classList.remove('visible');
+    searchInput.focus();
+    applyAllFilters();
+});
+
+// ── Apply all filters ──
+function applyAllFilters() {
+    const readSet = getLS(LS_READ);
+    const bookmarkSet = getLS(LS_BOOKMARKS);
+    let visibleCount = 0;
+    let totalInFilter = 0;
+
+    document.querySelectorAll('.section').forEach(section => {
+        const cat = section.dataset.category;
+        let sectionHasVisible = false;
+
+        section.querySelectorAll('.card').forEach(card => {
+            const url = card.dataset.url;
+            let show = true;
+
+            // Category filter
+            if (activeFilter === 'bookmarks') {
+                show = bookmarkSet.has(url);
+            } else if (activeFilter === 'unread') {
+                show = !readSet.has(url);
+            } else if (activeFilter !== 'all') {
+                show = (cat === activeFilter);
+            }
+
+            // Search filter
+            if (show && searchQuery) {
+                const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+                const body = (card.querySelector('.card-body')?.textContent || '').toLowerCase();
+                const insight = (card.querySelector('.card-insight')?.textContent || '').toLowerCase();
+                const allText = title + ' ' + body + ' ' + insight;
+                const terms = searchQuery.split(/\s+/).filter(Boolean);
+                show = terms.every(t => allText.includes(t));
+            }
+
+            if (show) {
+                card.classList.remove('hidden-by-search');
+                visibleCount++;
+                sectionHasVisible = true;
+            } else {
+                card.classList.add('hidden-by-search');
+            }
+            totalInFilter++;
+        });
+
+        section.classList.toggle('hidden', !sectionHasVisible);
+    });
+
+    // No results
+    noResults.classList.toggle('visible', visibleCount === 0 && totalInFilter > 0);
+
+    // Search info
+    if (searchQuery) {
+        searchInfo.textContent = `找到 ${visibleCount} 篇`;
+    } else {
+        searchInfo.textContent = '';
+    }
+
+    updateCounts();
+}
+
+// ── Counts ──
+function updateCounts() {
+    const visible = document.querySelectorAll('.card:not(.hidden-by-search)').length;
+    const total = document.querySelectorAll('.card').length;
+    const bookmarkN = getLS(LS_BOOKMARKS).size;
+    const readN = getLS(LS_READ).size;
+    const unreadN = total - readN;
+
+    document.getElementById('total-count').innerHTML = `<strong>共 ${total} 篇</strong>`;
+    document.getElementById('visible-count').textContent = visible !== total ? `显示 ${visible} 篇` : '';
+    document.getElementById('bookmark-count').textContent = bookmarkN > 0 ? `📌 ${bookmarkN} 书签` : '';
+    document.getElementById('unread-count').textContent = unreadN > 0 ? `👁 ${unreadN} 未读` : '';
+    document.getElementById('footer-stats').textContent =
+        `${total} articles · ${bookmarkN} bookmarked · ${readN} read · built ${new Date().toISOString().slice(0,10)}`;
+
+    // Update chip labels
+    const bookmarkChip = filterChips.querySelector('[data-filter="bookmarks"]');
+    if (bookmarkChip) bookmarkChip.textContent = `📌 书签 (${bookmarkN})`;
+    const unreadChip = filterChips.querySelector('[data-filter="unread"]');
+    if (unreadChip) unreadChip.textContent = `👁 未读 (${unreadN})`;
+}
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+// ── Back to top ──
+window.addEventListener('scroll', function() {
+    backTop.classList.toggle('visible', window.scrollY > 500);
+});
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', function(e) {
+    // Ctrl+K or / → focus search
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement === document.body)) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+    }
+    // Escape → clear search
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchQuery = '';
+        searchClear.classList.remove('visible');
+        searchInput.blur();
+        applyAllFilters();
+    }
+});
+
+// ── Init ──
+updateReadUI();
+updateCounts();
 </script>
 </body>
 </html>

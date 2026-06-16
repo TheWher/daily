@@ -7,169 +7,857 @@
 <title>🗞️ AI 日报 — 2026年6月11日 — AI 科技日报</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════════════════
+   follow-news v5.0 — Enhanced Reading Experience
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset & Tokens ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
     --bg:#0a0f1a;
     --card:#121a29;
+    --card2:#162032;
     --text:#cbd5e1;
+    --text2:#94a3b8;
     --muted:#64748b;
     --accent:#60a5fa;
+    --accent2:#3b82f6;
     --success:#34d399;
     --warning:#fbbf24;
     --danger:#f87171;
-    --card-hover:#162032;
+    --border:rgba(255,255,255,.06);
+    --shadow:0 1px 3px rgba(0,0,0,.4);
+    --radius:8px;
+    --font:'Inter',-apple-system,'Segoe UI','Noto Sans SC',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --transition:150ms ease;
 }
 html{scroll-behavior:smooth}
 body{
-    font-family:'Inter',-apple-system,sans-serif;
-    font-size:15px;line-height:1.55;
+    font-family:var(--font);
+    font-size:15px;line-height:1.6;
     background:var(--bg);color:var(--text);
-    font-weight:400;
+    -webkit-font-smoothing:antialiased;
 }
-a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-family:'JetBrains Mono',monospace;font-size:13px}
-a:hover{color:#93c5fd}
-.container{max-width:1400px;margin:0 auto;padding:32px 16px}
-h1{font-size:22px;font-weight:600;margin-bottom:8px;color:var(--text)}
-.delayed{color:var(--warning);font-size:13px;margin-bottom:24px}
-.section{margin-bottom:24px}
-.section-title{font-size:18px;font-weight:600;margin-bottom:12px;color:var(--text);text-transform:uppercase;letter-spacing:.03em}
-.cards{display:flex;flex-direction:column;gap:16px}
-.card{
-    background:var(--card);border-radius:4px;padding:12px;
-    box-shadow:0 1px 2px rgba(0,0,0,.3);
-    cursor:pointer;transition:background .15s;
+
+/* ── Top Bar (sticky) ── */
+.top-bar{
+    position:sticky;top:0;z-index:100;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    padding:12px 16px;
+    backdrop-filter:blur(12px);
+}
+.top-bar-inner{
+    max-width:1400px;margin:0 auto;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.search-wrap{
+    flex:1;min-width:200px;max-width:480px;
     position:relative;
 }
-.card:hover{background:var(--card-hover)}
-.card-title{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:4px;line-height:1.4}
-.card-body{font-size:15px;color:var(--text);margin-bottom:8px;line-height:1.55}
-.card-body br{display:block;content:'';margin-top:8px}
-.card-link{font-size:13px;word-break:break-all;display:inline-block;position:relative;z-index:2}
-.card-link:hover{color:#93c5fd!important}
-footer{text-align:center;color:var(--muted);font-size:13px;margin-top:32px;padding-top:16px;border-top:1px solid var(--card)}
-/* Archive bar */
+.search-wrap input{
+    width:100%;padding:8px 12px 8px 36px;
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);color:var(--text);
+    font-family:var(--font);font-size:14px;
+    outline:none;transition:border-color var(--transition),box-shadow var(--transition);
+}
+.search-wrap input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(96,165,250,.15);
+}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-icon{
+    position:absolute;left:10px;top:50%;transform:translateY(-50%);
+    color:var(--muted);font-size:16px;pointer-events:none;
+}
+.search-clear{
+    position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:16px;display:none;padding:2px 6px;border-radius:4px;
+}
+.search-clear:hover{color:var(--text);background:var(--card2)}
+.search-clear.visible{display:block}
+.search-info{
+    font-size:12px;color:var(--muted);white-space:nowrap;
+}
+
+/* ── Filter Chips ── */
+.chips{
+    display:flex;flex-wrap:nowrap;gap:6px;
+    overflow-x:auto;scrollbar-width:none;
+    padding:2px 0;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+    padding:5px 12px;border-radius:20px;
+    font-size:13px;font-family:var(--font);
+    border:1px solid var(--border);background:var(--card);
+    color:var(--text2);cursor:pointer;
+    white-space:nowrap;transition:all var(--transition);
+    user-select:none;
+}
+.chip:hover{border-color:var(--muted);color:var(--text)}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500}
+
+/* ── Container ── */
+.container{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
+.delayed{color:var(--warning);font-size:13px;margin-bottom:16px}
+
+/* ── Date Summary ── */
+.date-summary{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    margin-bottom:20px;font-size:13px;color:var(--text2);
+}
+.date-summary strong{color:var(--text)}
+
+/* ── Archive Bar (horizontal scroll) ── */
 .archive-bar{
-    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;
-    padding-bottom:16px;border-bottom:1px solid var(--card);
+    display:flex;gap:6px;margin-bottom:20px;padding-bottom:14px;
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;scroll-snap-type:x proximity;
+    scrollbar-width:thin;scrollbar-color:var(--muted) transparent;
 }
 .archive-bar a{
+    flex-shrink:0;scroll-snap-align:start;
     font-size:13px;color:var(--muted);text-decoration:none;
-    padding:2px 8px;border-radius:3px;font-family:'Inter',sans-serif;
-    transition:color .15s,background .15s;
+    padding:4px 10px;border-radius:var(--radius);
+    font-family:var(--font);transition:all var(--transition);
 }
-.archive-bar a:hover,.archive-bar a.active{color:var(--accent);background:var(--card)}
-/* Back to top */
+.archive-bar a:hover{color:var(--accent);background:var(--card)}
+.archive-bar a.active{color:var(--accent);background:var(--card);font-weight:600}
+
+/* ── Sections ── */
+.section{margin-bottom:28px}
+.section.hidden{display:none}
+.section-title{
+    font-size:17px;font-weight:600;margin-bottom:12px;
+    color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.section-count{font-size:13px;font-weight:400;color:var(--muted)}
+
+/* ── Cards ── */
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{
+    background:var(--card);border-radius:var(--radius);padding:16px;
+    box-shadow:var(--shadow);cursor:pointer;
+    transition:background var(--transition),opacity var(--transition),border-color var(--transition);
+    position:relative;border-left:3px solid transparent;
+}
+.card:hover{background:var(--card2)}
+.card.hidden-by-search{display:none}
+
+/* Read state */
+.card.read{
+    opacity:.55;
+    border-left-color:var(--muted);
+}
+.card.read:hover{opacity:.75}
+
+/* Card header (title + bookmark) */
+.card-header{
+    display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;
+}
+.card-title{
+    flex:1;font-size:16px;font-weight:600;color:var(--accent);
+    line-height:1.4;
+}
+.card-body{font-size:15px;color:var(--text);margin-bottom:6px;line-height:1.6}
+.card-insight{
+    font-size:14px;color:var(--text2);margin-bottom:8px;
+    padding:8px 12px;border-radius:6px;
+    background:rgba(96,165,250,.06);
+    border-left:2px solid var(--accent);
+}
+
+/* Card actions bar */
+.card-actions{
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    margin-top:4px;
+}
+.card-btn{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:6px 14px;border-radius:6px;
+    font-size:13px;font-family:var(--font);font-weight:500;
+    text-decoration:none;cursor:pointer;
+    transition:all var(--transition);position:relative;z-index:2;
+    user-select:none;
+}
+.card-btn-primary{
+    background:var(--accent);color:#fff;border:1px solid var(--accent);
+}
+.card-btn-primary:hover{
+    background:var(--accent2);border-color:var(--accent2);
+}
+
+/* Bookmark button */
+.card-bookmark{
+    flex-shrink:0;
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:18px;padding:4px 6px;border-radius:6px;
+    transition:all var(--transition);position:relative;z-index:2;
+    line-height:1;
+}
+.card-bookmark:hover{color:var(--warning);background:rgba(251,191,36,.1)}
+.card-bookmark.bookmarked{color:var(--warning)}
+.card-bookmark.bookmarked .bm-icon::before{content:'★'}
+
+/* Stars & Domain badges */
+.card-stars{font-size:12px;color:var(--success);font-weight:500}
+.card-domain{
+    font-size:11px;color:var(--muted);font-family:var(--mono);
+    padding:2px 8px;border-radius:4px;background:var(--card2);
+}
+
+/* Read badge */
+.card-read-badge{
+    font-size:12px;color:var(--success);
+    display:none;align-items:center;gap:3px;
+    margin-left:auto;
+}
+.card.read .card-read-badge{display:inline-flex}
+
+/* ── No results ── */
+.no-results{
+    display:none;text-align:center;padding:48px 16px;color:var(--muted);
+}
+.no-results.visible{display:block}
+.no-results-icon{font-size:48px;margin-bottom:12px}
+
+/* ── Footer ── */
+footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    margin-top:40px;padding-top:16px;border-top:1px solid var(--border);
+}
+
+/* ── Back to top ── */
 #back-top{
     position:fixed;bottom:24px;right:24px;
-    width:36px;height:36px;border-radius:50%;
+    width:40px;height:40px;border-radius:50%;
     background:var(--card);color:var(--muted);
     border:1px solid var(--muted);cursor:pointer;
     display:none;align-items:center;justify-content:center;
-    font-size:18px;z-index:100;transition:color .15s,border-color .15s;
+    font-size:18px;z-index:100;transition:all var(--transition);
 }
 #back-top:hover{color:var(--accent);border-color:var(--accent)}
 #back-top.visible{display:flex}
+
+/* ── Toast ── */
+.toast{
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:var(--card);color:var(--text);
+    padding:8px 20px;border-radius:20px;font-size:13px;
+    box-shadow:0 4px 12px rgba(0,0,0,.5);
+    z-index:200;opacity:0;transition:opacity .2s;
+    pointer-events:none;
+}
+.toast.show{opacity:1}
+
+/* ── Responsive ── */
 @media(max-width:768px){
+    .top-bar{padding:10px 12px}
+    .top-bar-inner{gap:8px}
+    .search-wrap{max-width:100%}
     .container{padding:16px 12px}
-    h1{font-size:20px}
-    .section-title{font-size:16px}
+    h1{font-size:19px}
+    .section-title{font-size:15px}
     .card-title{font-size:15px}
     .card-body{font-size:14px}
+    .card{padding:14px}
+    .card-actions{gap:6px}
+    .card-btn{padding:5px 12px;font-size:12px}
+    .chips{gap:4px}
+    .chip{padding:4px 10px;font-size:12px}
+    .archive-bar a{font-size:12px;padding:3px 8px}
+}
+@media(max-width:480px){
+    h1{font-size:17px}
+    .card{padding:12px;border-radius:6px}
+    .card-title{font-size:14px}
+    .card-body{font-size:13px}
+    .card-insight{font-size:13px;padding:6px 10px}
+    .card-btn{padding:5px 10px;font-size:11px}
+    .section{margin-bottom:20px}
+    .cards{gap:8px}
 }
 </style>
 </head>
 <body>
+
+<!-- ═══ Top Bar ═══ -->
+<div class="top-bar">
+<div class="top-bar-inner">
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="search-input" placeholder="搜索标题、摘要..." autocomplete="off">
+        <button class="search-clear" id="search-clear" title="清除">✕</button>
+    </div>
+    <span class="search-info" id="search-info"></span>
+    <div class="chips" id="filter-chips">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="news">🌐 新闻</button>
+        <button class="chip" data-filter="github">🔥 GitHub</button>
+        <button class="chip" data-filter="community">💬 社区</button>
+        <button class="chip" data-filter="papers">📄 论文</button>
+        <button class="chip" data-filter="products">🆕 产品</button>
+        <button class="chip" data-filter="bookmarks">📌 书签</button>
+        <button class="chip" data-filter="unread">👁 未读</button>
+    </div>
+</div>
+</div>
+
+<!-- ═══ Content ═══ -->
 <div class="container">
     <h1>🗞️ AI 日报 — 2026年6月11日</h1>
     <p class="delayed">⏰ 今日延迟发送，请见谅。</p>
-    <nav class="archive-bar"><a href="2026-06-16.html">06-16</a><a href="2026-06-15.html">06-15</a><a href="2026-06-14.html">06-14</a><a href="2026-06-13.html">06-13</a><a href="2026-06-12.html">06-12</a><a href="2026-06-11.html" class="active">06-11</a><a href="2026-06-09.html">06-09</a><a href="2026-06-08.html">06-08</a></nav>
-    <section class="section">
-    <h2 class="section-title">AI/科技新闻</h2>
-    <div class="cards"><article class="card" data-href="https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/">
-    <h3 class="card-title"><strong>Anthropic 撤回 Fable 5 静默降级政策，承诺提前通知用户</strong></h3>
-    <p class="card-body">Anthropic 承认在 Claude Fable 5 中对 AI/ML 研究相关任务做了不可见的性能限制，被社区发现后撤回该政策，承诺未来所有模型能力变更将提前通知。<br>💡 "先做后道歉"模式在 AI 行业越来越不可接受——透明度正在从加分项变成准入门槛。</p>
-    <a href="https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/</a>
-</article><article class="card" data-href="https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/">
-    <h3 class="card-title"><strong>马斯克 xAI 被诉：工程师因举报 Grok 安全问题被解雇</strong></h3>
-    <p class="card-body">一名前 xAI 工程师提起诉讼，称自己因指出 Grok 模型的安全漏洞和有害输出问题遭到报复性解雇，再次引发 AI 安全研究员的职场保护争议。<br>💡 AI 安全 whistleblower 的法律保护仍然是一片灰色地带——这会影响愿意加入 AI 公司的安全人才数量。</p>
-    <a href="https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/</a>
-</article><article class="card" data-href="https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/">
-    <h3 class="card-title"><strong>苹果 Siri 变身独立 AI Agent：底层用 Google Gemini + Nvidia GPU</strong></h3>
-    <p class="card-body">Craig Federighi 在直播中详细披露了苹果与 Google 的 Siri AI 合作细节——Siri 成为独立 app，具备屏幕感知和跨应用多步操作能力，后台运行在 Google Cloud 的 Nvidia GPU 上。<br>💡 苹果的 AI 战略变成了"最好的 UX + 别人的模型和芯片"——这对国内手机厂商的端侧 AI 路线是重要信号。</p>
-    <a href="https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/</a>
-</article><article class="card" data-href="https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/">
-    <h3 class="card-title"><strong>Google 开源 DiffusionGemma：从噪声中生成文字而非逐词预测</strong></h3>
-    <p class="card-body">Google 发布全新开源模型 DiffusionGemma，采用扩散模型（diffusion）而非传统自回归方式生成文本，从根本上改变了 LLM 的文字生成范式。<br>💡 扩散模型在图像生成已统治多年，进入文本领域可能带来更连贯的长文生成能力。</p>
-    <a href="https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/</a>
-</article><article class="card" data-href="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/">
-    <h3 class="card-title"><strong>网络安全研究员不满 Anthropic Fable 5 的安全护栏</strong></h3>
-    <p class="card-body">多位安全研究者表示 Fable 5 的 guardrails 过度限制了合法的安全测试和研究用途，认为 Anthropic 在"安全"和"研究自由"之间做出了错误权衡。<br>💡 安全护栏的边界之争会持续——关键不是要不要护栏，而是护栏能否区分恶意使用和合法研究。</p>
-    <a href="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/</a>
-</article><article class="card" data-href="https://burr.apache.org/">
-    <h3 class="card-title"><strong>Apache Burr：Yahoo/Oath 开源的可靠 AI Agent 构建框架</strong></h3>
-    <p class="card-body">Apache Burr 进入孵化器，提供状态机驱动的 Agent 框架，强调可观测性、可恢复性和生产级可靠性，区别于 LangChain/AutoGPT 的 prompt-chain 模式。<br>💡 生产级 Agent 需要状态管理和故障恢复——Burr 的状态机范式比 chain 范式更适合企业部署。</p>
-    <a href="https://burr.apache.org/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://burr.apache.org/</a>
-</article><article class="card" data-href="https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/">
-    <h3 class="card-title"><strong>Anthropic CEO Dario Amodei 只有一位直接下属：极致扁平化管理</strong></h3>
-    <p class="card-body">TechCrunch 报道 Anthropic 的独特管理结构——CEO Dario Amodei 仅有一位直接汇报者，公司采用极度扁平化的组织架构，与 OpenAI 的层级制形成鲜明对比。<br>💡 扁平化管理在 AI 研究机构中效果显著——减少中间层能加快研究迭代速度，但也考验创始人精力上限。</p>
-    <a href="https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/</a>
-</article><article class="card" data-href="https://qbitai.com/article/meshy-3d-ai-agent">
-    <h3 class="card-title"><strong>3D 创作迎来 ChatGPT 时刻：Meshy 发布全球首个 3D AI Agent</strong></h3>
-    <p class="card-body">Meshy 推出能从文字描述直接生成可编辑 3D 模型的 AI Agent，支持 Blender/Unity 导出，目标是将 3D 创作门槛降到 2D 图片生成级别。<br>💡 3D 资产生成一旦成熟，游戏、影视、AR/VR 的内容生产速度将质变。</p>
-    <a href="https://qbitai.com/article/meshy-3d-ai-agent" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://qbitai.com/article/meshy-3d-ai-agent</a>
-</article><article class="card" data-href="https://the-decoder.com/openais-ipo-slips/">
-    <h3 class="card-title"><strong>OpenAI IPO 时间表推迟，Altman 内部表示"明年内"</strong></h3>
-    <p class="card-body">Sam Altman 在全员大会上表示 IPO 将在"未来一年内"完成，相比此前"今年下半年"的预期有所推迟。二级市场估值已从峰值回落。<br>💡 IPO 推迟反映 AI 公司面临的双重压力：烧钱速度 + 监管不确定性。</p>
-    <a href="https://the-decoder.com/openais-ipo-slips/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/openais-ipo-slips/</a>
-</article><article class="card" data-href="https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U">
-    <h3 class="card-title"><strong>"Token 大爆炸"前夜：数据基础设施成为 AI 新瓶颈</strong></h3>
-    <p class="card-body">InfoQ 深度分析指出，随着模型能力趋同，高质量训练数据的获取、清洗和标注正取代模型架构成为 AI 竞争的核心差异化因素。<br>💡 从"比模型大"到"比数据好"——数据工程团队的价值在悄悄逆转。</p>
-    <a href="https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">🔥 GitHub 热门</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/NousResearch/hermes-agent">
-    <h3 class="card-title"><strong>NousResearch/hermes-agent</strong> ⭐190K (+590/d) — 会自我成长的 AI Agent 框架</h3>
-    <p class="card-body">💡 Nous 做微调模型起家，现在进入 Agent 框架赛道——"成长型 Agent"概念可能重新定义 Agent 评估标准。</p>
-    <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/NousResearch/hermes-agent</a>
-</article><article class="card" data-href="https://github.com/JimLiu/baoyu-design">
-    <h3 class="card-title"><strong>JimLiu/baoyu-design</strong> ⭐734 (+184/d) — Claude Design 本地 Agent Skill，生成 UI 原型</h3>
-    <p class="card-body">💡 设计稿生成从 SaaS 走向本地 Agent Skill，设计师的 AI 工具链正在去中心化。</p>
-    <a href="https://github.com/JimLiu/baoyu-design" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/JimLiu/baoyu-design</a>
-</article><article class="card" data-href="https://github.com/amElnagdy/guard-skills">
-    <h3 class="card-title"><strong>amElnagdy/guard-skills</strong> ⭐558 (+140/d) — Coding Agent 质量门禁，自动拦截 AI 生成的代码缺陷</h3>
-    <p class="card-body">💡 这是"用 AI 审查 AI 写的代码"的工程化落地——Coding Agent 越多，guard 工具越刚需。</p>
-    <a href="https://github.com/amElnagdy/guard-skills" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/amElnagdy/guard-skills</a>
-</article><article class="card" data-href="https://github.com/valkor-ai/loom">
-    <h3 class="card-title"><strong>valkor-ai/loom</strong> ⭐204 (+102/d) — 开源交付工具，把 Coding Agent 变成可重复的流水线</h3>
-    <p class="card-body">💡 Agent 写代码容易，但把 Agent 写代码变成 CI/CD 流水线才是生产化的关键一步。</p>
-    <a href="https://github.com/valkor-ai/loom" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/valkor-ai/loom</a>
-</article><article class="card" data-href="https://github.com/orange2ai/orange-line-illustration">
-    <h3 class="card-title"><strong>orange2ai/orange-line-illustration</strong> ⭐76 (+76/d) — 纽约客风格极简插画 AI Agent Skill</h3>
-    <p class="card-body">💡 小众但精准——专业插画风格化是 Agent Skill 生态的典型案例。</p>
-    <a href="https://github.com/orange2ai/orange-line-illustration" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/orange2ai/orange-line-illustration</a>
-</article></div>
+    <div class="date-summary">
+        <span id="total-count"><strong>共 0 篇</strong></span>
+        <span id="visible-count"></span>
+        <span id="bookmark-count"></span>
+        <span id="unread-count"></span>
+    </div>
+    <nav class="archive-bar"><a href="2026-06-16.html" class="">06-16</a><a href="2026-06-15.html" class="">06-15</a><a href="2026-06-14.html" class="">06-14</a><a href="2026-06-13.html" class="">06-13</a><a href="2026-06-12.html" class="">06-12</a><a href="2026-06-11.html" class="active">06-11</a><a href="2026-06-09.html" class="">06-09</a><a href="2026-06-08.html" class="">06-08</a></nav>
+
+    <section class="section" data-category="news">
+    <h2 class="section-title">🌐 AI/科技新闻 <span class="section-count">(10)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/" data-url="https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/">
+    <div class="card-header">
+        <h3 class="card-title">Anthropic 撤回 Fable 5 静默降级政策，承诺提前通知用户</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Anthropic 承认在 Claude Fable 5 中对 AI/ML 研究相关任务做了不可见的性能限制，被社区发现后撤回该政策，承诺未来所有模型能力变更将提前通知。</p>
+    <div class="card-insight">💡 &quot;先做后道歉&quot;模式在 AI 行业越来越不可接受——透明度正在从加分项变成准入门槛。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/" data-url="https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/">
+    <div class="card-header">
+        <h3 class="card-title">马斯克 xAI 被诉：工程师因举报 Grok 安全问题被解雇</h3>
+        <button class="card-bookmark" data-url="https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">一名前 xAI 工程师提起诉讼，称自己因指出 Grok 模型的安全漏洞和有害输出问题遭到报复性解雇，再次引发 AI 安全研究员的职场保护争议。</p>
+    <div class="card-insight">💡 AI 安全 whistleblower 的法律保护仍然是一片灰色地带——这会影响愿意加入 AI 公司的安全人才数量。</div>
+    <div class="card-actions">
+        <a href="https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">techcrunch.com</span>
+        <span class="card-read-badge" data-url="https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/" data-url="https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/">
+    <div class="card-header">
+        <h3 class="card-title">苹果 Siri 变身独立 AI Agent：底层用 Google Gemini + Nvidia GPU</h3>
+        <button class="card-bookmark" data-url="https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Craig Federighi 在直播中详细披露了苹果与 Google 的 Siri AI 合作细节——Siri 成为独立 app，具备屏幕感知和跨应用多步操作能力，后台运行在 Google Cloud 的 Nvidia GPU 上。</p>
+    <div class="card-insight">💡 苹果的 AI 战略变成了&quot;最好的 UX + 别人的模型和芯片&quot;——这对国内手机厂商的端侧 AI 路线是重要信号。</div>
+    <div class="card-actions">
+        <a href="https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">9to5mac.com</span>
+        <span class="card-read-badge" data-url="https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/" data-url="https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/">
+    <div class="card-header">
+        <h3 class="card-title">Google 开源 DiffusionGemma：从噪声中生成文字而非逐词预测</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Google 发布全新开源模型 DiffusionGemma，采用扩散模型（diffusion）而非传统自回归方式生成文本，从根本上改变了 LLM 的文字生成范式。</p>
+    <div class="card-insight">💡 扩散模型在图像生成已统治多年，进入文本领域可能带来更连贯的长文生成能力。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/" data-url="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/">
+    <div class="card-header">
+        <h3 class="card-title">网络安全研究员不满 Anthropic Fable 5 的安全护栏</h3>
+        <button class="card-bookmark" data-url="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">多位安全研究者表示 Fable 5 的 guardrails 过度限制了合法的安全测试和研究用途，认为 Anthropic 在&quot;安全&quot;和&quot;研究自由&quot;之间做出了错误权衡。</p>
+    <div class="card-insight">💡 安全护栏的边界之争会持续——关键不是要不要护栏，而是护栏能否区分恶意使用和合法研究。</div>
+    <div class="card-actions">
+        <a href="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">techcrunch.com</span>
+        <span class="card-read-badge" data-url="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://burr.apache.org/" data-url="https://burr.apache.org/">
+    <div class="card-header">
+        <h3 class="card-title">Apache Burr：Yahoo/Oath 开源的可靠 AI Agent 构建框架</h3>
+        <button class="card-bookmark" data-url="https://burr.apache.org/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Apache Burr 进入孵化器，提供状态机驱动的 Agent 框架，强调可观测性、可恢复性和生产级可靠性，区别于 LangChain/AutoGPT 的 prompt-chain 模式。</p>
+    <div class="card-insight">💡 生产级 Agent 需要状态管理和故障恢复——Burr 的状态机范式比 chain 范式更适合企业部署。</div>
+    <div class="card-actions">
+        <a href="https://burr.apache.org/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">burr.apache.org</span>
+        <span class="card-read-badge" data-url="https://burr.apache.org/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/" data-url="https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/">
+    <div class="card-header">
+        <h3 class="card-title">Anthropic CEO Dario Amodei 只有一位直接下属：极致扁平化管理</h3>
+        <button class="card-bookmark" data-url="https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">TechCrunch 报道 Anthropic 的独特管理结构——CEO Dario Amodei 仅有一位直接汇报者，公司采用极度扁平化的组织架构，与 OpenAI 的层级制形成鲜明对比。</p>
+    <div class="card-insight">💡 扁平化管理在 AI 研究机构中效果显著——减少中间层能加快研究迭代速度，但也考验创始人精力上限。</div>
+    <div class="card-actions">
+        <a href="https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">techcrunch.com</span>
+        <span class="card-read-badge" data-url="https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://qbitai.com/article/meshy-3d-ai-agent" data-url="https://qbitai.com/article/meshy-3d-ai-agent">
+    <div class="card-header">
+        <h3 class="card-title">3D 创作迎来 ChatGPT 时刻：Meshy 发布全球首个 3D AI Agent</h3>
+        <button class="card-bookmark" data-url="https://qbitai.com/article/meshy-3d-ai-agent" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Meshy 推出能从文字描述直接生成可编辑 3D 模型的 AI Agent，支持 Blender/Unity 导出，目标是将 3D 创作门槛降到 2D 图片生成级别。</p>
+    <div class="card-insight">💡 3D 资产生成一旦成熟，游戏、影视、AR/VR 的内容生产速度将质变。</div>
+    <div class="card-actions">
+        <a href="https://qbitai.com/article/meshy-3d-ai-agent" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">qbitai.com</span>
+        <span class="card-read-badge" data-url="https://qbitai.com/article/meshy-3d-ai-agent">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/openais-ipo-slips/" data-url="https://the-decoder.com/openais-ipo-slips/">
+    <div class="card-header">
+        <h3 class="card-title">OpenAI IPO 时间表推迟，Altman 内部表示"明年内"</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/openais-ipo-slips/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Sam Altman 在全员大会上表示 IPO 将在&quot;未来一年内&quot;完成，相比此前&quot;今年下半年&quot;的预期有所推迟。二级市场估值已从峰值回落。</p>
+    <div class="card-insight">💡 IPO 推迟反映 AI 公司面临的双重压力：烧钱速度 + 监管不确定性。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/openais-ipo-slips/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/openais-ipo-slips/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U" data-url="https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U">
+    <div class="card-header">
+        <h3 class="card-title">"Token 大爆炸"前夜：数据基础设施成为 AI 新瓶颈</h3>
+        <button class="card-bookmark" data-url="https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">InfoQ 深度分析指出，随着模型能力趋同，高质量训练数据的获取、清洗和标注正取代模型架构成为 AI 竞争的核心差异化因素。</p>
+    <div class="card-insight">💡 从&quot;比模型大&quot;到&quot;比数据好&quot;——数据工程团队的价值在悄悄逆转。</div>
+    <div class="card-actions">
+        <a href="https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.infoq.cn</span>
+        <span class="card-read-badge" data-url="https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U">✓ 已读</span>
+    </div>
+</article>
+    </div>
 </section>
-    <footer>🤖 follow-news v4.0</footer>
+<section class="section" data-category="github">
+    <h2 class="section-title">🔥 GitHub 热门 <span class="section-count">(5)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/NousResearch/hermes-agent" data-url="https://github.com/NousResearch/hermes-agent">
+    <div class="card-header">
+        <h3 class="card-title">NousResearch/hermes-agent</h3>
+        <button class="card-bookmark" data-url="https://github.com/NousResearch/hermes-agent" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐190K (+590/d) — 会自我成长的 AI Agent 框架</p>
+    <div class="card-insight">💡 Nous 做微调模型起家，现在进入 Agent 框架赛道——&quot;成长型 Agent&quot;概念可能重新定义 Agent 评估标准。</div>
+    <div class="card-actions">
+        <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/NousResearch/hermes-agent">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/JimLiu/baoyu-design" data-url="https://github.com/JimLiu/baoyu-design">
+    <div class="card-header">
+        <h3 class="card-title">JimLiu/baoyu-design</h3>
+        <button class="card-bookmark" data-url="https://github.com/JimLiu/baoyu-design" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐734 (+184/d) — Claude Design 本地 Agent Skill，生成 UI 原型</p>
+    <div class="card-insight">💡 设计稿生成从 SaaS 走向本地 Agent Skill，设计师的 AI 工具链正在去中心化。</div>
+    <div class="card-actions">
+        <a href="https://github.com/JimLiu/baoyu-design" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/JimLiu/baoyu-design">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/amElnagdy/guard-skills" data-url="https://github.com/amElnagdy/guard-skills">
+    <div class="card-header">
+        <h3 class="card-title">amElnagdy/guard-skills</h3>
+        <button class="card-bookmark" data-url="https://github.com/amElnagdy/guard-skills" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐558 (+140/d) — Coding Agent 质量门禁，自动拦截 AI 生成的代码缺陷</p>
+    <div class="card-insight">💡 这是&quot;用 AI 审查 AI 写的代码&quot;的工程化落地——Coding Agent 越多，guard 工具越刚需。</div>
+    <div class="card-actions">
+        <a href="https://github.com/amElnagdy/guard-skills" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/amElnagdy/guard-skills">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/valkor-ai/loom" data-url="https://github.com/valkor-ai/loom">
+    <div class="card-header">
+        <h3 class="card-title">valkor-ai/loom</h3>
+        <button class="card-bookmark" data-url="https://github.com/valkor-ai/loom" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐204 (+102/d) — 开源交付工具，把 Coding Agent 变成可重复的流水线</p>
+    <div class="card-insight">💡 Agent 写代码容易，但把 Agent 写代码变成 CI/CD 流水线才是生产化的关键一步。</div>
+    <div class="card-actions">
+        <a href="https://github.com/valkor-ai/loom" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/valkor-ai/loom">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/orange2ai/orange-line-illustration" data-url="https://github.com/orange2ai/orange-line-illustration">
+    <div class="card-header">
+        <h3 class="card-title">orange2ai/orange-line-illustration</h3>
+        <button class="card-bookmark" data-url="https://github.com/orange2ai/orange-line-illustration" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">⭐76 (+76/d) — 纽约客风格极简插画 AI Agent Skill</p>
+    <div class="card-insight">💡 小众但精准——专业插画风格化是 Agent Skill 生态的典型案例。</div>
+    <div class="card-actions">
+        <a href="https://github.com/orange2ai/orange-line-illustration" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/orange2ai/orange-line-illustration">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+
+    <div class="no-results" id="no-results">
+        <div class="no-results-icon">🔍</div>
+        <p>没有匹配的文章</p>
+    </div>
+
+    <footer>🤖 follow-news v5.0 · <span id="footer-stats"></span></footer>
 </div>
-<button id="back-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<button id="back-top" title="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast"></div>
+
 <script>
-// Card click → open first link in new tab
-document.querySelectorAll('.card[data-href]').forEach(el=>{
-    el.addEventListener('click',function(e){
-        if(e.target.closest('a'))return;
-        var a=document.createElement('a');
-        a.href=this.dataset.href;a.target='_blank';a.rel='noopener';
-        a.click()
-    })
-})
-// Back to top visibility
-const btn=document.getElementById('back-top')
-window.addEventListener('scroll',function(){
-    btn.classList.toggle('visible',window.scrollY>500)
-})
+// ═══════════════════════════════════════════════════════════
+//  follow-news v5.0 — Client-side logic
+// ═══════════════════════════════════════════════════════════
+
+const DIGEST_DATE = "2026-06-11";
+const ALL_ARTICLES = [
+{"title": "Anthropic 撤回 Fable 5 静默降级政策，承诺提前通知用户", "summary": "Anthropic 承认在 Claude Fable 5 中对 AI/ML 研究相关任务做了不可见的性能限制，被社区发现后撤回该政策，承诺未来所有模型能力变更将提前通知。", "insight": "\"先做后道歉\"模式在 AI 行业越来越不可接受——透明度正在从加分项变成准入门槛。", "url": "https://the-decoder.com/claude-fable-5-anthropic-admits-wrong-tradeoff/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "马斯克 xAI 被诉：工程师因举报 Grok 安全问题被解雇", "summary": "一名前 xAI 工程师提起诉讼，称自己因指出 Grok 模型的安全漏洞和有害输出问题遭到报复性解雇，再次引发 AI 安全研究员的职场保护争议。", "insight": "AI 安全 whistleblower 的法律保护仍然是一片灰色地带——这会影响愿意加入 AI 公司的安全人才数量。", "url": "https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/", "category": "news", "stars": "", "domain": "techcrunch.com"},
+{"title": "苹果 Siri 变身独立 AI Agent：底层用 Google Gemini + Nvidia GPU", "summary": "Craig Federighi 在直播中详细披露了苹果与 Google 的 Siri AI 合作细节——Siri 成为独立 app，具备屏幕感知和跨应用多步操作能力，后台运行在 Google Cloud 的 Nvidia GPU 上。", "insight": "苹果的 AI 战略变成了\"最好的 UX + 别人的模型和芯片\"——这对国内手机厂商的端侧 AI 路线是重要信号。", "url": "https://9to5mac.com/2026/06/10/craig-federighi-details-apples-collaboration-google-siri-ai/", "category": "news", "stars": "", "domain": "9to5mac.com"},
+{"title": "Google 开源 DiffusionGemma：从噪声中生成文字而非逐词预测", "summary": "Google 发布全新开源模型 DiffusionGemma，采用扩散模型（diffusion）而非传统自回归方式生成文本，从根本上改变了 LLM 的文字生成范式。", "insight": "扩散模型在图像生成已统治多年，进入文本领域可能带来更连贯的长文生成能力。", "url": "https://the-decoder.com/googles-new-open-model-diffusiongemma-generates-text-from-noise/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "网络安全研究员不满 Anthropic Fable 5 的安全护栏", "summary": "多位安全研究者表示 Fable 5 的 guardrails 过度限制了合法的安全测试和研究用途，认为 Anthropic 在\"安全\"和\"研究自由\"之间做出了错误权衡。", "insight": "安全护栏的边界之争会持续——关键不是要不要护栏，而是护栏能否区分恶意使用和合法研究。", "url": "https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/", "category": "news", "stars": "", "domain": "techcrunch.com"},
+{"title": "Apache Burr：Yahoo/Oath 开源的可靠 AI Agent 构建框架", "summary": "Apache Burr 进入孵化器，提供状态机驱动的 Agent 框架，强调可观测性、可恢复性和生产级可靠性，区别于 LangChain/AutoGPT 的 prompt-chain 模式。", "insight": "生产级 Agent 需要状态管理和故障恢复——Burr 的状态机范式比 chain 范式更适合企业部署。", "url": "https://burr.apache.org/", "category": "news", "stars": "", "domain": "burr.apache.org"},
+{"title": "Anthropic CEO Dario Amodei 只有一位直接下属：极致扁平化管理", "summary": "TechCrunch 报道 Anthropic 的独特管理结构——CEO Dario Amodei 仅有一位直接汇报者，公司采用极度扁平化的组织架构，与 OpenAI 的层级制形成鲜明对比。", "insight": "扁平化管理在 AI 研究机构中效果显著——减少中间层能加快研究迭代速度，但也考验创始人精力上限。", "url": "https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/", "category": "news", "stars": "", "domain": "techcrunch.com"},
+{"title": "3D 创作迎来 ChatGPT 时刻：Meshy 发布全球首个 3D AI Agent", "summary": "Meshy 推出能从文字描述直接生成可编辑 3D 模型的 AI Agent，支持 Blender/Unity 导出，目标是将 3D 创作门槛降到 2D 图片生成级别。", "insight": "3D 资产生成一旦成熟，游戏、影视、AR/VR 的内容生产速度将质变。", "url": "https://qbitai.com/article/meshy-3d-ai-agent", "category": "news", "stars": "", "domain": "qbitai.com"},
+{"title": "OpenAI IPO 时间表推迟，Altman 内部表示\"明年内\"", "summary": "Sam Altman 在全员大会上表示 IPO 将在\"未来一年内\"完成，相比此前\"今年下半年\"的预期有所推迟。二级市场估值已从峰值回落。", "insight": "IPO 推迟反映 AI 公司面临的双重压力：烧钱速度 + 监管不确定性。", "url": "https://the-decoder.com/openais-ipo-slips/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "\"Token 大爆炸\"前夜：数据基础设施成为 AI 新瓶颈", "summary": "InfoQ 深度分析指出，随着模型能力趋同，高质量训练数据的获取、清洗和标注正取代模型架构成为 AI 竞争的核心差异化因素。", "insight": "从\"比模型大\"到\"比数据好\"——数据工程团队的价值在悄悄逆转。", "url": "https://www.infoq.cn/article/TDdi5YoLaEaiTZAcfz6U", "category": "news", "stars": "", "domain": "www.infoq.cn"},
+{"title": "NousResearch/hermes-agent", "summary": "⭐190K (+590/d) — 会自我成长的 AI Agent 框架", "insight": "Nous 做微调模型起家，现在进入 Agent 框架赛道——\"成长型 Agent\"概念可能重新定义 Agent 评估标准。", "url": "https://github.com/NousResearch/hermes-agent", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "JimLiu/baoyu-design", "summary": "⭐734 (+184/d) — Claude Design 本地 Agent Skill，生成 UI 原型", "insight": "设计稿生成从 SaaS 走向本地 Agent Skill，设计师的 AI 工具链正在去中心化。", "url": "https://github.com/JimLiu/baoyu-design", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "amElnagdy/guard-skills", "summary": "⭐558 (+140/d) — Coding Agent 质量门禁，自动拦截 AI 生成的代码缺陷", "insight": "这是\"用 AI 审查 AI 写的代码\"的工程化落地——Coding Agent 越多，guard 工具越刚需。", "url": "https://github.com/amElnagdy/guard-skills", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "valkor-ai/loom", "summary": "⭐204 (+102/d) — 开源交付工具，把 Coding Agent 变成可重复的流水线", "insight": "Agent 写代码容易，但把 Agent 写代码变成 CI/CD 流水线才是生产化的关键一步。", "url": "https://github.com/valkor-ai/loom", "category": "github", "stars": "", "domain": "github.com"},
+{"title": "orange2ai/orange-line-illustration", "summary": "⭐76 (+76/d) — 纽约客风格极简插画 AI Agent Skill", "insight": "小众但精准——专业插画风格化是 Agent Skill 生态的典型案例。", "url": "https://github.com/orange2ai/orange-line-illustration", "category": "github", "stars": "", "domain": "github.com"}
+];
+
+// ── localStorage helpers ──
+const LS_BOOKMARKS = 'fn_bookmarks';
+const LS_READ = 'fn_read';
+
+function getLS(key) {
+    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }
+    catch { return new Set(); }
+}
+function setLS(key, set) {
+    try { localStorage.setItem(key, JSON.stringify([...set])); } catch {}
+}
+function inLS(key, url) { return getLS(key).has(url); }
+function toggleLS(key, url) {
+    const s = getLS(key);
+    if (s.has(url)) { s.delete(url); } else { s.add(url); }
+    setLS(key, s);
+    return s.has(url);
+}
+
+// ── State ──
+let activeFilter = 'all';
+let searchQuery = '';
+
+// ── DOM refs ──
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const searchInfo = document.getElementById('search-info');
+const filterChips = document.getElementById('filter-chips');
+const noResults = document.getElementById('no-results');
+const toast = document.getElementById('toast');
+const backTop = document.getElementById('back-top');
+
+// ── Card click → open URL ──
+document.querySelectorAll('.card[data-href]').forEach(card => {
+    card.addEventListener('click', function(e) {
+        if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.card-bookmark')) return;
+        const url = this.dataset.href;
+        if (url) {
+            markRead(this.dataset.url || url);
+            window.open(url, '_blank', 'noopener');
+        }
+    });
+});
+
+// ── Bookmark buttons ──
+document.querySelectorAll('.card-bookmark').forEach(btn => {
+    const url = btn.dataset.url;
+    if (inLS(LS_BOOKMARKS, url)) btn.classList.add('bookmarked');
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isNow = toggleLS(LS_BOOKMARKS, url);
+        this.classList.toggle('bookmarked', isNow);
+        showToast(isNow ? '已收藏 ★' : '已取消收藏');
+        updateCounts();
+        applyAllFilters();
+    });
+});
+
+// ── Read tracking ──
+function markRead(url) {
+    if (!inLS(LS_READ, url)) {
+        getLS(LS_READ).add(url);
+        setLS(LS_READ, getLS(LS_READ));
+    }
+    updateReadUI();
+    updateCounts();
+}
+
+function updateReadUI() {
+    const readSet = getLS(LS_READ);
+    document.querySelectorAll('.card[data-url]').forEach(card => {
+        if (readSet.has(card.dataset.url)) card.classList.add('read');
+    });
+}
+
+// ── Filter chips ──
+filterChips.addEventListener('click', function(e) {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    const filter = chip.dataset.filter;
+
+    // Toggle: clicking active chip deactivates → goes to 'all'
+    if (chip.classList.contains('active') && filter !== 'all') {
+        activeFilter = 'all';
+    } else {
+        activeFilter = filter;
+    }
+
+    updateChipUI();
+    applyAllFilters();
+});
+
+function updateChipUI() {
+    filterChips.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.filter === activeFilter);
+    });
+}
+
+// ── Search ──
+let searchTimer;
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        searchQuery = this.value.trim().toLowerCase();
+        searchClear.classList.toggle('visible', searchQuery.length > 0);
+        applyAllFilters();
+    }, 150);
+});
+searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchQuery = '';
+    searchClear.classList.remove('visible');
+    searchInput.focus();
+    applyAllFilters();
+});
+
+// ── Apply all filters ──
+function applyAllFilters() {
+    const readSet = getLS(LS_READ);
+    const bookmarkSet = getLS(LS_BOOKMARKS);
+    let visibleCount = 0;
+    let totalInFilter = 0;
+
+    document.querySelectorAll('.section').forEach(section => {
+        const cat = section.dataset.category;
+        let sectionHasVisible = false;
+
+        section.querySelectorAll('.card').forEach(card => {
+            const url = card.dataset.url;
+            let show = true;
+
+            // Category filter
+            if (activeFilter === 'bookmarks') {
+                show = bookmarkSet.has(url);
+            } else if (activeFilter === 'unread') {
+                show = !readSet.has(url);
+            } else if (activeFilter !== 'all') {
+                show = (cat === activeFilter);
+            }
+
+            // Search filter
+            if (show && searchQuery) {
+                const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+                const body = (card.querySelector('.card-body')?.textContent || '').toLowerCase();
+                const insight = (card.querySelector('.card-insight')?.textContent || '').toLowerCase();
+                const allText = title + ' ' + body + ' ' + insight;
+                const terms = searchQuery.split(/\s+/).filter(Boolean);
+                show = terms.every(t => allText.includes(t));
+            }
+
+            if (show) {
+                card.classList.remove('hidden-by-search');
+                visibleCount++;
+                sectionHasVisible = true;
+            } else {
+                card.classList.add('hidden-by-search');
+            }
+            totalInFilter++;
+        });
+
+        section.classList.toggle('hidden', !sectionHasVisible);
+    });
+
+    // No results
+    noResults.classList.toggle('visible', visibleCount === 0 && totalInFilter > 0);
+
+    // Search info
+    if (searchQuery) {
+        searchInfo.textContent = `找到 ${visibleCount} 篇`;
+    } else {
+        searchInfo.textContent = '';
+    }
+
+    updateCounts();
+}
+
+// ── Counts ──
+function updateCounts() {
+    const visible = document.querySelectorAll('.card:not(.hidden-by-search)').length;
+    const total = document.querySelectorAll('.card').length;
+    const bookmarkN = getLS(LS_BOOKMARKS).size;
+    const readN = getLS(LS_READ).size;
+    const unreadN = total - readN;
+
+    document.getElementById('total-count').innerHTML = `<strong>共 ${total} 篇</strong>`;
+    document.getElementById('visible-count').textContent = visible !== total ? `显示 ${visible} 篇` : '';
+    document.getElementById('bookmark-count').textContent = bookmarkN > 0 ? `📌 ${bookmarkN} 书签` : '';
+    document.getElementById('unread-count').textContent = unreadN > 0 ? `👁 ${unreadN} 未读` : '';
+    document.getElementById('footer-stats').textContent =
+        `${total} articles · ${bookmarkN} bookmarked · ${readN} read · built ${new Date().toISOString().slice(0,10)}`;
+
+    // Update chip labels
+    const bookmarkChip = filterChips.querySelector('[data-filter="bookmarks"]');
+    if (bookmarkChip) bookmarkChip.textContent = `📌 书签 (${bookmarkN})`;
+    const unreadChip = filterChips.querySelector('[data-filter="unread"]');
+    if (unreadChip) unreadChip.textContent = `👁 未读 (${unreadN})`;
+}
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+// ── Back to top ──
+window.addEventListener('scroll', function() {
+    backTop.classList.toggle('visible', window.scrollY > 500);
+});
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', function(e) {
+    // Ctrl+K or / → focus search
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement === document.body)) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+    }
+    // Escape → clear search
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchQuery = '';
+        searchClear.classList.remove('visible');
+        searchInput.blur();
+        applyAllFilters();
+    }
+});
+
+// ── Init ──
+updateReadUI();
+updateCounts();
 </script>
 </body>
 </html>

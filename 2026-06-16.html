@@ -7,210 +7,1019 @@
 <title>每日 AI 科技日报 — 2026-06-16 — AI 科技日报</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════════════════
+   follow-news v5.0 — Enhanced Reading Experience
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset & Tokens ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
     --bg:#0a0f1a;
     --card:#121a29;
+    --card2:#162032;
     --text:#cbd5e1;
+    --text2:#94a3b8;
     --muted:#64748b;
     --accent:#60a5fa;
+    --accent2:#3b82f6;
     --success:#34d399;
     --warning:#fbbf24;
     --danger:#f87171;
-    --card-hover:#162032;
+    --border:rgba(255,255,255,.06);
+    --shadow:0 1px 3px rgba(0,0,0,.4);
+    --radius:8px;
+    --font:'Inter',-apple-system,'Segoe UI','Noto Sans SC',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --transition:150ms ease;
 }
 html{scroll-behavior:smooth}
 body{
-    font-family:'Inter',-apple-system,sans-serif;
-    font-size:15px;line-height:1.55;
+    font-family:var(--font);
+    font-size:15px;line-height:1.6;
     background:var(--bg);color:var(--text);
-    font-weight:400;
+    -webkit-font-smoothing:antialiased;
 }
-a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-family:'JetBrains Mono',monospace;font-size:13px}
-a:hover{color:#93c5fd}
-.container{max-width:1400px;margin:0 auto;padding:32px 16px}
-h1{font-size:22px;font-weight:600;margin-bottom:8px;color:var(--text)}
-.delayed{color:var(--warning);font-size:13px;margin-bottom:24px}
-.section{margin-bottom:24px}
-.section-title{font-size:18px;font-weight:600;margin-bottom:12px;color:var(--text);text-transform:uppercase;letter-spacing:.03em}
-.cards{display:flex;flex-direction:column;gap:16px}
-.card{
-    background:var(--card);border-radius:4px;padding:12px;
-    box-shadow:0 1px 2px rgba(0,0,0,.3);
-    cursor:pointer;transition:background .15s;
+
+/* ── Top Bar (sticky) ── */
+.top-bar{
+    position:sticky;top:0;z-index:100;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    padding:12px 16px;
+    backdrop-filter:blur(12px);
+}
+.top-bar-inner{
+    max-width:1400px;margin:0 auto;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.search-wrap{
+    flex:1;min-width:200px;max-width:480px;
     position:relative;
 }
-.card:hover{background:var(--card-hover)}
-.card-title{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:4px;line-height:1.4}
-.card-body{font-size:15px;color:var(--text);margin-bottom:8px;line-height:1.55}
-.card-body br{display:block;content:'';margin-top:8px}
-.card-link{font-size:13px;word-break:break-all;display:inline-block;position:relative;z-index:2}
-.card-link:hover{color:#93c5fd!important}
-footer{text-align:center;color:var(--muted);font-size:13px;margin-top:32px;padding-top:16px;border-top:1px solid var(--card)}
-/* Archive bar */
+.search-wrap input{
+    width:100%;padding:8px 12px 8px 36px;
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);color:var(--text);
+    font-family:var(--font);font-size:14px;
+    outline:none;transition:border-color var(--transition),box-shadow var(--transition);
+}
+.search-wrap input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(96,165,250,.15);
+}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-icon{
+    position:absolute;left:10px;top:50%;transform:translateY(-50%);
+    color:var(--muted);font-size:16px;pointer-events:none;
+}
+.search-clear{
+    position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:16px;display:none;padding:2px 6px;border-radius:4px;
+}
+.search-clear:hover{color:var(--text);background:var(--card2)}
+.search-clear.visible{display:block}
+.search-info{
+    font-size:12px;color:var(--muted);white-space:nowrap;
+}
+
+/* ── Filter Chips ── */
+.chips{
+    display:flex;flex-wrap:nowrap;gap:6px;
+    overflow-x:auto;scrollbar-width:none;
+    padding:2px 0;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+    padding:5px 12px;border-radius:20px;
+    font-size:13px;font-family:var(--font);
+    border:1px solid var(--border);background:var(--card);
+    color:var(--text2);cursor:pointer;
+    white-space:nowrap;transition:all var(--transition);
+    user-select:none;
+}
+.chip:hover{border-color:var(--muted);color:var(--text)}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500}
+
+/* ── Container ── */
+.container{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
+.delayed{color:var(--warning);font-size:13px;margin-bottom:16px}
+
+/* ── Date Summary ── */
+.date-summary{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    margin-bottom:20px;font-size:13px;color:var(--text2);
+}
+.date-summary strong{color:var(--text)}
+
+/* ── Archive Bar (horizontal scroll) ── */
 .archive-bar{
-    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;
-    padding-bottom:16px;border-bottom:1px solid var(--card);
+    display:flex;gap:6px;margin-bottom:20px;padding-bottom:14px;
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;scroll-snap-type:x proximity;
+    scrollbar-width:thin;scrollbar-color:var(--muted) transparent;
 }
 .archive-bar a{
+    flex-shrink:0;scroll-snap-align:start;
     font-size:13px;color:var(--muted);text-decoration:none;
-    padding:2px 8px;border-radius:3px;font-family:'Inter',sans-serif;
-    transition:color .15s,background .15s;
+    padding:4px 10px;border-radius:var(--radius);
+    font-family:var(--font);transition:all var(--transition);
 }
-.archive-bar a:hover,.archive-bar a.active{color:var(--accent);background:var(--card)}
-/* Back to top */
+.archive-bar a:hover{color:var(--accent);background:var(--card)}
+.archive-bar a.active{color:var(--accent);background:var(--card);font-weight:600}
+
+/* ── Sections ── */
+.section{margin-bottom:28px}
+.section.hidden{display:none}
+.section-title{
+    font-size:17px;font-weight:600;margin-bottom:12px;
+    color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.section-count{font-size:13px;font-weight:400;color:var(--muted)}
+
+/* ── Cards ── */
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{
+    background:var(--card);border-radius:var(--radius);padding:16px;
+    box-shadow:var(--shadow);cursor:pointer;
+    transition:background var(--transition),opacity var(--transition),border-color var(--transition);
+    position:relative;border-left:3px solid transparent;
+}
+.card:hover{background:var(--card2)}
+.card.hidden-by-search{display:none}
+
+/* Read state */
+.card.read{
+    opacity:.55;
+    border-left-color:var(--muted);
+}
+.card.read:hover{opacity:.75}
+
+/* Card header (title + bookmark) */
+.card-header{
+    display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;
+}
+.card-title{
+    flex:1;font-size:16px;font-weight:600;color:var(--accent);
+    line-height:1.4;
+}
+.card-body{font-size:15px;color:var(--text);margin-bottom:6px;line-height:1.6}
+.card-insight{
+    font-size:14px;color:var(--text2);margin-bottom:8px;
+    padding:8px 12px;border-radius:6px;
+    background:rgba(96,165,250,.06);
+    border-left:2px solid var(--accent);
+}
+
+/* Card actions bar */
+.card-actions{
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    margin-top:4px;
+}
+.card-btn{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:6px 14px;border-radius:6px;
+    font-size:13px;font-family:var(--font);font-weight:500;
+    text-decoration:none;cursor:pointer;
+    transition:all var(--transition);position:relative;z-index:2;
+    user-select:none;
+}
+.card-btn-primary{
+    background:var(--accent);color:#fff;border:1px solid var(--accent);
+}
+.card-btn-primary:hover{
+    background:var(--accent2);border-color:var(--accent2);
+}
+
+/* Bookmark button */
+.card-bookmark{
+    flex-shrink:0;
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-size:18px;padding:4px 6px;border-radius:6px;
+    transition:all var(--transition);position:relative;z-index:2;
+    line-height:1;
+}
+.card-bookmark:hover{color:var(--warning);background:rgba(251,191,36,.1)}
+.card-bookmark.bookmarked{color:var(--warning)}
+.card-bookmark.bookmarked .bm-icon::before{content:'★'}
+
+/* Stars & Domain badges */
+.card-stars{font-size:12px;color:var(--success);font-weight:500}
+.card-domain{
+    font-size:11px;color:var(--muted);font-family:var(--mono);
+    padding:2px 8px;border-radius:4px;background:var(--card2);
+}
+
+/* Read badge */
+.card-read-badge{
+    font-size:12px;color:var(--success);
+    display:none;align-items:center;gap:3px;
+    margin-left:auto;
+}
+.card.read .card-read-badge{display:inline-flex}
+
+/* ── No results ── */
+.no-results{
+    display:none;text-align:center;padding:48px 16px;color:var(--muted);
+}
+.no-results.visible{display:block}
+.no-results-icon{font-size:48px;margin-bottom:12px}
+
+/* ── Footer ── */
+footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    margin-top:40px;padding-top:16px;border-top:1px solid var(--border);
+}
+
+/* ── Back to top ── */
 #back-top{
     position:fixed;bottom:24px;right:24px;
-    width:36px;height:36px;border-radius:50%;
+    width:40px;height:40px;border-radius:50%;
     background:var(--card);color:var(--muted);
     border:1px solid var(--muted);cursor:pointer;
     display:none;align-items:center;justify-content:center;
-    font-size:18px;z-index:100;transition:color .15s,border-color .15s;
+    font-size:18px;z-index:100;transition:all var(--transition);
 }
 #back-top:hover{color:var(--accent);border-color:var(--accent)}
 #back-top.visible{display:flex}
+
+/* ── Toast ── */
+.toast{
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:var(--card);color:var(--text);
+    padding:8px 20px;border-radius:20px;font-size:13px;
+    box-shadow:0 4px 12px rgba(0,0,0,.5);
+    z-index:200;opacity:0;transition:opacity .2s;
+    pointer-events:none;
+}
+.toast.show{opacity:1}
+
+/* ── Responsive ── */
 @media(max-width:768px){
+    .top-bar{padding:10px 12px}
+    .top-bar-inner{gap:8px}
+    .search-wrap{max-width:100%}
     .container{padding:16px 12px}
-    h1{font-size:20px}
-    .section-title{font-size:16px}
+    h1{font-size:19px}
+    .section-title{font-size:15px}
     .card-title{font-size:15px}
     .card-body{font-size:14px}
+    .card{padding:14px}
+    .card-actions{gap:6px}
+    .card-btn{padding:5px 12px;font-size:12px}
+    .chips{gap:4px}
+    .chip{padding:4px 10px;font-size:12px}
+    .archive-bar a{font-size:12px;padding:3px 8px}
+}
+@media(max-width:480px){
+    h1{font-size:17px}
+    .card{padding:12px;border-radius:6px}
+    .card-title{font-size:14px}
+    .card-body{font-size:13px}
+    .card-insight{font-size:13px;padding:6px 10px}
+    .card-btn{padding:5px 10px;font-size:11px}
+    .section{margin-bottom:20px}
+    .cards{gap:8px}
 }
 </style>
 </head>
 <body>
+
+<!-- ═══ Top Bar ═══ -->
+<div class="top-bar">
+<div class="top-bar-inner">
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="search-input" placeholder="搜索标题、摘要..." autocomplete="off">
+        <button class="search-clear" id="search-clear" title="清除">✕</button>
+    </div>
+    <span class="search-info" id="search-info"></span>
+    <div class="chips" id="filter-chips">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="news">🌐 新闻</button>
+        <button class="chip" data-filter="github">🔥 GitHub</button>
+        <button class="chip" data-filter="community">💬 社区</button>
+        <button class="chip" data-filter="papers">📄 论文</button>
+        <button class="chip" data-filter="products">🆕 产品</button>
+        <button class="chip" data-filter="bookmarks">📌 书签</button>
+        <button class="chip" data-filter="unread">👁 未读</button>
+    </div>
+</div>
+</div>
+
+<!-- ═══ Content ═══ -->
 <div class="container">
     <h1>每日 AI 科技日报 — 2026-06-16</h1>
     <p class="delayed">⏰ 今日延迟发送，请见谅。</p>
-    <nav class="archive-bar"><a href="2026-06-16.html" class="active">06-16</a><a href="2026-06-15.html">06-15</a><a href="2026-06-14.html">06-14</a><a href="2026-06-13.html">06-13</a><a href="2026-06-12.html">06-12</a><a href="2026-06-11.html">06-11</a><a href="2026-06-09.html">06-09</a><a href="2026-06-08.html">06-08</a></nav>
-    <section class="section">
-    <h2 class="section-title">🌐 AI/科技新闻</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/asgeirtj/system_prompts_leaks">
-    <h3 class="card-title"><strong>𝗔𝗜 史上最大系统提示词泄露——Claude Fable 5、GPT-5.5、Gemini 提示词全公开</strong></h3>
-    <p class="card-body">GitHub 仓库 `system_prompts_leaks` 一次性公开了 Anthropic（Claude Fable 5/Opus 4.8/Claude Code/Claude Design）、OpenAI（ChatGPT 5.5 Thinking/GPT 5.5 Instant/Codex）和 Google（Gemini 3.5 Flash/3.1 Pro/Antigravity）的系统提示词。<br>💡 这是继上周 Claude Code 提示词泄露后的全面升级，覆盖三家顶级 AI 公司全产品线。对安全研究者和竞争对手价值巨大，但也意味着各大厂商可能被迫在下个版本大幅重构提示词架构。</p>
-    <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/asgeirtj/system_prompts_leaks</a>
-</article><article class="card" data-href="https://www.anthropic.com/news/claude-corps">
-    <h3 class="card-title"><strong>𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 发布 Claude Corps——企业级 AI Agent 军团</strong></h3>
-    <p class="card-body">Anthropic 正式推出 Claude Corps，面向企业的大规模 AI Agent 部署方案，允许多个 Claude 实例协同完成复杂业务流程。<br>💡 从「单 Agent 对话」到「Agent 军团协作」是 Anthropic 企业战略的关键一步。对比 OpenAI Partner Network 和 Google Agent 生态，企业 AI 从工具走向组织架构变革的趋势已不可逆。</p>
-    <a href="https://www.anthropic.com/news/claude-corps" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.anthropic.com/news/claude-corps</a>
-</article><article class="card" data-href="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion">
-    <h3 class="card-title"><strong>𝗧𝗵𝗲 𝗘𝗰𝗼𝗻𝗼𝗺𝗶𝘀𝘁 封面警告：人类尚未准备好迎接即将到来的智能爆炸</strong></h3>
-    <p class="card-body">The Economist 发表特邀评论文章，指出全球治理体系、劳动力市场和社会契约都远未准备好应对 AGI 级智能的快速逼近。<br>💡 这不是硅谷的营销话术，而是《经济学人》社论级别的表态。文章暗示各国政府（尤其是美国对 Anthropic 的行动）正在仓促应对一场他们没有框架理解的变革。</p>
-    <a href="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion</a>
-</article><article class="card" data-href="https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/">
-    <h3 class="card-title"><strong>𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 与白宫就 Fable 5 禁令持续对峙——内部文件揭示禁令真正原因</strong></h3>
-    <p class="card-body">Wired 和 TechCrunch 多方报道揭露：美国政府对 Anthropic 的模型禁令并非因为「越狱」漏洞，而是出于对中国可能已获取 Mythos 权重的国家安全担忧。The Verge 深度报道了 Anthropic 与特朗普政府的博弈内幕。<br>💡 三篇独立报道指向同一结论：这是 AI 史上首次因地缘政治理由下线前沿模型。Fable 5/Mythos 5 的命运将成为 AI 出口管制的分水岭案例。</p>
-    <a href="https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/</a>
-</article><article class="card" data-href="https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/">
-    <h3 class="card-title"><strong>𝗣𝗼𝗸é𝗺𝗼𝗻 𝗚𝗼 玩家数据被用于训练 AI，现已关联军用无人机</strong></h3>
-    <p class="card-body">调查发现 Niantic 通过 Pokémon Go 收集的地理空间数据被用于训练 AI 模型，这些模型后来与军事无人机应用产生了关联。<br>💡 免费游戏的数据收集边界再次引发争议。用户从未被告知他们的步行路径可能最终服务于军事 AI，凸显了消费级 AR 应用背后数据供应链的透明性黑洞。</p>
-    <a href="https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/</a>
-</article><article class="card" data-href="https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/">
-    <h3 class="card-title"><strong>𝗔𝗟𝗦 患者成为脑机接口「第一个高级用户」——用思想说话</strong></h3>
-    <p class="card-body">MIT Technology Review 深度报道了一名 ALS 患者成为脑植入设备「第一个高级用户」的故事，该设备让他能以每分钟 60+ 词的速度通过思考进行交流。<br>💡 这是 BCI（脑机接口）从概念验证到「日常可用」的转折点。患者已使用超过一年，证明长期植入的稳定性和实用性。下一个挑战是让保险覆盖这项技术。</p>
-    <a href="https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/</a>
-</article><article class="card" data-href="https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/">
-    <h3 class="card-title"><strong>𝗡𝘃𝗶𝗱𝗶𝗮 加入 AI 债务热潮——发行 200 亿美元债券</strong></h3>
-    <p class="card-body">Nvidia 宣布发行 200 亿美元公司债券，成为最新一家通过大规模举债为 AI 扩张融资的科技巨头。<br>💡 Nvidia 并不缺现金（账上数百亿），这次发债更可能是锁定当前低利率+为大规模并购和产能扩张储备弹药。AI 军备竞赛正在从「烧投资人的钱」升级为「烧债市的钱」。</p>
-    <a href="https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/</a>
-</article><article class="card" data-href="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch">
-    <h3 class="card-title"><strong>𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 破天荒——因 𝗚𝗶𝘁𝗛𝘂𝗯 𝗔𝗜 算力不足转向 𝗔𝗪𝗦</strong></h3>
-    <p class="card-body">GitHub Copilot/Codespaces 的 AI 需求增长远超微软自有数据中心容量，微软不得不租用 AWS 来满足 GitHub 的 AI 推理需求。<br>💡 竞争对手之间的「合作」说明 AI 算力短缺已经到了什么程度。微软是全球第二大云厂商，竟然买不完自己需要的 GPU，这对整个行业的算力供需平衡是一个信号。</p>
-    <a href="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch</a>
-</article><article class="card" data-href="https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/">
-    <h3 class="card-title"><strong>𝗨𝗞 将禁止 𝟭𝟲 岁以下青少年使用社交媒体，可能实施宵禁</strong></h3>
-    <p class="card-body">英国政府提出新法案，禁止 16 岁以下青少年使用社交媒体，并考虑对未成年用户实施夜间使用宵禁。<br>💡 这是继澳大利亚之后又一个采取激进立法的大国。对 AI 行业的影响：青少年是最活跃的 AI 社交产品用户群，禁令将直接冲击面向年轻人的 AI 聊天/创作产品。</p>
-    <a href="https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/</a>
-</article><article class="card" data-href="https://roman.pt/posts/linkedin-backdoor/">
-    <h3 class="card-title"><strong>𝗟𝗶𝗻𝗸𝗲𝗱𝗜𝗻 求职 𝗢𝗳𝗳𝗲𝗿 中植入后门——安全研究员揭露新型社工攻击</strong></h3>
-    <p class="card-body">安全研究员详细记录了一起通过虚假 LinkedIn 工作 offer 植入后门的真实案例，攻击者以「编程测试」为名发送含恶意代码的项目。<br>💡 AI 时代的社工攻击也在升级：攻击者利用 AI 生成高度个性化的招聘信息，目标锁定正在求职的开发者。开发者应对「完成这个编程测试」类请求保持高度警惕。</p>
-    <a href="https://roman.pt/posts/linkedin-backdoor/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://roman.pt/posts/linkedin-backdoor/</a>
-</article><article class="card" data-href="https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/">
-    <h3 class="card-title"><strong>𝗥𝗲𝗱𝗱𝗶𝘁 操控 𝗔𝗜 搜索如此简单——新研究揭示系统性漏洞</strong></h3>
-    <p class="card-body">研究表明通过在 Reddit 上发布精心设计的内容，可以轻易操控 AI 搜索引擎（如 ChatGPT Search、Perplexity）的返回结果。<br>💡 AI 搜索依赖 Reddit 等社区内容作为「真实人类知识」来源，但这种信任很容易被滥用。SEO 的下一个战场不是 Google 排名，而是 Reddit 帖子和 AI 搜索的引用权重。</p>
-    <a href="https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/</a>
-</article><article class="card" data-href="https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/">
-    <h3 class="card-title"><strong>𝗔𝗜 编程 𝗔𝗴𝗲𝗻𝘁 找到文件却找不到代码行——新研究揭示精准定位仍是短板</strong></h3>
-    <p class="card-body">最新研究表明 AI 编程 Agent 可以定位到正确的文件，但在需要精确定位具体代码行时表现不佳。<br>💡 这项发现解释了为什么 AI 辅助编程在「大范围重构」时表现良好，但在「外科手术式修改」时经常出错。Agent 的代码搜索能力需要更细粒度的索引策略。</p>
-    <a href="https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/</a>
-</article><article class="card" data-href="https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/">
-    <h3 class="card-title"><strong>𝗚𝗼𝗼𝗴𝗹𝗲 𝗖𝗹𝗼𝘂𝗱 推出 𝗢𝗽𝗲𝗻 𝗞𝗻𝗼𝘄𝗹𝗲𝗱𝗴𝗲 𝗙𝗼𝗿𝗺𝗮𝘁——把散乱文档变成 𝗔𝗜 可读的 𝗠𝗮𝗿𝗸𝗱𝗼𝘄𝗻</strong></h3>
-    <p class="card-body">Google Cloud 发布 OKF（Open Knowledge Format），一个将企业散乱文档自动转换为结构化 Markdown 的工具，专为 AI Agent 知识摄取设计。<br>💡 企业 AI 落地最大的障碍之一是非结构化数据。OKF 试图建立「文档→AI 可读格式」的标准管道，这本质上是争夺 AI 时代的数据接入层标准。</p>
-    <a href="https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">🔥 GitHub Trending</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/DietrichGebert/ponytail">
-    <h3 class="card-title"><strong>𝗗𝗶𝗲𝘁𝗿𝗶𝗰𝗵𝗚𝗲𝗯𝗲𝗿𝘁/𝗽𝗼𝗻𝘆𝘁𝗮𝗶𝗹 — 让 AI Agent 像最懒的 senior dev 一样思考</strong></h3>
-    <p class="card-body">一个 Claude Code 插件，教会 AI Agent 「最好的代码是不写的代码」哲学——在写任何代码前先质疑需求、找现成方案、删代码而不是加代码。<br>⭐ 17,214 (+4,304/d) · 🔗 <a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/DietrichGebert/ponytail</a></p>
-    <a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/DietrichGebert/ponytail</a>
-</article><article class="card" data-href="https://github.com/omnigent-ai/omnigent">
-    <h3 class="card-title"><strong>𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁-𝗮𝗶/𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁 — AI Agent 元适配层</strong></h3>
-    <p class="card-body">为 Claude Code、Codex、Pi 等多个 Agent 平台提供统一抽象层，让 Agent 之间可以互操作。<br>⭐ 1,992 (+498/d) · 🔗 <a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/omnigent-ai/omnigent</a></p>
-    <a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/omnigent-ai/omnigent</a>
-</article><article class="card" data-href="https://github.com/royalbhati/sqltoerdiagram">
-    <h3 class="card-title"><strong>𝗿𝗼𝘆𝗮𝗹𝗯𝗵𝗮𝘁𝗶/𝘀𝗾𝗹𝘁𝗼𝗲𝗿𝗱𝗶𝗮𝗴𝗿𝗮𝗺 — 纯浏览器端 ER 图生成器</strong></h3>
-    <p class="card-body">粘贴 CREATE TABLE 语句即可生成可交互的 ER 图，100% 在浏览器内运行，无需后端。<br>⭐ 362 (+362/d) · 🔗 <a href="https://github.com/royalbhati/sqltoerdiagram" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/royalbhati/sqltoerdiagram</a></p>
-    <a href="https://github.com/royalbhati/sqltoerdiagram" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/royalbhati/sqltoerdiagram</a>
-</article><article class="card" data-href="https://github.com/orange2ai/renwei-writing">
-    <h3 class="card-title"><strong>𝗼𝗿𝗮𝗻𝗴𝗲𝟮𝗮𝗶/𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：帮人改文字，不抹掉人味</strong></h3>
-    <p class="card-body">AI Agent 写作技能——编辑时保留作者的个人风格，而非统一输出 AI 腔。<br>⭐ 683 (+228/d) · 🔗 <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/orange2ai/renwei-writing</a></p>
-    <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/orange2ai/renwei-writing</a>
-</article><article class="card" data-href="https://github.com/DanMcInerney/architect-loop">
-    <h3 class="card-title"><strong>𝗗𝗮𝗻𝗠𝗰𝗜𝗻𝗲𝗿𝗻𝗲𝘆/𝗮𝗿𝗰𝗵𝗶𝘁𝗲𝗰𝘁-𝗹𝗼𝗼𝗽 — Fable 5 做架构 + GPT-5.5 Codex 做实现</strong></h3>
-    <p class="card-body">研究支持的 Claude Code 技能：Claude Fable 5 担任架构师设计，GPT-5.5 Codex 负责实现，仓库作为共享记忆。<br>⭐ 458 (+114/d) · 🔗 <a href="https://github.com/DanMcInerney/architect-loop" target="_blank" rel="noopener" class="inline-link" onclick="event.stopPropagation()">https://github.com/DanMcInerney/architect-loop</a></p>
-    <a href="https://github.com/DanMcInerney/architect-loop" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/DanMcInerney/architect-loop</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">💬 社区讨论</h2>
-    <div class="cards"><article class="card" data-href="https://www.iroh.computer/blog/v1">
-    <h3 class="card-title"><strong>𝗜𝗿𝗼𝗵 𝟭.𝟬 发布——点对点数据同步协议正式版</strong></h3>
-    <p class="card-body">💬 HN 上近 300 条讨论热议 Iroh 1.0 的发布。这个基于 Rust 的 P2P 数据同步协议被视为 IPFS 的实用主义替代，焦点集中在去中心化应用和本地优先软件的未来。</p>
-    <a href="https://www.iroh.computer/blog/v1" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.iroh.computer/blog/v1</a>
-</article><article class="card" data-href="https://www.richardosgood.com/posts/banned-book-library/">
-    <h3 class="card-title"><strong>𝗕𝗮𝗻𝗻𝗲𝗱 𝗕𝗼𝗼𝗸 𝗟𝗶𝗯𝗿𝗮𝗿𝘆 𝗶𝗻 𝗮 𝗪𝗶-𝗙𝗶 𝗦𝗺𝗮𝗿𝘁 𝗟𝗶𝗴𝗵𝘁 𝗕𝘂𝗹𝗯——藏在灯泡里的禁书图书馆</strong></h3>
-    <p class="card-body">💬 一位黑客将被禁书籍编码存储在 Wi-Fi 智能灯泡中，使其成为一个可匿名访问的地下数字图书馆。HN 讨论覆盖了技术实现（ESP32 芯片的存储极限）和数字审查反抗的政治维度。</p>
-    <a href="https://www.richardosgood.com/posts/banned-book-library/" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://www.richardosgood.com/posts/banned-book-library/</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">📄 AI 热门论文</h2>
-    <div class="cards"><article class="card" data-href="https://huggingface.co/papers/2606.15300">
-    <h3 class="card-title"><strong>𝗖𝗢𝗗𝗔-𝗕𝗘𝗡𝗖𝗛: 代码 Agent 能处理数据密集型任务吗？</strong></h3>
-    <p class="card-body">📄 提出了首个专门评估代码 Agent 处理「代码+大规模数据」复合场景的基准测试。揭示当前最强 Agent 在涉及文件系统和数据管道的真实开发任务中仍存在显著差距。</p>
-    <a href="https://huggingface.co/papers/2606.15300" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://huggingface.co/papers/2606.15300</a>
-</article><article class="card" data-href="https://huggingface.co/papers/2606.16295">
-    <h3 class="card-title"><strong>𝗩𝗶𝘀𝘂𝗮𝗹𝗖𝗹𝗮𝘄: 面向物理世界的实时个性化 Agent</strong></h3>
-    <p class="card-body">📄 提出一个解决 VLM 部署三大痛点的框架：高延迟视频处理、静态 Agent 脚手架、标准提示词无法个性化。在机器人操作和 AR 辅助场景中展示实时响应能力。</p>
-    <a href="https://huggingface.co/papers/2606.16295" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://huggingface.co/papers/2606.16295</a>
-</article></div>
-</section><section class="section">
-    <h2 class="section-title">🆕 产品/工具</h2>
-    <div class="cards"><article class="card" data-href="https://github.com/harvatechs/inthon">
-    <h3 class="card-title"><strong>𝗵𝗮𝗿𝘃𝗮𝘁𝗲𝗰𝗵𝘀/𝗶𝗻𝘁𝗵𝗼𝗻: Agent 级语言——面向 AI 原生计算和机器速度工作流</strong></h3>
-    <p class="card-body">🆕 一种专为 AI Agent 设计的编程语言，聚焦工具编排和机器速度的工作流执行。在 AI 编程从「人写代码」到「Agent 写代码」的转型中，语言层也在尝试跟上。</p>
-    <a href="https://github.com/harvatechs/inthon" target="_blank" rel="noopener" class="card-link" onclick="event.stopPropagation()">https://github.com/harvatechs/inthon</a>
-</article></div>
+    <div class="date-summary">
+        <span id="total-count"><strong>共 0 篇</strong></span>
+        <span id="visible-count"></span>
+        <span id="bookmark-count"></span>
+        <span id="unread-count"></span>
+    </div>
+    <nav class="archive-bar"><a href="2026-06-16.html" class="active">06-16</a><a href="2026-06-15.html" class="">06-15</a><a href="2026-06-14.html" class="">06-14</a><a href="2026-06-13.html" class="">06-13</a><a href="2026-06-12.html" class="">06-12</a><a href="2026-06-11.html" class="">06-11</a><a href="2026-06-09.html" class="">06-09</a><a href="2026-06-08.html" class="">06-08</a></nav>
+
+    <section class="section" data-category="news">
+    <h2 class="section-title">🌐 AI/科技新闻 <span class="section-count">(13)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/asgeirtj/system_prompts_leaks" data-url="https://github.com/asgeirtj/system_prompts_leaks">
+    <div class="card-header">
+        <h3 class="card-title">𝗔𝗜 史上最大系统提示词泄露——Claude Fable 5、GPT-5.5、Gemini 提示词全公开</h3>
+        <button class="card-bookmark" data-url="https://github.com/asgeirtj/system_prompts_leaks" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">GitHub 仓库 `system_prompts_leaks` 一次性公开了 Anthropic（Claude Fable 5/Opus 4.8/Claude Code/Claude Design）、OpenAI（ChatGPT 5.5 Thinking/GPT 5.5 Instant/Codex）和 Google（Gemini 3.5 Flash/3.1 Pro/Antigravity）的系统提示词。</p>
+    <div class="card-insight">💡 这是继上周 Claude Code 提示词泄露后的全面升级，覆盖三家顶级 AI 公司全产品线。对安全研究者和竞争对手价值巨大，但也意味着各大厂商可能被迫在下个版本大幅重构提示词架构。</div>
+    <div class="card-actions">
+        <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/asgeirtj/system_prompts_leaks">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.anthropic.com/news/claude-corps" data-url="https://www.anthropic.com/news/claude-corps">
+    <div class="card-header">
+        <h3 class="card-title">𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 发布 Claude Corps——企业级 AI Agent 军团</h3>
+        <button class="card-bookmark" data-url="https://www.anthropic.com/news/claude-corps" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Anthropic 正式推出 Claude Corps，面向企业的大规模 AI Agent 部署方案，允许多个 Claude 实例协同完成复杂业务流程。</p>
+    <div class="card-insight">💡 从「单 Agent 对话」到「Agent 军团协作」是 Anthropic 企业战略的关键一步。对比 OpenAI Partner Network 和 Google Agent 生态，企业 AI 从工具走向组织架构变革的趋势已不可逆。</div>
+    <div class="card-actions">
+        <a href="https://www.anthropic.com/news/claude-corps" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.anthropic.com</span>
+        <span class="card-read-badge" data-url="https://www.anthropic.com/news/claude-corps">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion" data-url="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion">
+    <div class="card-header">
+        <h3 class="card-title">𝗧𝗵𝗲 𝗘𝗰𝗼𝗻𝗼𝗺𝗶𝘀𝘁 封面警告：人类尚未准备好迎接即将到来的智能爆炸</h3>
+        <button class="card-bookmark" data-url="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">The Economist 发表特邀评论文章，指出全球治理体系、劳动力市场和社会契约都远未准备好应对 AGI 级智能的快速逼近。</p>
+    <div class="card-insight">💡 这不是硅谷的营销话术，而是《经济学人》社论级别的表态。文章暗示各国政府（尤其是美国对 Anthropic 的行动）正在仓促应对一场他们没有框架理解的变革。</div>
+    <div class="card-actions">
+        <a href="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.economist.com</span>
+        <span class="card-read-badge" data-url="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/" data-url="https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/">
+    <div class="card-header">
+        <h3 class="card-title">𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 与白宫就 Fable 5 禁令持续对峙——内部文件揭示禁令真正原因</h3>
+        <button class="card-bookmark" data-url="https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Wired 和 TechCrunch 多方报道揭露：美国政府对 Anthropic 的模型禁令并非因为「越狱」漏洞，而是出于对中国可能已获取 Mythos 权重的国家安全担忧。The Verge 深度报道了 Anthropic 与特朗普政府的博弈内幕。</p>
+    <div class="card-insight">💡 三篇独立报道指向同一结论：这是 AI 史上首次因地缘政治理由下线前沿模型。Fable 5/Mythos 5 的命运将成为 AI 出口管制的分水岭案例。</div>
+    <div class="card-actions">
+        <a href="https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.wired.com</span>
+        <span class="card-read-badge" data-url="https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/" data-url="https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/">
+    <div class="card-header">
+        <h3 class="card-title">𝗣𝗼𝗸é𝗺𝗼𝗻 𝗚𝗼 玩家数据被用于训练 AI，现已关联军用无人机</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">调查发现 Niantic 通过 Pokémon Go 收集的地理空间数据被用于训练 AI 模型，这些模型后来与军事无人机应用产生了关联。</p>
+    <div class="card-insight">💡 免费游戏的数据收集边界再次引发争议。用户从未被告知他们的步行路径可能最终服务于军事 AI，凸显了消费级 AR 应用背后数据供应链的透明性黑洞。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/" data-url="https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/">
+    <div class="card-header">
+        <h3 class="card-title">𝗔𝗟𝗦 患者成为脑机接口「第一个高级用户」——用思想说话</h3>
+        <button class="card-bookmark" data-url="https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">MIT Technology Review 深度报道了一名 ALS 患者成为脑植入设备「第一个高级用户」的故事，该设备让他能以每分钟 60+ 词的速度通过思考进行交流。</p>
+    <div class="card-insight">💡 这是 BCI（脑机接口）从概念验证到「日常可用」的转折点。患者已使用超过一年，证明长期植入的稳定性和实用性。下一个挑战是让保险覆盖这项技术。</div>
+    <div class="card-actions">
+        <a href="https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.technologyreview.com</span>
+        <span class="card-read-badge" data-url="https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/" data-url="https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/">
+    <div class="card-header">
+        <h3 class="card-title">𝗡𝘃𝗶𝗱𝗶𝗮 加入 AI 债务热潮——发行 200 亿美元债券</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Nvidia 宣布发行 200 亿美元公司债券，成为最新一家通过大规模举债为 AI 扩张融资的科技巨头。</p>
+    <div class="card-insight">💡 Nvidia 并不缺现金（账上数百亿），这次发债更可能是锁定当前低利率+为大规模并购和产能扩张储备弹药。AI 军备竞赛正在从「烧投资人的钱」升级为「烧债市的钱」。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch" data-url="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch">
+    <div class="card-header">
+        <h3 class="card-title">𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 破天荒——因 𝗚𝗶𝘁𝗛𝘂𝗯 𝗔𝗜 算力不足转向 𝗔𝗪𝗦</h3>
+        <button class="card-bookmark" data-url="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">GitHub Copilot/Codespaces 的 AI 需求增长远超微软自有数据中心容量，微软不得不租用 AWS 来满足 GitHub 的 AI 推理需求。</p>
+    <div class="card-insight">💡 竞争对手之间的「合作」说明 AI 算力短缺已经到了什么程度。微软是全球第二大云厂商，竟然买不完自己需要的 GPU，这对整个行业的算力供需平衡是一个信号。</div>
+    <div class="card-actions">
+        <a href="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">runtimewire.com</span>
+        <span class="card-read-badge" data-url="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/" data-url="https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/">
+    <div class="card-header">
+        <h3 class="card-title">𝗨𝗞 将禁止 𝟭𝟲 岁以下青少年使用社交媒体，可能实施宵禁</h3>
+        <button class="card-bookmark" data-url="https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">英国政府提出新法案，禁止 16 岁以下青少年使用社交媒体，并考虑对未成年用户实施夜间使用宵禁。</p>
+    <div class="card-insight">💡 这是继澳大利亚之后又一个采取激进立法的大国。对 AI 行业的影响：青少年是最活跃的 AI 社交产品用户群，禁令将直接冲击面向年轻人的 AI 聊天/创作产品。</div>
+    <div class="card-actions">
+        <a href="https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">arstechnica.com</span>
+        <span class="card-read-badge" data-url="https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://roman.pt/posts/linkedin-backdoor/" data-url="https://roman.pt/posts/linkedin-backdoor/">
+    <div class="card-header">
+        <h3 class="card-title">𝗟𝗶𝗻𝗸𝗲𝗱𝗜𝗻 求职 𝗢𝗳𝗳𝗲𝗿 中植入后门——安全研究员揭露新型社工攻击</h3>
+        <button class="card-bookmark" data-url="https://roman.pt/posts/linkedin-backdoor/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">安全研究员详细记录了一起通过虚假 LinkedIn 工作 offer 植入后门的真实案例，攻击者以「编程测试」为名发送含恶意代码的项目。</p>
+    <div class="card-insight">💡 AI 时代的社工攻击也在升级：攻击者利用 AI 生成高度个性化的招聘信息，目标锁定正在求职的开发者。开发者应对「完成这个编程测试」类请求保持高度警惕。</div>
+    <div class="card-actions">
+        <a href="https://roman.pt/posts/linkedin-backdoor/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">roman.pt</span>
+        <span class="card-read-badge" data-url="https://roman.pt/posts/linkedin-backdoor/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/" data-url="https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/">
+    <div class="card-header">
+        <h3 class="card-title">𝗥𝗲𝗱𝗱𝗶𝘁 操控 𝗔𝗜 搜索如此简单——新研究揭示系统性漏洞</h3>
+        <button class="card-bookmark" data-url="https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">研究表明通过在 Reddit 上发布精心设计的内容，可以轻易操控 AI 搜索引擎（如 ChatGPT Search、Perplexity）的返回结果。</p>
+    <div class="card-insight">💡 AI 搜索依赖 Reddit 等社区内容作为「真实人类知识」来源，但这种信任很容易被滥用。SEO 的下一个战场不是 Google 排名，而是 Reddit 帖子和 AI 搜索的引用权重。</div>
+    <div class="card-actions">
+        <a href="https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.404media.co</span>
+        <span class="card-read-badge" data-url="https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/" data-url="https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/">
+    <div class="card-header">
+        <h3 class="card-title">𝗔𝗜 编程 𝗔𝗴𝗲𝗻𝘁 找到文件却找不到代码行——新研究揭示精准定位仍是短板</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">最新研究表明 AI 编程 Agent 可以定位到正确的文件，但在需要精确定位具体代码行时表现不佳。</p>
+    <div class="card-insight">💡 这项发现解释了为什么 AI 辅助编程在「大范围重构」时表现良好，但在「外科手术式修改」时经常出错。Agent 的代码搜索能力需要更细粒度的索引策略。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/" data-url="https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/">
+    <div class="card-header">
+        <h3 class="card-title">𝗚𝗼𝗼𝗴𝗹𝗲 𝗖𝗹𝗼𝘂𝗱 推出 𝗢𝗽𝗲𝗻 𝗞𝗻𝗼𝘄𝗹𝗲𝗱𝗴𝗲 𝗙𝗼𝗿𝗺𝗮𝘁——把散乱文档变成 𝗔𝗜 可读的 𝗠𝗮𝗿𝗸𝗱𝗼𝘄𝗻</h3>
+        <button class="card-bookmark" data-url="https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">Google Cloud 发布 OKF（Open Knowledge Format），一个将企业散乱文档自动转换为结构化 Markdown 的工具，专为 AI Agent 知识摄取设计。</p>
+    <div class="card-insight">💡 企业 AI 落地最大的障碍之一是非结构化数据。OKF 试图建立「文档→AI 可读格式」的标准管道，这本质上是争夺 AI 时代的数据接入层标准。</div>
+    <div class="card-actions">
+        <a href="https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">the-decoder.com</span>
+        <span class="card-read-badge" data-url="https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/">✓ 已读</span>
+    </div>
+</article>
+    </div>
 </section>
-    <footer>🤖 follow-news v4.0</footer>
+<section class="section" data-category="github">
+    <h2 class="section-title">🔥 GitHub Trending <span class="section-count">(5)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/DietrichGebert/ponytail" data-url="https://github.com/DietrichGebert/ponytail">
+    <div class="card-header">
+        <h3 class="card-title">𝗗𝗶𝗲𝘁𝗿𝗶𝗰𝗵𝗚𝗲𝗯𝗲𝗿𝘁/𝗽𝗼𝗻𝘆𝘁𝗮𝗶𝗹 — 让 AI Agent 像最懒的 senior dev 一样思考</h3>
+        <button class="card-bookmark" data-url="https://github.com/DietrichGebert/ponytail" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">一个 Claude Code 插件，教会 AI Agent 「最好的代码是不写的代码」哲学——在写任何代码前先质疑需求、找现成方案、删代码而不是加代码。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 17,214 (+4,304/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/DietrichGebert/ponytail">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/omnigent-ai/omnigent" data-url="https://github.com/omnigent-ai/omnigent">
+    <div class="card-header">
+        <h3 class="card-title">𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁-𝗮𝗶/𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁 — AI Agent 元适配层</h3>
+        <button class="card-bookmark" data-url="https://github.com/omnigent-ai/omnigent" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">为 Claude Code、Codex、Pi 等多个 Agent 平台提供统一抽象层，让 Agent 之间可以互操作。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 1,992 (+498/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/omnigent-ai/omnigent">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/royalbhati/sqltoerdiagram" data-url="https://github.com/royalbhati/sqltoerdiagram">
+    <div class="card-header">
+        <h3 class="card-title">𝗿𝗼𝘆𝗮𝗹𝗯𝗵𝗮𝘁𝗶/𝘀𝗾𝗹𝘁𝗼𝗲𝗿𝗱𝗶𝗮𝗴𝗿𝗮𝗺 — 纯浏览器端 ER 图生成器</h3>
+        <button class="card-bookmark" data-url="https://github.com/royalbhati/sqltoerdiagram" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">粘贴 CREATE TABLE 语句即可生成可交互的 ER 图，100% 在浏览器内运行，无需后端。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/royalbhati/sqltoerdiagram" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 362 (+362/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/royalbhati/sqltoerdiagram">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/orange2ai/renwei-writing" data-url="https://github.com/orange2ai/renwei-writing">
+    <div class="card-header">
+        <h3 class="card-title">𝗼𝗿𝗮𝗻𝗴𝗲𝟮𝗮𝗶/𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：帮人改文字，不抹掉人味</h3>
+        <button class="card-bookmark" data-url="https://github.com/orange2ai/renwei-writing" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">AI Agent 写作技能——编辑时保留作者的个人风格，而非统一输出 AI 腔。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 683 (+228/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/orange2ai/renwei-writing">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://github.com/DanMcInerney/architect-loop" data-url="https://github.com/DanMcInerney/architect-loop">
+    <div class="card-header">
+        <h3 class="card-title">𝗗𝗮𝗻𝗠𝗰𝗜𝗻𝗲𝗿𝗻𝗲𝘆/𝗮𝗿𝗰𝗵𝗶𝘁𝗲𝗰𝘁-𝗹𝗼𝗼𝗽 — Fable 5 做架构 + GPT-5.5 Codex 做实现</h3>
+        <button class="card-bookmark" data-url="https://github.com/DanMcInerney/architect-loop" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">研究支持的 Claude Code 技能：Claude Fable 5 担任架构师设计，GPT-5.5 Codex 负责实现，仓库作为共享记忆。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/DanMcInerney/architect-loop" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        <span class="card-stars">⭐ 458 (+114/d)</span>
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/DanMcInerney/architect-loop">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+<section class="section" data-category="community">
+    <h2 class="section-title">💬 社区讨论 <span class="section-count">(2)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://www.iroh.computer/blog/v1" data-url="https://www.iroh.computer/blog/v1">
+    <div class="card-header">
+        <h3 class="card-title">𝗜𝗿𝗼𝗵 𝟭.𝟬 发布——点对点数据同步协议正式版</h3>
+        <button class="card-bookmark" data-url="https://www.iroh.computer/blog/v1" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">HN 上近 300 条讨论热议 Iroh 1.0 的发布。这个基于 Rust 的 P2P 数据同步协议被视为 IPFS 的实用主义替代，焦点集中在去中心化应用和本地优先软件的未来。</p>
+    
+    <div class="card-actions">
+        <a href="https://www.iroh.computer/blog/v1" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.iroh.computer</span>
+        <span class="card-read-badge" data-url="https://www.iroh.computer/blog/v1">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://www.richardosgood.com/posts/banned-book-library/" data-url="https://www.richardosgood.com/posts/banned-book-library/">
+    <div class="card-header">
+        <h3 class="card-title">𝗕𝗮𝗻𝗻𝗲𝗱 𝗕𝗼𝗼𝗸 𝗟𝗶𝗯𝗿𝗮𝗿𝘆 𝗶𝗻 𝗮 𝗪𝗶-𝗙𝗶 𝗦𝗺𝗮𝗿𝘁 𝗟𝗶𝗴𝗵𝘁 𝗕𝘂𝗹𝗯——藏在灯泡里的禁书图书馆</h3>
+        <button class="card-bookmark" data-url="https://www.richardosgood.com/posts/banned-book-library/" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">一位黑客将被禁书籍编码存储在 Wi-Fi 智能灯泡中，使其成为一个可匿名访问的地下数字图书馆。HN 讨论覆盖了技术实现（ESP32 芯片的存储极限）和数字审查反抗的政治维度。</p>
+    
+    <div class="card-actions">
+        <a href="https://www.richardosgood.com/posts/banned-book-library/" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">www.richardosgood.com</span>
+        <span class="card-read-badge" data-url="https://www.richardosgood.com/posts/banned-book-library/">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+<section class="section" data-category="papers">
+    <h2 class="section-title">📄 AI 热门论文 <span class="section-count">(2)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://huggingface.co/papers/2606.15300" data-url="https://huggingface.co/papers/2606.15300">
+    <div class="card-header">
+        <h3 class="card-title">𝗖𝗢𝗗𝗔-𝗕𝗘𝗡𝗖𝗛: 代码 Agent 能处理数据密集型任务吗？</h3>
+        <button class="card-bookmark" data-url="https://huggingface.co/papers/2606.15300" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">提出了首个专门评估代码 Agent 处理「代码+大规模数据」复合场景的基准测试。揭示当前最强 Agent 在涉及文件系统和数据管道的真实开发任务中仍存在显著差距。</p>
+    
+    <div class="card-actions">
+        <a href="https://huggingface.co/papers/2606.15300" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">huggingface.co</span>
+        <span class="card-read-badge" data-url="https://huggingface.co/papers/2606.15300">✓ 已读</span>
+    </div>
+</article><article class="card" data-href="https://huggingface.co/papers/2606.16295" data-url="https://huggingface.co/papers/2606.16295">
+    <div class="card-header">
+        <h3 class="card-title">𝗩𝗶𝘀𝘂𝗮𝗹𝗖𝗹𝗮𝘄: 面向物理世界的实时个性化 Agent</h3>
+        <button class="card-bookmark" data-url="https://huggingface.co/papers/2606.16295" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">提出一个解决 VLM 部署三大痛点的框架：高延迟视频处理、静态 Agent 脚手架、标准提示词无法个性化。在机器人操作和 AR 辅助场景中展示实时响应能力。</p>
+    
+    <div class="card-actions">
+        <a href="https://huggingface.co/papers/2606.16295" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">huggingface.co</span>
+        <span class="card-read-badge" data-url="https://huggingface.co/papers/2606.16295">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+<section class="section" data-category="products">
+    <h2 class="section-title">🆕 产品/工具 <span class="section-count">(1)</span></h2>
+    <div class="cards">
+        <article class="card" data-href="https://github.com/harvatechs/inthon" data-url="https://github.com/harvatechs/inthon">
+    <div class="card-header">
+        <h3 class="card-title">𝗵𝗮𝗿𝘃𝗮𝘁𝗲𝗰𝗵𝘀/𝗶𝗻𝘁𝗵𝗼𝗻: Agent 级语言——面向 AI 原生计算和机器速度工作流</h3>
+        <button class="card-bookmark" data-url="https://github.com/harvatechs/inthon" title="收藏" aria-label="收藏文章">
+            <span class="bm-icon">☆</span>
+        </button>
+    </div>
+    <p class="card-body">一种专为 AI Agent 设计的编程语言，聚焦工具编排和机器速度的工作流执行。在 AI 编程从「人写代码」到「Agent 写代码」的转型中，语言层也在尝试跟上。</p>
+    
+    <div class="card-actions">
+        <a href="https://github.com/harvatechs/inthon" target="_blank" rel="noopener" class="card-btn card-btn-primary" onclick="event.stopPropagation()">
+            🔗 阅读原文
+        </a>
+        
+        <span class="card-domain">github.com</span>
+        <span class="card-read-badge" data-url="https://github.com/harvatechs/inthon">✓ 已读</span>
+    </div>
+</article>
+    </div>
+</section>
+
+    <div class="no-results" id="no-results">
+        <div class="no-results-icon">🔍</div>
+        <p>没有匹配的文章</p>
+    </div>
+
+    <footer>🤖 follow-news v5.0 · <span id="footer-stats"></span></footer>
 </div>
-<button id="back-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<button id="back-top" title="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast"></div>
+
 <script>
-// Card click → open first link in new tab
-document.querySelectorAll('.card[data-href]').forEach(el=>{
-    el.addEventListener('click',function(e){
-        if(e.target.closest('a'))return;
-        var a=document.createElement('a');
-        a.href=this.dataset.href;a.target='_blank';a.rel='noopener';
-        a.click()
-    })
-})
-// Back to top visibility
-const btn=document.getElementById('back-top')
-window.addEventListener('scroll',function(){
-    btn.classList.toggle('visible',window.scrollY>500)
-})
+// ═══════════════════════════════════════════════════════════
+//  follow-news v5.0 — Client-side logic
+// ═══════════════════════════════════════════════════════════
+
+const DIGEST_DATE = "2026-06-16";
+const ALL_ARTICLES = [
+{"title": "𝗔𝗜 史上最大系统提示词泄露——Claude Fable 5、GPT-5.5、Gemini 提示词全公开", "summary": "GitHub 仓库 `system_prompts_leaks` 一次性公开了 Anthropic（Claude Fable 5/Opus 4.8/Claude Code/Claude Design）、OpenAI（ChatGPT 5.5 Thinking/GPT 5.5 Instant/Codex）和 Google（Gemini 3.5 Flash/3.1 Pro/Antigravity）的系统提示词。", "insight": "这是继上周 Claude Code 提示词泄露后的全面升级，覆盖三家顶级 AI 公司全产品线。对安全研究者和竞争对手价值巨大，但也意味着各大厂商可能被迫在下个版本大幅重构提示词架构。", "url": "https://github.com/asgeirtj/system_prompts_leaks", "category": "news", "stars": "", "domain": "github.com"},
+{"title": "𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 发布 Claude Corps——企业级 AI Agent 军团", "summary": "Anthropic 正式推出 Claude Corps，面向企业的大规模 AI Agent 部署方案，允许多个 Claude 实例协同完成复杂业务流程。", "insight": "从「单 Agent 对话」到「Agent 军团协作」是 Anthropic 企业战略的关键一步。对比 OpenAI Partner Network 和 Google Agent 生态，企业 AI 从工具走向组织架构变革的趋势已不可逆。", "url": "https://www.anthropic.com/news/claude-corps", "category": "news", "stars": "", "domain": "www.anthropic.com"},
+{"title": "𝗧𝗵𝗲 𝗘𝗰𝗼𝗻𝗼𝗺𝗶𝘀𝘁 封面警告：人类尚未准备好迎接即将到来的智能爆炸", "summary": "The Economist 发表特邀评论文章，指出全球治理体系、劳动力市场和社会契约都远未准备好应对 AGI 级智能的快速逼近。", "insight": "这不是硅谷的营销话术，而是《经济学人》社论级别的表态。文章暗示各国政府（尤其是美国对 Anthropic 的行动）正在仓促应对一场他们没有框架理解的变革。", "url": "https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion", "category": "news", "stars": "", "domain": "www.economist.com"},
+{"title": "𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 与白宫就 Fable 5 禁令持续对峙——内部文件揭示禁令真正原因", "summary": "Wired 和 TechCrunch 多方报道揭露：美国政府对 Anthropic 的模型禁令并非因为「越狱」漏洞，而是出于对中国可能已获取 Mythos 权重的国家安全担忧。The Verge 深度报道了 Anthropic 与特朗普政府的博弈内幕。", "insight": "三篇独立报道指向同一结论：这是 AI 史上首次因地缘政治理由下线前沿模型。Fable 5/Mythos 5 的命运将成为 AI 出口管制的分水岭案例。", "url": "https://www.wired.com/story/anthropic-is-still-at-odds-with-the-white-house-over-claude-fable-5/", "category": "news", "stars": "", "domain": "www.wired.com"},
+{"title": "𝗣𝗼𝗸é𝗺𝗼𝗻 𝗚𝗼 玩家数据被用于训练 AI，现已关联军用无人机", "summary": "调查发现 Niantic 通过 Pokémon Go 收集的地理空间数据被用于训练 AI 模型，这些模型后来与军事无人机应用产生了关联。", "insight": "免费游戏的数据收集边界再次引发争议。用户从未被告知他们的步行路径可能最终服务于军事 AI，凸显了消费级 AR 应用背后数据供应链的透明性黑洞。", "url": "https://the-decoder.com/pokemon-go-data-helped-train-ai-now-linked-to-military-drones/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "𝗔𝗟𝗦 患者成为脑机接口「第一个高级用户」——用思想说话", "summary": "MIT Technology Review 深度报道了一名 ALS 患者成为脑植入设备「第一个高级用户」的故事，该设备让他能以每分钟 60+ 词的速度通过思考进行交流。", "insight": "这是 BCI（脑机接口）从概念验证到「日常可用」的转折点。患者已使用超过一年，证明长期植入的稳定性和实用性。下一个挑战是让保险覆盖这项技术。", "url": "https://www.technologyreview.com/2026/06/15/1138953/man-als-first-power-user-brain-implant-speak-bci/", "category": "news", "stars": "", "domain": "www.technologyreview.com"},
+{"title": "𝗡𝘃𝗶𝗱𝗶𝗮 加入 AI 债务热潮——发行 200 亿美元债券", "summary": "Nvidia 宣布发行 200 亿美元公司债券，成为最新一家通过大规模举债为 AI 扩张融资的科技巨头。", "insight": "Nvidia 并不缺现金（账上数百亿），这次发债更可能是锁定当前低利率+为大规模并购和产能扩张储备弹药。AI 军备竞赛正在从「烧投资人的钱」升级为「烧债市的钱」。", "url": "https://the-decoder.com/nvidia-joins-ai-debt-boom-with-20-billion-bond-sale/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 破天荒——因 𝗚𝗶𝘁𝗛𝘂𝗯 𝗔𝗜 算力不足转向 𝗔𝗪𝗦", "summary": "GitHub Copilot/Codespaces 的 AI 需求增长远超微软自有数据中心容量，微软不得不租用 AWS 来满足 GitHub 的 AI 推理需求。", "insight": "竞争对手之间的「合作」说明 AI 算力短缺已经到了什么程度。微软是全球第二大云厂商，竟然买不完自己需要的 GPU，这对整个行业的算力供需平衡是一个信号。", "url": "https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch", "category": "news", "stars": "", "domain": "runtimewire.com"},
+{"title": "𝗨𝗞 将禁止 𝟭𝟲 岁以下青少年使用社交媒体，可能实施宵禁", "summary": "英国政府提出新法案，禁止 16 岁以下青少年使用社交媒体，并考虑对未成年用户实施夜间使用宵禁。", "insight": "这是继澳大利亚之后又一个采取激进立法的大国。对 AI 行业的影响：青少年是最活跃的 AI 社交产品用户群，禁令将直接冲击面向年轻人的 AI 聊天/创作产品。", "url": "https://arstechnica.com/tech-policy/2026/06/uk-to-ban-social-media-for-kids-under-16-may-impose-overnight-curfews/", "category": "news", "stars": "", "domain": "arstechnica.com"},
+{"title": "𝗟𝗶𝗻𝗸𝗲𝗱𝗜𝗻 求职 𝗢𝗳𝗳𝗲𝗿 中植入后门——安全研究员揭露新型社工攻击", "summary": "安全研究员详细记录了一起通过虚假 LinkedIn 工作 offer 植入后门的真实案例，攻击者以「编程测试」为名发送含恶意代码的项目。", "insight": "AI 时代的社工攻击也在升级：攻击者利用 AI 生成高度个性化的招聘信息，目标锁定正在求职的开发者。开发者应对「完成这个编程测试」类请求保持高度警惕。", "url": "https://roman.pt/posts/linkedin-backdoor/", "category": "news", "stars": "", "domain": "roman.pt"},
+{"title": "𝗥𝗲𝗱𝗱𝗶𝘁 操控 𝗔𝗜 搜索如此简单——新研究揭示系统性漏洞", "summary": "研究表明通过在 Reddit 上发布精心设计的内容，可以轻易操控 AI 搜索引擎（如 ChatGPT Search、Perplexity）的返回结果。", "insight": "AI 搜索依赖 Reddit 等社区内容作为「真实人类知识」来源，但这种信任很容易被滥用。SEO 的下一个战场不是 Google 排名，而是 Reddit 帖子和 AI 搜索的引用权重。", "url": "https://www.404media.co/it-is-trivially-easy-to-use-reddit-to-manipulate-ai-search-research-suggests/", "category": "news", "stars": "", "domain": "www.404media.co"},
+{"title": "𝗔𝗜 编程 𝗔𝗴𝗲𝗻𝘁 找到文件却找不到代码行——新研究揭示精准定位仍是短板", "summary": "最新研究表明 AI 编程 Agent 可以定位到正确的文件，但在需要精确定位具体代码行时表现不佳。", "insight": "这项发现解释了为什么 AI 辅助编程在「大范围重构」时表现良好，但在「外科手术式修改」时经常出错。Agent 的代码搜索能力需要更细粒度的索引策略。", "url": "https://the-decoder.com/ai-coding-agents-find-the-right-file-but-miss-the-exact-lines-that-matter-study-shows/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "𝗚𝗼𝗼𝗴𝗹𝗲 𝗖𝗹𝗼𝘂𝗱 推出 𝗢𝗽𝗲𝗻 𝗞𝗻𝗼𝘄𝗹𝗲𝗱𝗴𝗲 𝗙𝗼𝗿𝗺𝗮𝘁——把散乱文档变成 𝗔𝗜 可读的 𝗠𝗮𝗿𝗸𝗱𝗼𝘄𝗻", "summary": "Google Cloud 发布 OKF（Open Knowledge Format），一个将企业散乱文档自动转换为结构化 Markdown 的工具，专为 AI Agent 知识摄取设计。", "insight": "企业 AI 落地最大的障碍之一是非结构化数据。OKF 试图建立「文档→AI 可读格式」的标准管道，这本质上是争夺 AI 时代的数据接入层标准。", "url": "https://the-decoder.com/google-clouds-open-knowledge-format-turns-scattered-docs-into-markdown-files-for-ai-agents/", "category": "news", "stars": "", "domain": "the-decoder.com"},
+{"title": "𝗗𝗶𝗲𝘁𝗿𝗶𝗰𝗵𝗚𝗲𝗯𝗲𝗿𝘁/𝗽𝗼𝗻𝘆𝘁𝗮𝗶𝗹 — 让 AI Agent 像最懒的 senior dev 一样思考", "summary": "一个 Claude Code 插件，教会 AI Agent 「最好的代码是不写的代码」哲学——在写任何代码前先质疑需求、找现成方案、删代码而不是加代码。", "insight": "", "url": "https://github.com/DietrichGebert/ponytail", "category": "github", "stars": "17,214 (+4,304/d)", "domain": "github.com"},
+{"title": "𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁-𝗮𝗶/𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁 — AI Agent 元适配层", "summary": "为 Claude Code、Codex、Pi 等多个 Agent 平台提供统一抽象层，让 Agent 之间可以互操作。", "insight": "", "url": "https://github.com/omnigent-ai/omnigent", "category": "github", "stars": "1,992 (+498/d)", "domain": "github.com"},
+{"title": "𝗿𝗼𝘆𝗮𝗹𝗯𝗵𝗮𝘁𝗶/𝘀𝗾𝗹𝘁𝗼𝗲𝗿𝗱𝗶𝗮𝗴𝗿𝗮𝗺 — 纯浏览器端 ER 图生成器", "summary": "粘贴 CREATE TABLE 语句即可生成可交互的 ER 图，100% 在浏览器内运行，无需后端。", "insight": "", "url": "https://github.com/royalbhati/sqltoerdiagram", "category": "github", "stars": "362 (+362/d)", "domain": "github.com"},
+{"title": "𝗼𝗿𝗮𝗻𝗴𝗲𝟮𝗮𝗶/𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：帮人改文字，不抹掉人味", "summary": "AI Agent 写作技能——编辑时保留作者的个人风格，而非统一输出 AI 腔。", "insight": "", "url": "https://github.com/orange2ai/renwei-writing", "category": "github", "stars": "683 (+228/d)", "domain": "github.com"},
+{"title": "𝗗𝗮𝗻𝗠𝗰𝗜𝗻𝗲𝗿𝗻𝗲𝘆/𝗮𝗿𝗰𝗵𝗶𝘁𝗲𝗰𝘁-𝗹𝗼𝗼𝗽 — Fable 5 做架构 + GPT-5.5 Codex 做实现", "summary": "研究支持的 Claude Code 技能：Claude Fable 5 担任架构师设计，GPT-5.5 Codex 负责实现，仓库作为共享记忆。", "insight": "", "url": "https://github.com/DanMcInerney/architect-loop", "category": "github", "stars": "458 (+114/d)", "domain": "github.com"},
+{"title": "𝗜𝗿𝗼𝗵 𝟭.𝟬 发布——点对点数据同步协议正式版", "summary": "HN 上近 300 条讨论热议 Iroh 1.0 的发布。这个基于 Rust 的 P2P 数据同步协议被视为 IPFS 的实用主义替代，焦点集中在去中心化应用和本地优先软件的未来。", "insight": "", "url": "https://www.iroh.computer/blog/v1", "category": "community", "stars": "", "domain": "www.iroh.computer"},
+{"title": "𝗕𝗮𝗻𝗻𝗲𝗱 𝗕𝗼𝗼𝗸 𝗟𝗶𝗯𝗿𝗮𝗿𝘆 𝗶𝗻 𝗮 𝗪𝗶-𝗙𝗶 𝗦𝗺𝗮𝗿𝘁 𝗟𝗶𝗴𝗵𝘁 𝗕𝘂𝗹𝗯——藏在灯泡里的禁书图书馆", "summary": "一位黑客将被禁书籍编码存储在 Wi-Fi 智能灯泡中，使其成为一个可匿名访问的地下数字图书馆。HN 讨论覆盖了技术实现（ESP32 芯片的存储极限）和数字审查反抗的政治维度。", "insight": "", "url": "https://www.richardosgood.com/posts/banned-book-library/", "category": "community", "stars": "", "domain": "www.richardosgood.com"},
+{"title": "𝗖𝗢𝗗𝗔-𝗕𝗘𝗡𝗖𝗛: 代码 Agent 能处理数据密集型任务吗？", "summary": "提出了首个专门评估代码 Agent 处理「代码+大规模数据」复合场景的基准测试。揭示当前最强 Agent 在涉及文件系统和数据管道的真实开发任务中仍存在显著差距。", "insight": "", "url": "https://huggingface.co/papers/2606.15300", "category": "papers", "stars": "", "domain": "huggingface.co"},
+{"title": "𝗩𝗶𝘀𝘂𝗮𝗹𝗖𝗹𝗮𝘄: 面向物理世界的实时个性化 Agent", "summary": "提出一个解决 VLM 部署三大痛点的框架：高延迟视频处理、静态 Agent 脚手架、标准提示词无法个性化。在机器人操作和 AR 辅助场景中展示实时响应能力。", "insight": "", "url": "https://huggingface.co/papers/2606.16295", "category": "papers", "stars": "", "domain": "huggingface.co"},
+{"title": "𝗵𝗮𝗿𝘃𝗮𝘁𝗲𝗰𝗵𝘀/𝗶𝗻𝘁𝗵𝗼𝗻: Agent 级语言——面向 AI 原生计算和机器速度工作流", "summary": "一种专为 AI Agent 设计的编程语言，聚焦工具编排和机器速度的工作流执行。在 AI 编程从「人写代码」到「Agent 写代码」的转型中，语言层也在尝试跟上。", "insight": "", "url": "https://github.com/harvatechs/inthon", "category": "products", "stars": "", "domain": "github.com"}
+];
+
+// ── localStorage helpers ──
+const LS_BOOKMARKS = 'fn_bookmarks';
+const LS_READ = 'fn_read';
+
+function getLS(key) {
+    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }
+    catch { return new Set(); }
+}
+function setLS(key, set) {
+    try { localStorage.setItem(key, JSON.stringify([...set])); } catch {}
+}
+function inLS(key, url) { return getLS(key).has(url); }
+function toggleLS(key, url) {
+    const s = getLS(key);
+    if (s.has(url)) { s.delete(url); } else { s.add(url); }
+    setLS(key, s);
+    return s.has(url);
+}
+
+// ── State ──
+let activeFilter = 'all';
+let searchQuery = '';
+
+// ── DOM refs ──
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const searchInfo = document.getElementById('search-info');
+const filterChips = document.getElementById('filter-chips');
+const noResults = document.getElementById('no-results');
+const toast = document.getElementById('toast');
+const backTop = document.getElementById('back-top');
+
+// ── Card click → open URL ──
+document.querySelectorAll('.card[data-href]').forEach(card => {
+    card.addEventListener('click', function(e) {
+        if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.card-bookmark')) return;
+        const url = this.dataset.href;
+        if (url) {
+            markRead(this.dataset.url || url);
+            window.open(url, '_blank', 'noopener');
+        }
+    });
+});
+
+// ── Bookmark buttons ──
+document.querySelectorAll('.card-bookmark').forEach(btn => {
+    const url = btn.dataset.url;
+    if (inLS(LS_BOOKMARKS, url)) btn.classList.add('bookmarked');
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isNow = toggleLS(LS_BOOKMARKS, url);
+        this.classList.toggle('bookmarked', isNow);
+        showToast(isNow ? '已收藏 ★' : '已取消收藏');
+        updateCounts();
+        applyAllFilters();
+    });
+});
+
+// ── Read tracking ──
+function markRead(url) {
+    if (!inLS(LS_READ, url)) {
+        getLS(LS_READ).add(url);
+        setLS(LS_READ, getLS(LS_READ));
+    }
+    updateReadUI();
+    updateCounts();
+}
+
+function updateReadUI() {
+    const readSet = getLS(LS_READ);
+    document.querySelectorAll('.card[data-url]').forEach(card => {
+        if (readSet.has(card.dataset.url)) card.classList.add('read');
+    });
+}
+
+// ── Filter chips ──
+filterChips.addEventListener('click', function(e) {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    const filter = chip.dataset.filter;
+
+    // Toggle: clicking active chip deactivates → goes to 'all'
+    if (chip.classList.contains('active') && filter !== 'all') {
+        activeFilter = 'all';
+    } else {
+        activeFilter = filter;
+    }
+
+    updateChipUI();
+    applyAllFilters();
+});
+
+function updateChipUI() {
+    filterChips.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.filter === activeFilter);
+    });
+}
+
+// ── Search ──
+let searchTimer;
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        searchQuery = this.value.trim().toLowerCase();
+        searchClear.classList.toggle('visible', searchQuery.length > 0);
+        applyAllFilters();
+    }, 150);
+});
+searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchQuery = '';
+    searchClear.classList.remove('visible');
+    searchInput.focus();
+    applyAllFilters();
+});
+
+// ── Apply all filters ──
+function applyAllFilters() {
+    const readSet = getLS(LS_READ);
+    const bookmarkSet = getLS(LS_BOOKMARKS);
+    let visibleCount = 0;
+    let totalInFilter = 0;
+
+    document.querySelectorAll('.section').forEach(section => {
+        const cat = section.dataset.category;
+        let sectionHasVisible = false;
+
+        section.querySelectorAll('.card').forEach(card => {
+            const url = card.dataset.url;
+            let show = true;
+
+            // Category filter
+            if (activeFilter === 'bookmarks') {
+                show = bookmarkSet.has(url);
+            } else if (activeFilter === 'unread') {
+                show = !readSet.has(url);
+            } else if (activeFilter !== 'all') {
+                show = (cat === activeFilter);
+            }
+
+            // Search filter
+            if (show && searchQuery) {
+                const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+                const body = (card.querySelector('.card-body')?.textContent || '').toLowerCase();
+                const insight = (card.querySelector('.card-insight')?.textContent || '').toLowerCase();
+                const allText = title + ' ' + body + ' ' + insight;
+                const terms = searchQuery.split(/\s+/).filter(Boolean);
+                show = terms.every(t => allText.includes(t));
+            }
+
+            if (show) {
+                card.classList.remove('hidden-by-search');
+                visibleCount++;
+                sectionHasVisible = true;
+            } else {
+                card.classList.add('hidden-by-search');
+            }
+            totalInFilter++;
+        });
+
+        section.classList.toggle('hidden', !sectionHasVisible);
+    });
+
+    // No results
+    noResults.classList.toggle('visible', visibleCount === 0 && totalInFilter > 0);
+
+    // Search info
+    if (searchQuery) {
+        searchInfo.textContent = `找到 ${visibleCount} 篇`;
+    } else {
+        searchInfo.textContent = '';
+    }
+
+    updateCounts();
+}
+
+// ── Counts ──
+function updateCounts() {
+    const visible = document.querySelectorAll('.card:not(.hidden-by-search)').length;
+    const total = document.querySelectorAll('.card').length;
+    const bookmarkN = getLS(LS_BOOKMARKS).size;
+    const readN = getLS(LS_READ).size;
+    const unreadN = total - readN;
+
+    document.getElementById('total-count').innerHTML = `<strong>共 ${total} 篇</strong>`;
+    document.getElementById('visible-count').textContent = visible !== total ? `显示 ${visible} 篇` : '';
+    document.getElementById('bookmark-count').textContent = bookmarkN > 0 ? `📌 ${bookmarkN} 书签` : '';
+    document.getElementById('unread-count').textContent = unreadN > 0 ? `👁 ${unreadN} 未读` : '';
+    document.getElementById('footer-stats').textContent =
+        `${total} articles · ${bookmarkN} bookmarked · ${readN} read · built ${new Date().toISOString().slice(0,10)}`;
+
+    // Update chip labels
+    const bookmarkChip = filterChips.querySelector('[data-filter="bookmarks"]');
+    if (bookmarkChip) bookmarkChip.textContent = `📌 书签 (${bookmarkN})`;
+    const unreadChip = filterChips.querySelector('[data-filter="unread"]');
+    if (unreadChip) unreadChip.textContent = `👁 未读 (${unreadN})`;
+}
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+// ── Back to top ──
+window.addEventListener('scroll', function() {
+    backTop.classList.toggle('visible', window.scrollY > 500);
+});
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', function(e) {
+    // Ctrl+K or / → focus search
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement === document.body)) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+    }
+    // Escape → clear search
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchQuery = '';
+        searchClear.classList.remove('visible');
+        searchInput.blur();
+        applyAllFilters();
+    }
+});
+
+// ── Init ──
+updateReadUI();
+updateCounts();
 </script>
 </body>
 </html>
