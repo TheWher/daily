@@ -11,7 +11,7 @@
     --card: #ffffff;
     --text: #1a1a2e;
     --muted: #6b7280;
-    --accent: #2563eb;
+    --accent: #1d4ed8;
     --border: #e5e7eb;
     --insight-bg: #eff6ff;
     --insight-border: #bfdbfe;
@@ -28,9 +28,6 @@
         --insight-bg: #1e3a5f;
         --insight-border: #2563eb;
         --github-bg: #14532d;
-        --paper-bg: #422006;
-        --community-bg: #4a1942;
-        --product-bg: #14532d;
     }
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -121,7 +118,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
     text-decoration: underline;
     text-underline-offset: 2px;
 }
-.link a:hover { color: #1d4ed8; }
+.link a:hover { color: #1e40af; }
 .github-item {
     background: var(--github-bg);
     padding: 0.4rem 0.8rem;
@@ -165,7 +162,7 @@ p a {
 .news-item a:hover, .insight a:hover, .github-item a:hover,
 .paper-item a:hover, .community-item a:hover, .product-item a:hover,
 p a:hover {
-    color: #1d4ed8;
+    color: #1e40af;
 }
 .footer-tag {
     text-align: center;
@@ -179,6 +176,12 @@ p a:hover {
     .paper-item { background: #422006; border-color: #ca8a04; }
     .community-item { background: #4a1942; border-color: #db2777; }
     .product-item { background: #14532d; border-color: #16a34a; }
+    /* Override hardcoded hover to lighter shade for dark bg visibility */
+    .news-item a:hover, .insight a:hover, .github-item a:hover,
+    .paper-item a:hover, .community-item a:hover, .product-item a:hover,
+    p a:hover, .link a:hover {
+        color: #93c5fd;
+    }
 }
 @media (max-width: 768px) {
     .container { flex-direction: column; }
