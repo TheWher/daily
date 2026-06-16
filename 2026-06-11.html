@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>🗞️ AI 日报 — 2026年6月11日 — AI 科技日报</title>
 <style>
 :root {
@@ -151,6 +152,20 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
     margin-bottom: 0.5rem;
     border-radius: 0 6px 6px 0;
     font-size: 0.95rem;
+}
+/* Inline links inside content blocks */
+.news-item a, .insight a, .github-item a,
+.paper-item a, .community-item a, .product-item a,
+p a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-all;
+}
+.news-item a:hover, .insight a:hover, .github-item a:hover,
+.paper-item a:hover, .community-item a:hover, .product-item a:hover,
+p a:hover {
+    color: #1d4ed8;
 }
 .footer-tag {
     text-align: center;

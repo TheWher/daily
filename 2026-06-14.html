@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>🌐 AI 科技日报 — 2026 年 6 月 14 日 — AI 科技日报</title>
 <style>
 :root {
@@ -152,6 +153,20 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
     border-radius: 0 6px 6px 0;
     font-size: 0.95rem;
 }
+/* Inline links inside content blocks */
+.news-item a, .insight a, .github-item a,
+.paper-item a, .community-item a, .product-item a,
+p a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-all;
+}
+.news-item a:hover, .insight a:hover, .github-item a:hover,
+.paper-item a:hover, .community-item a:hover, .product-item a:hover,
+p a:hover {
+    color: #1d4ed8;
+}
 .footer-tag {
     text-align: center;
     color: var(--muted);
@@ -282,31 +297,31 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
   专为 AI Agent 设计的中文写作人性化技能——编辑时不抹去作者风格，保留"人味儿"。3 天冲到 411 星。
 </p>
 <p class="insight">区别于英文 text-humanizer 的「绕过检测」，这个项目更关注美学质量而非对抗性。AI 写作工具的下一个阶段不是「更像人」而是「就是这个人」。</p>
-<p class="github-item">411 (+411/d) · 🔗 https://github.com/orange2ai/renwei-writing</p>
+<p class="github-item">411 (+411/d) · 🔗 <a href="https://github.com/orange2ai/renwei-writing" target="_blank" rel="noopener">https://github.com/orange2ai/renwei-writing</a></p>
 <p class="news-item"><strong class="title">𝗯𝗮𝗼𝘆𝘂-𝗱𝗲𝘀𝗶𝗴𝗻 — 把 𝗖𝗹𝗮𝘂𝗱𝗲 𝗗𝗲𝘀𝗶𝗴𝗻 装进本地 𝗔𝗴𝗲𝗻𝘁 技能</strong></p>
 <p>
   让 Cursor、Claude Code 等本地 Agent 直接调用 Claude Design 能力，产出精美 UI mockup、原型和演示文稿，无需登录 claude.ai。
 </p>
 <p class="insight">将云端设计能力「本地化」为 Agent Skill 是一个新趋势——设计工作流从 SaaS 订阅制走向 Agent 技能组合制。</p>
-<p class="github-item">919 (+153/d) · 🔗 https://github.com/JimLiu/baoyu-design</p>
+<p class="github-item">919 (+153/d) · 🔗 <a href="https://github.com/JimLiu/baoyu-design" target="_blank" rel="noopener">https://github.com/JimLiu/baoyu-design</a></p>
 <p class="news-item"><strong class="title">𝗳𝗮𝗻𝗯𝗼𝘅 — 𝗩𝗶𝗯𝗲 𝗖𝗼𝗱𝗶𝗻𝗴 的驾驶舱</strong></p>
 <p>
   左边文件树、右边终端、中间展示每次改动的可视化 diff——专为 AI 辅助编程设计的轻量级工作台。Claude Code + Cursor 生态的新成员。
 </p>
 <p class="insight">vibe coding 的工具链正在成形：从「用 AI 写代码」进化到「看着 AI 写代码并精准控制每一步」。这可能是 AI 时代 IDE 的雏形。</p>
-<p class="github-item">414 (+138/d) · 🔗 https://github.com/alchaincyf/fanbox</p>
+<p class="github-item">414 (+138/d) · 🔗 <a href="https://github.com/alchaincyf/fanbox" target="_blank" rel="noopener">https://github.com/alchaincyf/fanbox</a></p>
 <p class="news-item"><strong class="title">𝗼𝗿𝗮𝗻𝗴𝗲-𝗹𝗶𝗻𝗲-𝗶𝗹𝗹𝘂𝘀𝘁𝗿𝗮𝘁𝗶𝗼𝗻 — 纽约客风格极简插画 Agent 技能</strong></p>
 <p>
   一个想法 + 一个强调色 + 大量留白——让 AI Agent 生成《纽约客》杂志风格的社论插画。来自 renwei-writing 同团队。
 </p>
 <p class="insight">AI 插画正在从「逼真渲染」走向「风格化表达」。极简风+特定配色规范是让 AI 产出可商用设计作品的可行路径。</p>
-<p class="github-item">129 (+64/d) · 🔗 https://github.com/orange2ai/orange-line-illustration</p>
+<p class="github-item">129 (+64/d) · 🔗 <a href="https://github.com/orange2ai/orange-line-illustration" target="_blank" rel="noopener">https://github.com/orange2ai/orange-line-illustration</a></p>
 <p class="news-item"><strong class="title">𝗧𝗲𝘀𝘁𝗦𝗽𝗿𝗶𝘁𝗲 — 终端里的 AI 自动化测试</strong></p>
 <p>
   官方 CLI 工具，从终端直接驱动 AI 进行自动化测试。0 配置启动，支持 CI/CD 集成。
 </p>
 <p class="insight">测试是 AI 最先渗透的软件工程环节之一。终端原生的 AI 测试工具意味着测试左移可以做到 git push 之前。</p>
-<p class="github-item">130 (+65/d) · 🔗 https://github.com/TestSprite/testsprite-cli</p>
+<p class="github-item">130 (+65/d) · 🔗 <a href="https://github.com/TestSprite/testsprite-cli" target="_blank" rel="noopener">https://github.com/TestSprite/testsprite-cli</a></p>
 <hr>
 <p class="footer-tag">🤖 autoloop follow-news v3.18</p>
 </main>
