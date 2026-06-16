@@ -27,6 +27,9 @@
         --insight-bg: #1e3a5f;
         --insight-border: #2563eb;
         --github-bg: #14532d;
+        --paper-bg: #422006;
+        --community-bg: #4a1942;
+        --product-bg: #14532d;
     }
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -112,7 +115,12 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
     margin-bottom: 1.2rem;
     word-break: break-all;
 }
-.link a { color: var(--accent); }
+.link a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.link a:hover { color: #1d4ed8; }
 .github-item {
     background: var(--github-bg);
     padding: 0.4rem 0.8rem;
@@ -120,11 +128,42 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
     border-radius: 6px;
     font-size: 0.95rem;
 }
+.paper-item {
+    background: #fefce8;
+    border-left: 3px solid #eab308;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+}
+.community-item {
+    background: #fdf2f8;
+    border-left: 3px solid #ec4899;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+}
+.product-item {
+    background: #f0fdf4;
+    border-left: 3px solid #22c55e;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+}
 .footer-tag {
     text-align: center;
     color: var(--muted);
     font-size: 0.85rem;
     margin-top: 2rem;
+}
+@media (prefers-color-scheme: dark) {
+    .insight { background: #1e3a5f; border-color: #3b82f6; }
+    .github-item { background: #14532d; }
+    .paper-item { background: #422006; border-color: #ca8a04; }
+    .community-item { background: #4a1942; border-color: #db2777; }
+    .product-item { background: #14532d; border-color: #16a34a; }
 }
 @media (max-width: 768px) {
     .container { flex-direction: column; }
@@ -169,149 +208,135 @@ hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
 <p class="news-item"><strong class="title">𝗨𝗦 政府以国家安全为由强制 Anthropic 关闭 Fable 5 和 Mythos 5 模型</strong></p>
 <p>
   Anthropic 公告确认两款旗舰模型因商务部禁令下线——AI 史上首次政府强制关闭已部署前沿模型。Amazon 等六家公司被指触发此次禁令，另白宫称中国可能已通过第三方访问 Mythos 模型权重。
-  💡 这不仅是一次模型下线，更是 AI 地缘政治化的里程碑事件。对依赖 Claude API 的企业，需评估合规风险与模型替代方案，备选包括 OpenAI/Google 商业模型或开源模型。
-  🔗 https://www.anthropic.com/news/fable-mythos-access
 </p>
+<p class="insight">这不仅是一次模型下线，更是 AI 地缘政治化的里程碑事件。对依赖 Claude API 的企业，需评估合规风险与模型替代方案，备选包括 OpenAI/Google 商业模型或开源模型。</p>
+<p class="link"><a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener">https://www.anthropic.com/news/fable-mythos-access</a></p>
 <p class="news-item"><strong class="title">𝗪𝗪𝗗𝗖 𝟮𝟬𝟮𝟲：Apple Siri 引入 Gemini 1.2T 参数模型，但仅限云端运行</strong></p>
 <p>
   Apple 与 Google 达成合作，Siri AI 能力由 Gemini 提供算力支撑。然而 1.2T 参数的模型无法在 iPhone 本地运行，全部推理依赖云端。
-  💡 Apple 在 AI 上的"借力策略"愈发明确——自研模型进展落后，转而押注 Google 生态。对开发者而言，Siri AI 开放 API 程度将是关键变量。
-  🔗 https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE
 </p>
+<p class="insight">Apple 在 AI 上的"借力策略"愈发明确——自研模型进展落后，转而押注 Google 生态。对开发者而言，Siri AI 开放 API 程度将是关键变量。</p>
+<p class="link"><a href="https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE" target="_blank" rel="noopener">https://www.infoq.cn/article/LSwQ3hQpZ1INX40icTSE</a></p>
 <p class="news-item"><strong class="title">𝗟𝗶𝗻𝘂𝘅 𝟳.𝟭 正式发布</strong></p>
 <p>
   Linus Torvalds 宣布 Linux 7.1 版本就绪，这是继 7.0 之后的第一个稳定更新，涵盖架构支持增强、驱动更新和性能优化。
-  💡 Linux 主版本号从 6 跳到 7 标志着内核的重大演进（7.0 于 2025 年发布），7.1 延续了高频率迭代节奏。云端基础设施和嵌入式开发者应关注内核 ABI 变更。
-  🔗 https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u
 </p>
+<p class="insight">Linux 主版本号从 6 跳到 7 标志着内核的重大演进（7.0 于 2025 年发布），7.1 延续了高频率迭代节奏。云端基础设施和嵌入式开发者应关注内核 ABI 变更。</p>
+<p class="link"><a href="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u" target="_blank" rel="noopener">https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u</a></p>
 <p class="news-item"><strong class="title">𝗛𝗗𝗖 𝟮𝟬𝟮𝟲 深度：鸿蒙全面向 Agent 架构演进，小艺 AI 完成三大升级</strong></p>
 <p>
   华为开发者大会揭示鸿蒙系统级 Agent 化路径——小艺助手从语音助手升级为跨应用自主 Agent，可跨 App 完成多步骤任务编排。
-  💡 "系统即 Agent"是 2026 年的终端趋势。鸿蒙的做法与 Apple Intelligence 和 Android AI Core 理念趋同，但华为在端侧推理和硬件协同上有差异化优势。
-  🔗 https://www.ifanr.com/1668931
 </p>
+<p class="insight">"系统即 Agent"是 2026 年的终端趋势。鸿蒙的做法与 Apple Intelligence 和 Android AI Core 理念趋同，但华为在端侧推理和硬件协同上有差异化优势。</p>
+<p class="link"><a href="https://www.ifanr.com/1668931" target="_blank" rel="noopener">https://www.ifanr.com/1668931</a></p>
 <p class="news-item"><strong class="title">英国拟立法禁止 16 岁以下儿童使用社交媒体</strong></p>
 <p>
   TechCrunch 报道，英国议会正酝酿新法案，将社交媒体最低年龄从 13 岁提高至 16 岁，覆盖 TikTok、Instagram、Snapchat 等主流平台。
-  💡 继澳大利亚之后，英国的跟进意味着儿童网络保护立法的全球化加速。对社交平台而言，年龄验证技术将成为合规刚需，可能催生一批身份验证工具需求。
-  🔗 https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/
 </p>
+<p class="insight">继澳大利亚之后，英国的跟进意味着儿童网络保护立法的全球化加速。对社交平台而言，年龄验证技术将成为合规刚需，可能催生一批身份验证工具需求。</p>
+<p class="link"><a href="https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/" target="_blank" rel="noopener">https://techcrunch.com/2026/06/14/uk-may-ban-social-media-for-children-under-16/</a></p>
 <p class="news-item"><strong class="title">𝗔𝗽𝗽𝗹𝗲 𝗣𝗿𝗶𝘃𝗮𝘁𝗲 𝗖𝗹𝗼𝘂𝗱 𝗖𝗼𝗺𝗽𝘂𝘁𝗲 对第三方开发者严重受限</strong></p>
 <p>
   Apple 私密云计算（PCC）虽在隐私保护上获得好评，但开发者文档显示其 API 和模型访问权限极度有限，第三方几乎无法深度集成。
-  💡 PCC 目前更像是 Apple 自用的封闭特权——隐私做得好，但生态开放性不足。对于做 AI 应用的开发者，仍需自建或选用 AWS/GCP 的推理基础设施。
-  🔗 https://developer.apple.com/private-cloud-compute/
 </p>
+<p class="insight">PCC 目前更像是 Apple 自用的封闭特权——隐私做得好，但生态开放性不足。对于做 AI 应用的开发者，仍需自建或选用 AWS/GCP 的推理基础设施。</p>
+<p class="link"><a href="https://developer.apple.com/private-cloud-compute/" target="_blank" rel="noopener">https://developer.apple.com/private-cloud-compute/</a></p>
 <p class="news-item"><strong class="title">𝗢𝗽𝗲𝗻𝗔𝗜 推出合作伙伴网络（Partner Network）</strong></p>
 <p>
   OpenAI 正式发布全球合作伙伴计划，为系统集成商、咨询公司和 ISV 提供培训、认证和联合销售通道，加速 GPT/ChatGPT/Codex 在企业端的落地。
-  💡 这是 OpenAI 企业化的关键一步——从技术提供商转型为平台生态商。对企业的启示：通过官方合作伙伴采购可能获得更好的 SLA 和集成支持。
-  🔗 https://openai.com/index/introducing-openai-partner-network
 </p>
+<p class="insight">这是 OpenAI 企业化的关键一步——从技术提供商转型为平台生态商。对企业的启示：通过官方合作伙伴采购可能获得更好的 SLA 和集成支持。</p>
+<p class="link"><a href="https://openai.com/index/introducing-openai-partner-network" target="_blank" rel="noopener">https://openai.com/index/introducing-openai-partner-network</a></p>
 <p class="news-item"><strong class="title">𝟮𝟬𝟮𝟲 智源大会开幕：推动 AI、物理世界和生命科学"三体互动"</strong></p>
 <p>
   北京智源大会提出 AI 须与物理世界（机器人、自动驾驶）和生命科学（蛋白质设计、药物发现）深度融合，发布多项基础模型和开源数据集。
-  💡 中国 AI 学界正在推动 AI 研究从"数字虚拟"走向"物理真实"。这种跨学科融合是下一代 AI 应用的底层逻辑，也对应着巨大的产业机会。
-  🔗 https://www.qbitai.com/2026/06/435394.html
 </p>
+<p class="insight">中国 AI 学界正在推动 AI 研究从"数字虚拟"走向"物理真实"。这种跨学科融合是下一代 AI 应用的底层逻辑，也对应着巨大的产业机会。</p>
+<p class="link"><a href="https://www.qbitai.com/2026/06/435394.html" target="_blank" rel="noopener">https://www.qbitai.com/2026/06/435394.html</a></p>
 <p class="news-item"><strong class="title">𝗞𝗣𝗠𝗚 被曝编造 AI 案例研究以推销客户</strong></p>
 <p>
   KPMG 在一份向客户推广 AI 采纳的报告中虚构了多个 AI 应用案例，被外媒揭露后引发信任危机。
-  💡 咨询公司兜售 AI 的"FOMO 焦虑"正达到顶峰——客户需对供应商宣称的 AI 成果保持警惕，要求可验证的证据而非漂亮的 PPT。
-  🔗 https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/
 </p>
+<p class="insight">咨询公司兜售 AI 的"FOMO 焦虑"正达到顶峰——客户需对供应商宣称的 AI 成果保持警惕，要求可验证的证据而非漂亮的 PPT。</p>
+<p class="link"><a href="https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/" target="_blank" rel="noopener">https://the-decoder.com/kpmg-fabricated-ai-case-studies-in-a-report-designed-to-sell-clients-on-ai-adoption/</a></p>
 <p class="news-item"><strong class="title">𝗖𝗹𝗮𝘂𝗱𝗲/𝗖𝗵𝗮𝘁𝗚𝗣𝗧/𝗚𝗲𝗺𝗶𝗻𝗶 系统提示词大规模泄露</strong></p>
 <p>
   GitHub 仓库 `system_prompts_leaks` 公布了三家顶级 AI 公司的完整系统提示词——Claude Fable 5、Opus 4.8、ChatGPT 5.5 Thinking、Gemini 3.5 Flash 等模型的内部指令全部曝光。
-  💡 这是 2026 年迄今最大的 AI security 事件之一。系统提示词泄露可能帮助攻击者绕过安全护栏（jailbreak），但也为研究者提供了研究模型行为的宝贵透明度。
-  🔗 https://github.com/asgeirtj/system_prompts_leaks
 </p>
+<p class="insight">这是 2026 年迄今最大的 AI security 事件之一。系统提示词泄露可能帮助攻击者绕过安全护栏（jailbreak），但也为研究者提供了研究模型行为的宝贵透明度。</p>
+<p class="link"><a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener">https://github.com/asgeirtj/system_prompts_leaks</a></p>
 <p class="news-item"><strong class="title">哈佛开源《Machine Learning Systems》教材</strong></p>
 <p>
   哈佛边缘计算实验室（Harvard Edge）发布 ML 系统工程化教材，覆盖训练、部署、监控、MLOps 全链路，适合进阶开发者系统学习。
-  💡 这是继 Chip Huyen 的 ML 系统设计之后又一本高质量的免费资源。对正在搭建 ML 基础设施的团队有直接参考价值。
-  🔗 https://github.com/harvard-edge/cs249r_book
 </p>
+<p class="insight">这是继 Chip Huyen 的 ML 系统设计之后又一本高质量的免费资源。对正在搭建 ML 基础设施的团队有直接参考价值。</p>
+<p class="link"><a href="https://github.com/harvard-edge/cs249r_book" target="_blank" rel="noopener">https://github.com/harvard-edge/cs249r_book</a></p>
 <p class="news-item"><strong class="title">𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 𝗠𝗶𝗿𝗮𝗴𝗲：赋予视频生成的持久空间记忆</strong></p>
 <p>
   Microsoft Research 发布 Mirage 模型，能在视频生成中维持贯穿多帧的持久空间记忆，解决"转个角就忘了"的经典问题。
-  💡 视频生成的下一关是 temporal consistency（时序一致性）。Mirage 路线有望在 AR/VR 和游戏内容生成中找到应用场景。
-  🔗 https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/
 </p>
+<p class="insight">视频生成的下一关是 temporal consistency（时序一致性）。Mirage 路线有望在 AR/VR 和游戏内容生成中找到应用场景。</p>
+<p class="link"><a href="https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/" target="_blank" rel="noopener">https://the-decoder.com/microsoft-researchs-mirage-gives-video-generation-a-persistent-spatial-memory-that-doesnt-forget-whats-around-the-corner/</a></p>
 <p class="news-item"><strong class="title">𝗔𝗜 公司 IPO 竞赛全面开启——谁是下一个上车者？</strong></p>
 <p>
   TechCrunch 分析指出 OpenAI、Anthropic、CoreWeave 等多家 AI 公司正跑步上市，但二级市场对高估值 AI 公司的态度从狂热转向谨慎。
-  💡 AI 估值泡沫面临首次公开市场考验。普通投资者应区分"卖铲子的"（基础设施）和"淘金的"（应用层），前者如 CoreWeave/GPU 云更可能在 IPO 中支撑住估值。
-  🔗 https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/
 </p>
+<p class="insight">AI 估值泡沫面临首次公开市场考验。普通投资者应区分"卖铲子的"（基础设施）和"淘金的"（应用层），前者如 CoreWeave/GPU 云更可能在 IPO 中支撑住估值。</p>
+<p class="link"><a href="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/" target="_blank" rel="noopener">https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/</a></p>
 <hr>
 <h2>🔥 GitHub Trending</h2>
 <p class="news-item"><strong class="title">𝗗𝗶𝗲𝘁𝗿𝗶𝗰𝗵𝗚𝗲𝗯𝗲𝗿𝘁/𝗽𝗼𝗻𝘆𝘁𝗮𝗶𝗹 — 让 AI agent 学会"最懒的资深开发者"思维</strong></p>
 <p>
   一个 Claude Code 插件，教 AI 以最小代码解决需求——少写代码 = 少维护 = 少 Bug。3 天内从 0→8322 星。
-  ⭐ 8,322 (+2,774/d) · 🔗 https://github.com/DietrichGebert/ponytail
 </p>
+<p class="github-item">8,322 (+2,774/d) · 🔗 https://github.com/DietrichGebert/ponytail</p>
 <p class="news-item"><strong class="title">𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁-𝗮𝗶/𝗼𝗺𝗻𝗶𝗴𝗲𝗻𝘁 — 元调度层：一个平台管所有 AI Agent</strong></p>
 <p>
   在 Claude Code、Codex、Pi 等 Agent 上提供统一抽象层，切换工具链不影响工作流。4 天内破千星。
-  ⭐ 1,229 (+410/d) · 🔗 https://github.com/omnigent-ai/omnigent
 </p>
+<p class="github-item">1,229 (+410/d) · 🔗 https://github.com/omnigent-ai/omnigent</p>
 <p class="news-item"><strong class="title">𝗼𝗿𝗮𝗻𝗴𝗲𝟮𝗮𝗶/𝗿𝗲𝗻𝘄𝗲𝗶-𝘄𝗿𝗶𝘁𝗶𝗻𝗴 — 人味儿写作：AI 润色不抹去人格</strong></p>
 <p>
   面向中文写作的 Agent skill，保留作者个人风格的同时提升文字质量。3 天 571 星。
-  ⭐ 571 (+286/d) · 🔗 https://github.com/orange2ai/renwei-writing
 </p>
+<p class="github-item">571 (+286/d) · 🔗 https://github.com/orange2ai/renwei-writing</p>
 <p class="news-item"><strong class="title">𝗿𝗼𝘆𝗮𝗹𝗯𝗵𝗮𝘁𝗶/𝘀𝗾𝗹𝘁𝗼𝗲𝗿𝗱𝗶𝗮𝗴𝗿𝗮𝗺 — 粘贴 SQL 即可生成交互式 ER 图</strong></p>
 <p>
   100% 浏览器端运行，无需后端——隐私友好且零配置。发布当天即 280 星。
-  ⭐ 280 (+280/d) · 🔗 https://github.com/royalbhati/sqltoerdiagram
 </p>
+<p class="github-item">280 (+280/d) · 🔗 https://github.com/royalbhati/sqltoerdiagram</p>
 <p class="news-item"><strong class="title">𝗯𝗷𝗮𝗿𝗻𝗲𝗼/𝗸𝗹𝗶 — 键盘驱动的 Kubernetes TUI</strong></p>
 <p>
   受 k9s 启发但更轻量、更快，支持资源浏览、对象编辑、日志追踪和 Pod Shell 直连。
-  ⭐ 219 (+219/d) · 🔗 https://github.com/bjarneo/kli
 </p>
+<p class="github-item">219 (+219/d) · 🔗 https://github.com/bjarneo/kli</p>
 <hr>
 <h2>💬 社区讨论</h2>
 <p class="news-item"><strong class="title">𝗥𝗶𝗼 𝗱𝗲 𝗝𝗮𝗻𝗲𝗶𝗿𝗼 "自研" LLM 被指是已有模型的合并</strong></p>
-<p>
-  💬 里约政府声称自研的 Nex-N2 大模型被社区发现实际是已有开源模型的拼接，引发对政府 AI 项目透明度的广泛讨论。
-  🔗 https://github.com/nex-agi/Nex-N2/issues/4
-</p>
+<p class="community-item">里约政府声称自研的 Nex-N2 大模型被社区发现实际是已有开源模型的拼接，引发对政府 AI 项目透明度的广泛讨论。</p>
+<p class="link"><a href="https://github.com/nex-agi/Nex-N2/issues/4" target="_blank" rel="noopener">https://github.com/nex-agi/Nex-N2/issues/4</a></p>
 <p class="news-item"><strong class="title">𝗦𝗵𝗼𝘄 𝗛𝗡: 𝗞𝗮𝗴𝗲 — 将任意网站打包为单二进制离线浏览</strong></p>
-<p>
-  💬 HN 404 分高赞项目——解决网络不稳定环境下的文档查阅痛点，引发对「数字永久保存」的讨论。
-  🔗 https://github.com/tamnd/kage
-</p>
+<p class="community-item">HN 404 分高赞项目——解决网络不稳定环境下的文档查阅痛点，引发对「数字永久保存」的讨论。</p>
+<p class="link"><a href="https://github.com/tamnd/kage" target="_blank" rel="noopener">https://github.com/tamnd/kage</a></p>
 <p class="news-item"><strong class="title">𝗩𝟮𝗘𝗫 热议：AI 付费服务的性价比困境</strong></p>
-<p>
-  💬 用户反映 GLM token plan 买不到、AI 付费服务定价与实际体验不匹配，社区讨论聚焦「AI 服务定价透明化」问题。
-  🔗 https://www.v2ex.com/t/1220264
-</p>
+<p class="community-item">用户反映 GLM token plan 买不到、AI 付费服务定价与实际体验不匹配，社区讨论聚焦「AI 服务定价透明化」问题。</p>
+<p class="link"><a href="https://www.v2ex.com/t/1220264" target="_blank" rel="noopener">https://www.v2ex.com/t/1220264</a></p>
 <hr>
 <h2>📄 AI 热门论文</h2>
 <p class="news-item"><strong class="title">𝗪𝗵𝗲𝗻 𝗶𝘀 𝗬𝗼𝘂𝗿 𝗟𝗟𝗠 𝗦𝘁𝗲𝗲𝗿𝗮𝗯𝗹𝗲?</strong></p>
-<p>
-  📄 系统研究 activation steering 何时成功/失败——结论：取决于 prompt、概念、模型和 steering 配置的组合。对想用轻量方法控制 LLM 输出的开发者有直接指导意义。
-  🔗 https://huggingface.co/papers/2606.11599
-</p>
+<p class="paper-item">系统研究 activation steering 何时成功/失败——结论：取决于 prompt、概念、模型和 steering 配置的组合。对想用轻量方法控制 LLM 输出的开发者有直接指导意义。</p>
+<p class="link"><a href="https://huggingface.co/papers/2606.11599" target="_blank" rel="noopener">https://huggingface.co/papers/2606.11599</a></p>
 <p class="news-item"><strong class="title">𝗦𝗲𝗲 𝗪𝗵𝗮𝘁 𝗜 𝗦𝗲𝗲, 𝗞𝗻𝗼𝘄 𝗪𝗵𝗮𝘁 𝗜 𝗧𝗵𝗶𝗻𝗸 — 异构 Agent 间密集潜空间通信</strong></p>
-<p>
-  📄 提出跨模型 KV-cache 通信协议，让不同架构的 Agent 无需 decode→text→re-encode 即可直接交换信息，大幅降低通信开销。
-  🔗 https://huggingface.co/papers/2606.13594
-</p>
+<p class="paper-item">提出跨模型 KV-cache 通信协议，让不同架构的 Agent 无需 decode→text→re-encode 即可直接交换信息，大幅降低通信开销。</p>
+<p class="link"><a href="https://huggingface.co/papers/2606.13594" target="_blank" rel="noopener">https://huggingface.co/papers/2606.13594</a></p>
 <p class="news-item"><strong class="title">𝗧𝗵𝗲 𝗖𝗼𝗹𝗱-𝗦𝘁𝗮𝗿𝘁 𝗦𝗮𝗳𝗲𝘁𝘆 𝗚𝗮𝗽 𝗶𝗻 𝗟𝗟𝗠 𝗔𝗴𝗲𝗻𝘁𝘀</strong></p>
-<p>
-  📄 发现 LLM Agent 在会话开始时最不安全，执行几次常规任务后安全性显著提升——揭示了工具调用 Agent 的冷启动安全脆弱性，对部署 Agent 系统的安全策略设计有重要影响。
-  🔗 https://huggingface.co/papers/2606.07867
-</p>
+<p class="paper-item">发现 LLM Agent 在会话开始时最不安全，执行几次常规任务后安全性显著提升——揭示了工具调用 Agent 的冷启动安全脆弱性，对部署 Agent 系统的安全策略设计有重要影响。</p>
+<p class="link"><a href="https://huggingface.co/papers/2606.07867" target="_blank" rel="noopener">https://huggingface.co/papers/2606.07867</a></p>
 <hr>
 <h2>🆕 产品/工具</h2>
 <p class="news-item"><strong class="title">𝗺𝗲𝗺𝗶-𝗮𝗶/𝗺𝗲𝗺𝗶：本地 AI Agent，63 工具 + 80+ Provider + ClawHub 兼容</strong></p>
-<p>
-  🆕 主打本地运行、全功能 Agent 框架——不需要云端 API key，隐私优先。与 ClawHub 技能生态兼容，降低了技能复用门槛。
-  🔗 https://github.com/memi-ai/memi
-</p>
+<p class="product-item">主打本地运行、全功能 Agent 框架——不需要云端 API key，隐私优先。与 ClawHub 技能生态兼容，降低了技能复用门槛。</p>
+<p class="link"><a href="https://github.com/memi-ai/memi" target="_blank" rel="noopener">https://github.com/memi-ai/memi</a></p>
 <hr>
 <p class="footer-tag">🤖 autoloop follow-news v3.18</p>
 </main>
