@@ -1,26 +1,30 @@
-# 🌐 AI 科技日报
+# 🌐 AI 科技日报 · v3.20
 
-每日 AI 科技新闻精选，自动生成并归档于此 GitHub Pages 存档站。
+每日 AI/科技新闻精选，autoloop 合约驱动，Telegram 推送 + GitHub Pages 存档。
+
+## 架构
+
+| 组件 | 技术 |
+|------|------|
+| 调度 | CronCreate 7:03 + 8:57 AM 双触发 |
+| 合约 | autoloop v3.20（多源轮换 + URL 持久化 + 周报） |
+| 数据源 | 8 源实时轮换（default→TechCrunch→Techmeme→random） |
+| 评分 | 4 维度 0-10 AI 评分 + 去重（URL+标题+域+跨天7天） |
+| 投递 | Telegram messages_send MCP（主通道） |
+| 存档 | GitHub Pages + RSS（本仓库） |
+| 特殊 | 周日自动生成周报（Top 10 本周精选） |
 
 ## 内容结构
 
-每条新闻包含三个要素：
-
-- **📰 事实** — 标题 + 一句话摘要
-- **💡 分析** — 为什么重要 / 对从业者意味着什么
-- **🔗 来源** — 原始报道链接
-
-## 覆盖范围
-
-- 前沿模型动态（Anthropic / OpenAI / Google / Meta）
-- 政策与监管（US / EU / CN）
-- 安全事件与漏洞
-- AI + 硬件 / 医疗 / 科研交叉
-- GitHub 开源项目 Trending
+- **🌐 AI/科技新闻**（8-15 条，含 💡 解读）
+- **🔥 GitHub Trending**（3-5 个，日增星最快）
+- **💬 社区讨论**（2-3 条，HN/V2EX/LinuxDo）
+- **📄 AI 论文**（2-3 篇，HuggingFace 日榜）
+- **🆕 产品/工具**（1-2 个，新 AI 产品）
 
 ## 技术栈
 
-纯静态 HTML，GitHub Pages 托管，暗色模式自适应。
+纯静态 v5.0 增强 HTML：搜索 + 书签 + 已读追踪 + 分类筛选 + 移动端适配。Python 自动构建，零后端。
 
 ## 历史存档
 
