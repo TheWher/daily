@@ -9,10 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════
-   follow-news v5.0 — Enhanced Reading Experience
-   ═══════════════════════════════════════════════════════ */
-
 /* ── Reset & Tokens ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -115,7 +111,7 @@ h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
 }
 .date-summary strong{color:var(--text)}
 
-/* ── Archive Bar (horizontal scroll) ── */
+/* ── Archive Bar ── */
 .archive-bar{
     display:flex;gap:6px;margin-bottom:20px;padding-bottom:14px;
     border-bottom:1px solid var(--border);
@@ -158,7 +154,7 @@ h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
 }
 .card.read:hover{opacity:.75}
 
-/* Card header (title + bookmark) */
+/* Card header */
 .card-header{
     display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;
 }
@@ -174,7 +170,7 @@ h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
     border-left:2px solid var(--accent);
 }
 
-/* Card actions bar */
+/* Card actions */
 .card-actions{
     display:flex;flex-wrap:wrap;gap:8px;align-items:center;
     margin-top:4px;
@@ -194,7 +190,7 @@ h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
     background:var(--accent2);border-color:var(--accent2);
 }
 
-/* Bookmark button */
+/* Bookmark */
 .card-bookmark{
     flex-shrink:0;
     background:none;border:none;color:var(--muted);cursor:pointer;
@@ -206,14 +202,12 @@ h1{font-size:22px;font-weight:600;margin-bottom:4px;color:var(--text)}
 .card-bookmark.bookmarked{color:var(--warning)}
 .card-bookmark.bookmarked .bm-icon::before{content:'★'}
 
-/* Stars & Domain badges */
+/* Badges */
 .card-stars{font-size:12px;color:var(--success);font-weight:500}
 .card-domain{
     font-size:11px;color:var(--muted);font-family:var(--mono);
     padding:2px 8px;border-radius:4px;background:var(--card2);
 }
-
-/* Read badge */
 .card-read-badge{
     font-size:12px;color:var(--success);
     display:none;align-items:center;gap:3px;
@@ -284,6 +278,7 @@ footer{
     .section{margin-bottom:20px}
     .cards{gap:8px}
 }
+
 </style>
 </head>
 <body>
@@ -320,7 +315,7 @@ footer{
         <span id="bookmark-count"></span>
         <span id="unread-count"></span>
     </div>
-    <nav class="archive-bar"><a href="2026-07-23.html" class="">07-23</a><a href="2026-07-09.html" class="">07-09</a><a href="2026-07-03.html" class="">07-03</a><a href="2026-06-30.html" class="">06-30</a><a href="2026-06-27.html" class="">06-27</a><a href="2026-06-26.html" class="active">06-26</a><a href="2026-06-25.html" class="">06-25</a><a href="2026-06-24.html" class="">06-24</a><a href="2026-06-23.html" class="">06-23</a><a href="2026-06-22.html" class="">06-22</a><a href="2026-06-21.html" class="">06-21</a><a href="2026-06-20.html" class="">06-20</a><a href="2026-06-19.html" class="">06-19</a><a href="2026-06-18.html" class="">06-18</a><a href="2026-06-17.html" class="">06-17</a><a href="2026-06-16.html" class="">06-16</a><a href="2026-06-15.html" class="">06-15</a><a href="2026-06-14.html" class="">06-14</a><a href="2026-06-13.html" class="">06-13</a><a href="2026-06-12.html" class="">06-12</a><a href="2026-06-11.html" class="">06-11</a><a href="2026-06-09.html" class="">06-09</a><a href="2026-06-08.html" class="">06-08</a></nav>
+    <nav class="archive-bar"><a href="2026-07-24.html" class="">07-24</a><a href="2026-07-23.html" class="">07-23</a><a href="2026-07-09.html" class="">07-09</a><a href="2026-07-03.html" class="">07-03</a><a href="2026-06-30.html" class="">06-30</a><a href="2026-06-27.html" class="">06-27</a><a href="2026-06-26.html" class="active">06-26</a><a href="2026-06-25.html" class="">06-25</a><a href="2026-06-24.html" class="">06-24</a><a href="2026-06-23.html" class="">06-23</a><a href="2026-06-22.html" class="">06-22</a><a href="2026-06-21.html" class="">06-21</a><a href="2026-06-20.html" class="">06-20</a><a href="2026-06-19.html" class="">06-19</a><a href="2026-06-18.html" class="">06-18</a><a href="2026-06-17.html" class="">06-17</a><a href="2026-06-16.html" class="">06-16</a><a href="2026-06-15.html" class="">06-15</a><a href="2026-06-14.html" class="">06-14</a><a href="2026-06-13.html" class="">06-13</a><a href="2026-06-12.html" class="">06-12</a><a href="2026-06-11.html" class="">06-11</a><a href="2026-06-09.html" class="">06-09</a><a href="2026-06-08.html" class="">06-08</a></nav>
 
     <section class="section" data-category="github">
     <h2 class="section-title">🔥 GitHub Trending <span class="section-count">(5)</span></h2>
@@ -637,9 +632,6 @@ footer{
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-//  follow-news v5.0 — Client-side logic
-// ═══════════════════════════════════════════════════════════
 
 const DIGEST_DATE = "2026-06-26";
 const ALL_ARTICLES = [
@@ -742,7 +734,6 @@ filterChips.addEventListener('click', function(e) {
     if (!chip) return;
     const filter = chip.dataset.filter;
 
-    // Toggle: clicking active chip deactivates → goes to 'all'
     if (chip.classList.contains('active') && filter !== 'all') {
         activeFilter = 'all';
     } else {
@@ -792,7 +783,6 @@ function applyAllFilters() {
             const url = card.dataset.url;
             let show = true;
 
-            // Category filter
             if (activeFilter === 'bookmarks') {
                 show = bookmarkSet.has(url);
             } else if (activeFilter === 'unread') {
@@ -801,7 +791,6 @@ function applyAllFilters() {
                 show = (cat === activeFilter);
             }
 
-            // Search filter
             if (show && searchQuery) {
                 const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
                 const body = (card.querySelector('.card-body')?.textContent || '').toLowerCase();
@@ -824,10 +813,8 @@ function applyAllFilters() {
         section.classList.toggle('hidden', !sectionHasVisible);
     });
 
-    // No results
     noResults.classList.toggle('visible', visibleCount === 0 && totalInFilter > 0);
 
-    // Search info
     if (searchQuery) {
         searchInfo.textContent = `找到 ${visibleCount} 篇`;
     } else {
@@ -852,7 +839,6 @@ function updateCounts() {
     document.getElementById('footer-stats').textContent =
         `${total} articles · ${bookmarkN} bookmarked · ${readN} read · built ${new Date().toISOString().slice(0,10)}`;
 
-    // Update chip labels
     const bookmarkChip = filterChips.querySelector('[data-filter="bookmarks"]');
     if (bookmarkChip) bookmarkChip.textContent = `📌 书签 (${bookmarkN})`;
     const unreadChip = filterChips.querySelector('[data-filter="unread"]');
@@ -875,13 +861,11 @@ window.addEventListener('scroll', function() {
 
 // ── Keyboard shortcuts ──
 document.addEventListener('keydown', function(e) {
-    // Ctrl+K or / → focus search
     if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement === document.body)) {
         e.preventDefault();
         searchInput.focus();
         searchInput.select();
     }
-    // Escape → clear search
     if (e.key === 'Escape' && document.activeElement === searchInput) {
         searchInput.value = '';
         searchQuery = '';
@@ -894,6 +878,7 @@ document.addEventListener('keydown', function(e) {
 // ── Init ──
 updateReadUI();
 updateCounts();
+
 </script>
 </body>
 </html>
